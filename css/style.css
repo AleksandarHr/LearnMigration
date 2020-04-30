@@ -1,0 +1,44 @@
+/* define some recurrent colors */
+:root {
+	--hover-select-color: #393a1e96;
+}
+
+/* define style of ids */
+#world-map {
+	background: #8a8a8a;
+	/* background: white; */
+}
+
+/* define style of classes */
+.country {
+	stroke: white;
+	stroke-opacity: 0.25;
+	stroke-width: 1.0;
+}
+
+.hovered {
+	fill: var(--hover-select-color);
+	/* fill: #393a1e96; */
+	/* fill: white; */
+	/* opacity: 0.5; */
+}
+
+.selected {
+	fill: var(--hover-select-color);
+	opacity: 0.5;
+	/* fill: #393a1e96; */
+}
+
+.selected-country-circle {
+	fill: blue;
+}
+
+.outflow-country {
+	fill: red;
+	opacity: 0.5;
+}
+
+.inflow-country {
+	fill: green;
+	opacity: 0.5;
+}

@@ -8,9 +8,9 @@ class WorldMapPlot {
 
 		// set margins
 		this.margin = {
-			top: 50, 
+			top: 50,
 			left: 50,
-			right: 50, 
+			right: 50,
 			bottom: 50};
 
 		// set actual height and width (remove margins)
@@ -39,8 +39,8 @@ class WorldMapPlot {
 		d3.queue()
 			.defer(d3.json, "https://unpkg.com/world-atlas@1.1.4/world/110m.json")
 		// .defer(d3.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
-			.defer(d3.json, "data/country_codes_and_names.json")
-			.defer(d3.csv, "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
+			.defer(d3.json, "../data/country_codes_and_names.json")
+			.defer(d3.csv, "../data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
 		// .defer(d3.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
 			.await(ready);
 
@@ -113,16 +113,16 @@ class WorldMapPlot {
 						.attr("cy", selected_country.centroid[1]);
 
 					// compute outflowing countries from selected country
-					let outflow_countries = flows.filter(dd => 
-						(dd.orig == selected_country.country.iso_a3) & 
-						(dd.year0 == selected_year0) & 
+					let outflow_countries = flows.filter(dd =>
+						(dd.orig == selected_country.country.iso_a3) &
+						(dd.year0 == selected_year0) &
 						(dd.flow > min_flow_threshold) &
 						(dd.sex == selected_gender) );
 
 					// compute inflowing countries to selected country
-					let inflow_countries = flows.filter(dd => 
-						(dd.dest == selected_country.country.iso_a3) & 
-						(dd.year0 == selected_year0) & 
+					let inflow_countries = flows.filter(dd =>
+						(dd.dest == selected_country.country.iso_a3) &
+						(dd.year0 == selected_year0) &
 						(dd.flow > min_flow_threshold) &
 						(dd.sex == selected_gender) );
 

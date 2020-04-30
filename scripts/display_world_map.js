@@ -1,3 +1,5 @@
+const prefix = "../"
+
 class WorldMapPlot {
 
 	constructor() {
@@ -37,10 +39,10 @@ class WorldMapPlot {
 
 		// import world atlas topojson
 		d3.queue()
-			.defer(d3.json, "../LearnMigration/data/world.json")
+			.defer(d3.json, prefix + "data/world.json")
 		// .defer(d3.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
-			.defer(d3.json, "../LearnMigration/data/country_codes_and_names.json")
-			.defer(d3.csv, "../LearnMigration/data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
+			.defer(d3.json, prefix + "data/country_codes_and_names.json")
+			.defer(d3.csv, prefix + "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
 		// .defer(d3.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
 			.await(ready);
 
@@ -63,9 +65,11 @@ class WorldMapPlot {
 			var countries = topojson.feature(data, data.objects.countries).features;
 
 			// show how the data look like
-			console.log(countries);
-			console.log(country_codes_and_names);
-			console.log(flows);
+			// console.log(countries);
+			let country_names = [];
+			country_codes_and_names.map(x => country_names.push(x.name));
+			// console.log(country_codes_and_names);
+			// console.log(flows);
 
 			// compute centroids and make an object containing all countries and their centroid:
 			let countries_and_centroids = [];
@@ -73,8 +77,8 @@ class WorldMapPlot {
 				let country = countries.find( dd => dd.id == d.numeric );
 				countries_and_centroids.push({"country": d, "centroid": path.centroid(country)});
 			});
-			console.log(countries_and_centroids);
-			console.log(countries_and_centroids.find(dd => dd.country.name == "India"));
+			// console.log(countries_and_centroids);
+			// console.log(countries_and_centroids.find(dd => dd.country.name == "India"));
 
 			// display countries and define hovering/selecting behavior
 			svg.append("g").selectAll(".country")
@@ -98,9 +102,9 @@ class WorldMapPlot {
 					d3.select(this).classed("selected", true)
 
 					// get country name
-					console.log(countries_and_centroids.find(x => x.name == "Somalia"));
+					// console.log(countries_and_centroids.find(x => x.name == "Somalia"));
 					let selected_country = countries_and_centroids.find( dd => dd.country.numeric == d.id);
-					console.log("You selected the country: \n" + selected_country.country.name);
+					// console.log("You selected the country: \n" + selected_country.country.name);
 
 					// remove previously selected country's circle
 					svg.selectAll(".selected-country-circle").classed("selected-country-circle", false);
@@ -149,8 +153,17 @@ class WorldMapPlot {
 
 				}) // end of "on click"
 
+				populateCountries("countries_list", country_names)
+				var submitButton = document.getElementById("submit_filter");
+				var clearButton = document.getElementById("clear_filter");
+				var checkedCountries = [];
+				submitButton.addEventListener('click', function(){
+					checkedCountries = submitFilter(country_names);
+				});
+				clearButton.addEventListener('click', function(){
+					uncheckCountries(country_names.length);
+				});
 		} // end of function `ready`
-
 	} // end of constructor
 
 } // end of class WorldMapPlot

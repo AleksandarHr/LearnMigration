@@ -56,6 +56,7 @@
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
   <!-- import topojson -->
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
 
   <!-- import d3-queue for queuing imports -->
@@ -63,6 +64,7 @@
 
   <!-- display world map script -->
   <script src="./scripts/display_world_map.js"></script>
+  <script src="./scripts/filter_panel.js"></script>
 
    <div id="tooltip" class="hidden"></div>
 
@@ -174,6 +176,29 @@
         <div class="container h-100">
             <div class="row h-100">
                <div id="world-map" class="h-100">
+                 <button class="filter_button" onclick="toggleFilter('filter_panel')">Filter</button>
+                 <div class="filter_panel" id="filter_panel">
+                   <form>
+                     <div class="countries_list" id="countries_list">
+                     </div>
+                     <div class="flow_type">
+                       <label>Inflow</label>
+                       <input id="inflow" type='checkbox'>
+                       <label>Outflow</label>
+                       <input id="outflow" type='checkbox'>
+                     </div>
+                     <div class"gender">
+                       <label>Male</label>
+                       <input id="male" type='checkbox'>
+                       <label>Female</label>
+                       <input id="female" type='checkbox'>
+                       <label>Both</label>
+                       <input id="both_genders" type='checkbox'>
+                     </div>
+                     <input id="submit_filter" type="button" value="Submit">
+                     <input id="clear_filter" type="button" value="Clear">
+                   </form>
+                 </div>
                </div>
             </div>
         </div>
@@ -211,8 +236,6 @@
             <p class="copyright text-muted small" style="text-align:center;">Made with <span style="color: #e25555;">&#9829;</span> by <a href="mailto:pavlo.karalupov@epfl.ch">Pavlo Karalupov</a>, <a href="mailto:mammad.hajili@epfl.ch">Mammad Hajili</a> and <a href="mailto:hongyu.luo@epfl.ch">Hongyu Luo</a></p>
         </div>
     </footer>
-
-
 </body>
 
 </html>

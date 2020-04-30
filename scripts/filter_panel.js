@@ -9,7 +9,6 @@ function toggleFilter(ID){
 
 
 function populateCountries(div_id, country_names){
-  console.log("Populating countries");
   var myDiv = document.getElementById(div_id);
   var br = document.createElement("br");
   for (var i = 0; i < country_names.length; i++) {
@@ -23,24 +22,16 @@ function populateCountries(div_id, country_names){
     myDiv.appendChild(label);
     myDiv.appendChild(br);
   }
-
-
-  // var submitButton = document.getElementById("submit_filter");
-  // var clearButton = document.getElementById("clear_filter");
-  //
-  // submitButton.addEventListener('click', function(){
-  //   submitFilter(country_names);
-  // });
-  // clearButton.addEventListener('click', function(){
-  //   uncheckCountries(country_names.length);
-  // });
 }
 
-function uncheckCountries(cb_count) {
+function clearFilters(cb_count) {
   for (var i = 0; i < cb_count; i++){
     var cb = document.getElementById("cb"+i);
     cb.checked = false
   }
+  document.getElementById("inflow").checked = true;
+  document.getElementById("both").checked = true;
+  document.getElementById("normalize").checked = false;
 }
 
 function submitFilter(country_names) {
@@ -49,7 +40,13 @@ function submitFilter(country_names) {
     var cb = document.getElementById("cb"+i);
     if (cb.checked) {
       selected_countries.push(country_names[i]);
-      console.log("Country checked: " + country_names[i]);
     }
   }
+
+  var outflow = document.getElementById("outflow");
+  var male = document.getElementById("male");
+  var female = document.getElementById("female");
+  var normalized = document.getElementById("normalize");
+  toggleFilter("filter_panel");
+  return [selected_countries, inflow.checked, male.checked, female.checked, normalized.checked];
 }

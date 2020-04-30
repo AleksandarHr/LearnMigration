@@ -182,18 +182,22 @@
                      <div class="countries_list" id="countries_list">
                      </div>
                      <div class="flow_type">
-                       <label>Inflow</label>
-                       <input id="inflow" type='checkbox'>
-                       <label>Outflow</label>
-                       <input id="outflow" type='checkbox'>
+                       <input id="inflow" type='radio' value="inflow" name="flow" checked>
+                       <label for="inflow">Inflow</label>
+                       <input id="outflow" type='radio' value="outflow" name="flow">
+                       <label for="outflow">Outflow</label>
                      </div>
-                     <div class"gender">
-                       <label>Male</label>
-                       <input id="male" type='checkbox'>
-                       <label>Female</label>
-                       <input id="female" type='checkbox'>
-                       <label>Both</label>
-                       <input id="both_genders" type='checkbox'>
+                     <div class="gender">
+                       <input id="male" type='radio' value="male" name="gender">
+                       <label for="male">Male</label>
+                       <input id="female" type='radio' value="female" name="gender">
+                       <label for="female">Female</label>
+                       <input id="both" type='radio' value="both" name="gender" checked>
+                       <label for="both">Both</label>
+                     </div>
+                     <div class="normalize_flow">
+                       <input id='normalize' type='checkbox' value='normalize'>
+                       <label for='normalize'>Normalize Flow</label>
                      </div>
                      <input id="submit_filter" type="button" value="Submit">
                      <input id="clear_filter" type="button" value="Clear">

@@ -157,11 +157,27 @@ class WorldMapPlot {
 				var submitButton = document.getElementById("submit_filter");
 				var clearButton = document.getElementById("clear_filter");
 				var checkedCountries = [];
+				var gender = "inflow";
+				var flow = "both";
+				var normalized = true;
 				submitButton.addEventListener('click', function(){
-					checkedCountries = submitFilter(country_names);
+					var filters = submitFilter(country_names);
+					checkedCountries = filters[0];
+					if (filters[1]) {
+						flow = "outflow";
+					}
+					if (filters[2]) {
+						gender = "male";
+					} else if (filters[3]) {
+						gender = "female";
+					}
+					normalized = filters[4];
+					// console.log(checkedCountries);
+					// console.log(gender);
+					// console.log(flow);
 				});
 				clearButton.addEventListener('click', function(){
-					uncheckCountries(country_names.length);
+					clearFilters(country_names.length);
 				});
 		} // end of function `ready`
 	} // end of constructor

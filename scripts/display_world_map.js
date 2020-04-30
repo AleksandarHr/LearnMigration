@@ -153,6 +153,8 @@ class WorldMapPlot {
 
 				}) // end of "on click"
 
+
+				// Handle filter results - STARTS HERE
 				populateCountries("countries_list", country_names)
 				var submitButton = document.getElementById("submit_filter");
 				var clearButton = document.getElementById("clear_filter");
@@ -160,6 +162,8 @@ class WorldMapPlot {
 				var gender = "inflow";
 				var flow = "both";
 				var normalized = true;
+
+				// Submit filters button on-click listener: registers filter selections
 				submitButton.addEventListener('click', function(){
 					var filters = submitFilter(country_names);
 					checkedCountries = filters[0];
@@ -176,9 +180,13 @@ class WorldMapPlot {
 					// console.log(gender);
 					// console.log(flow);
 				});
+
+				// Clear filters button on-click listener - sets filters to default values
 				clearButton.addEventListener('click', function(){
 					clearFilters(country_names.length);
 				});
+				// Handle filter results - ENDS HERE
+
 		} // end of function `ready`
 	} // end of constructor
 

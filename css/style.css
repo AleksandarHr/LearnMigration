@@ -6,6 +6,8 @@
 /* define style of ids */
 #world-map {
 	background: #8a8a8a;
+	position: relative;
+	z-index: 0;
 	/* background: white; */
 }
 
@@ -42,3 +44,25 @@
 	fill: green;
 	opacity: 0.5;
 }
+
+
+/* PANEL */
+.filter_button{
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+.filter_panel{
+	position: absolute;
+	z-index: 1;
+	background-color: #00CCFF;
+	height: 450px;
+	width: 200px;
+}
+
+.countries_list {
+	border:2px solid #ccc;
+	width:200px;
+	height: 300px;
+	overflow-y: scroll;

@@ -16,11 +16,14 @@ function populateCountries(div_id, country_names){
   // for every country create a checkbox
   for (var i = 0; i < country_names.length; i++) {
     var checkBox = document.createElement("input");
-    var label = document.createElement("label");
     checkBox.type = "checkbox";
     checkBox.value = country_names[i];
     checkBox.id = "cb" + i;
-    label.textContent = country_names[i];
+
+    var label = document.createElement("label");
+    label.htmlFor = 'cb' + i;
+    label.appendChild(document.createTextNode(country_names[i]));
+    
     myDiv.appendChild(checkBox);
     myDiv.appendChild(label);
     myDiv.appendChild(br);

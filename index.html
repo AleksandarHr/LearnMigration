@@ -62,6 +62,8 @@
   <!-- import d3-queue for queuing imports -->
   <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <!-- display world map script -->
   <script src="./scripts/display_world_map.js"></script>
   <script src="./scripts/filter_panel.js"></script>
@@ -91,6 +93,19 @@
                     </li>
                     <li>
                         <a href="#mig_flow">Migration Flow</a>
+                    </li>
+                    <li>
+                        <a href="#mig_stock">Migration Stock</a>
+                    </li>
+                    <li>
+                        <a href="#refugee">Refugee</a>
+                    </li>
+                    </li>
+                    <li>
+                        <a href="#dev_levels">Development Level</a>
+                    </li>
+                    <li>
+                        <a href="#causal">Refugees and Migrants Deaths</a>
                     </li>
                 </ul>
             </div>
@@ -134,33 +149,42 @@
     <!-- /.intro-header -->
 
 
-       <a id="Guideline"></a>
-      <div class="content-section-b">
+    <a id="Abstract"></a>
+   <div class="content-section-b">
 
-        <div class="container">
-            <div class = "row">
-               <h2 class="section-heading centerText">Guideline</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-1 col-sm-3">
-                  <p>Part I</p>
-                </div>
-                <div class="col-lg-11 col-sm-9 newsContent">
-                  <h3 class="section-heading eventHeading">Migration Flow</h3>
+     <div class="container">
+         <div class = "row">
+            <h2 class="section-heading centerText">Abstract</h2>
+         </div>
+         <!-- <div class="row">
+             <div class="col-lg-1 col-sm-3">
+               <p>Part I</p>
+             </div>
+             <div class="col-lg-11 col-sm-9 newsContent">
+               <h3 class="section-heading eventHeading">Migration Flow</h3>
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-1 col-sm-3">
-                  <p>Part II</p>
-                </div>
-                <div class="col-lg-11 col-sm-9 newsContent">
-                  <h3 class="section-heading eventHeading">Migration Stock - Gender & Age</h3>
-                </div>
-            </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-lg-1 col-sm-3">
+               <p>Part II</p>
+             </div>
+             <div class="col-lg-11 col-sm-9 newsContent">
+               <h3 class="section-heading eventHeading">Migration Stock - Gender & Age</h3>
+             </div>
+         </div> -->
+           <div>
+              Give brief introduction ^^
+         </div>
+         <div class="row row-no-margin">
+                 <div class="col-xs-12 col-sm-6 col-no-padding">
+                   <img class="thumbnail img-responsive" src="images/Flow_Plot1.jpg">
+                 </div>
+                 <div class="col-xs-12 col-sm-6 col-no-padding">
+                   <img class="thumbnail img-responsive" src="images/Flow_Plot2.jpg">
+                 </div>
+         </div>
         </div>
-        <!-- /.container -->
-    </div>
 
    <a id="mig_flow"></a>
  <div class="push-20">
@@ -209,8 +233,6 @@
         </div>
    </div>
    <!--UN MAP END-->
-
-   <!--UN MAP DESCRIPTION STARTED-->
    <div class="push-20">
         <div class="container">
             <div class="row">
@@ -221,7 +243,58 @@
         </div>
    </div>
    <!--UN MAP DESCRIPTION END-->
+ <a id="mig_stock"></a>
+ <div class="push-20">
+        <div class="container">
+            <div class="row">
+               <h2 class="section-heading">Migration Stock
+                 <img class="img-fluid" style="max-width: 100%; height: auto;" src="images/Gender_Age.jpg">
+               </h2>
+            </div>
+        </div>
+   </div>
 
+   <a id="refugee"></a>
+ <div class="push-20">
+        <div class="container">
+            <div class="row">
+               <h2 class="section-heading">Refugee
+                 <img class="img-fluid" style="max-width: 100%; height: auto;" src="images/Refugees_Map.jpg">
+               </h2>
+            </div>
+        </div>
+   </div>
+
+   <a id="dev_levels"></a>
+   <div class="push-20">
+        <div class="container">
+            <div class="row">
+               <h2 class="section-heading">Migration Stock Based on Countries' Development Levels
+                 <img class="img-fluid" style="max-width: 100%; height: auto;" src="images/Countries_Development_Level.jpg">
+               </h2>
+            </div>
+        </div>
+   </div>
+
+   <a id="causal"></a>
+ <div class="push-20">
+        <div class="container">
+            <div class="row">
+               <h2 class="section-heading">Refugees and Migrants Deaths
+                 <img class="img-fluid" style="max-width: 100%; height: auto;" src="images/Migration_Routes.jpg">
+               </h2>
+            </div>
+        </div>
+   </div>
+
+
+<script type="text/javascript">
+   $("#learnMoreMain").click(function() {
+    $('html,body').animate({
+        scrollTop: $("#Abstract").offset().top},
+        'slow');
+  });
+</script>
     <!-- Footer -->
     <footer>
         <div class="container">

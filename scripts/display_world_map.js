@@ -1,4 +1,6 @@
 const prefix = "../LearnMigration/"
+// const prefix = "../"
+
 class WorldMapPlot {
 
     constructor() {

@@ -5,7 +5,7 @@
 
 /* define style of ids */
 #world-map {
-	background: #8a8a8a;
+	/* background: #8a8a8a; */
 	position: relative;
 	z-index: 0;
 	/* background: white; */
@@ -45,6 +45,15 @@
 	opacity: 0.5;
 }
 
+.row.row-no-margin {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.col-no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 
 /* PANEL */
 .filter_button{
@@ -57,7 +66,7 @@
 	position: absolute;
 	z-index: 1;
 	background-color: #00CCFF;
-	height: 450px;
+	height: 400px;
 	width: 200px;
 }
 

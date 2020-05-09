@@ -49,18 +49,23 @@
 	fill: blue;
 }
 
-.outflow-country {
-	fill: red;
-	opacity: 0.5;
-}
-
 .inflow-country {
 	fill: green;
 	opacity: 0.5;
 }
 
-.arc {
+.outflow-country {
+	fill: red;
+	opacity: 0.5;
+}
+
+.arc_in {
 	fill: green;
+	fill-opacity: 0.4;
+}
+
+.arc_out {
+	fill: red;
 	fill-opacity: 0.4;
 }
 

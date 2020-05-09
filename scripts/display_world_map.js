@@ -70,13 +70,15 @@ class WorldMapPlot {
 			let min_flow_threshold = 0;
 			let selected_gender = 'b';
 			let selected_year0 = 2010;
-			// let inflow_bool = false;
-			let inflow_bool = true;
+			// let inflow_bool = true;
+			let inflow_bool = false;
+			let normalized_bool = true;
+			// let normalized_bool = false;
 
 			// set scales
 			// logarithmic scale for the radius of the flowing countries
 			const radius_scale = d3.scaleSymlog()
-				.domain([1, 2.83e6])
+				.domain([0, 2.83e6])
 				.constant(0.01)
 				.range([0, 30]);
 
@@ -99,15 +101,16 @@ class WorldMapPlot {
 			// console.log(countries_and_centroids);
 			// let australia = countries_and_centroids.find(dd => dd.country.name == "Australia");
 			// console.log(projection.invert(australia.centroid));
-			// console.log(countries_and_centroids.find(dd => dd.country.name == "Australia"));
 			console.log({country_codes_and_names, countries_and_centroids, flows, pop});
 
-			self.displayCountries(map, countries, countries_and_centroids, flows, inflow_bool,
-				selected_year0, min_flow_threshold, selected_gender, path, radius_scale);
+			self.displayCountries(map, countries, countries_and_centroids, flows, pop,
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				normalized_bool, path, radius_scale);
 
 			// Get results from  filter selections
-			self.handleFilter(map, country_names, countries_and_centroids, flows, selected_year0,
-				min_flow_threshold, selected_gender, path, radius_scale);
+			self.handleFilter(map, country_names, countries_and_centroids, flows, pop,
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				normalized_bool, path, radius_scale);
 			// var checkedCountries = filterSelections[0];
 			// var gender = filterSelections[1];
 			// var flow = filterSelections[2];
@@ -130,9 +133,15 @@ class WorldMapPlot {
 		return flowing_countries;
 	}
 
+	getCountryPopulation(country, pop, year0) {
+		return pop.filter(d => d.year == year0)
+			.find(d => d.alpha3 == country.country.iso_a3).pop;
+	}
+
 	// Displaying countries on the map and defining hover/click behavior
-	displayCountries(map, countries, countries_and_centroids, flows, inflow_bool, 
-		selected_year0, min_flow_threshold, selected_gender, path, radius_scale) {
+	displayCountries(map, countries, countries_and_centroids, flows, pop, 
+		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+		normalized_bool, path, radius_scale) {
 		self = this;
 		// display countries and define hovering/selecting behavior
 		map.append("g").selectAll(".country")
@@ -146,20 +155,14 @@ class WorldMapPlot {
 
 				// get hovered country
 				let hovered_country = countries_and_centroids.find(dd => dd.country.numeric == d.id);
-				// console.log(hovered_country);
+
+				// get country population
+				let hovered_country_population = self.getCountryPopulation(hovered_country, pop, selected_year0);
+				// console.log(hovered_country_population);
 
 				// get in/out flowing countries to/from the hovered country
 				let flowing_countries = self.getFlowingCountries(hovered_country, flows, inflow_bool, 
 					selected_year0, selected_gender, min_flow_threshold);
-				// console.log(flowing_countries);
-
-				// // compute outflowing countries from selected country
-				// let outflow_countries = self.getFlowingCountries(hovered_country, flows, false, 
-				// 	selected_year0, selected_gender, min_flow_threshold);
-
-				// // compute inflowing countries to selected country
-				// let inflow_countries = self.getFlowingCountries(hovered_country, flows, true, 
-				// 	selected_year0, selected_gender, min_flow_threshold);
 
 				// remove arcs from previous hover if any
 				map.selectAll(".arc_hovered")
@@ -168,7 +171,6 @@ class WorldMapPlot {
 				// display arcs
 				let flow_extremity_code = inflow_bool ? "orig_code" : "dest_code";
 				map.selectAll(".arc_hovered")
-					// .data(outflow_countries)
 					.data(flowing_countries)
 					.enter()
 					.append("path")
@@ -197,8 +199,10 @@ class WorldMapPlot {
 			.on("click", function(d) {
 				self.removePreviousSelections(map, inflow_bool);
 				let selected_country = countries_and_centroids.find(dd => dd.country.numeric == d.id);
-				self.displaySelectedCountries(map, selected_country, null, countries_and_centroids, flows, 
-					inflow_bool, selected_year0, min_flow_threshold, selected_gender, path, radius_scale);
+				self.displaySelectedCountries(map, selected_country, null, 
+					countries_and_centroids, flows, pop,
+					inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+					normalized_bool, path, radius_scale);
 			}) // end of "on click"
 	}
 
@@ -214,19 +218,24 @@ class WorldMapPlot {
 		map.selectAll("." + flow_class)
 			.remove();
 		// remove arcs from previous selection if any
+		// let arc_class = inflow_bool ? "arc_in" : "arc_out";
+		// map.selectAll("." + arc_class)
+		// 	.remove();
 		map.selectAll(".arc")
 			.remove();
 	}
 
 	// Display selected countries
-	displaySelectedCountries(map, clicked_country, filtered_countries, countries_and_centroids, flows, 
+	displaySelectedCountries(map, clicked_country, filtered_countries, 
+		countries_and_centroids, flows, pop,
 		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-		path, radius_scale) {
+		normalized_bool, path, radius_scale) {
 
 		if (clicked_country != null) {
-			self.drawCountriesFlow(map, clicked_country, countries_and_centroids, flows, 
+			self.drawCountriesFlow(map, clicked_country, 
+				countries_and_centroids, flows, pop,
 				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-				path, radius_scale);
+				normalized_bool, path, radius_scale);
 		} else {
 			self = this;
 			for (var i = 0; i < filtered_countries.length; i++) {
@@ -235,17 +244,19 @@ class WorldMapPlot {
 				let selected_country = countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filtered_countries[i]));
 				// console.log("You selected the country: \n" + selected_country.country.name);
 
-				self.drawCountriesFlow(map, selected_country, countries_and_centroids, flows, 
+				self.drawCountriesFlow(map, selected_country, 
+					countries_and_centroids, flows, pop,
 					inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-					path, radius_scale)
+					normalized_bool, path, radius_scale)
 			}
 		}
 	}
 
 	// Draws selected countries and their respective flow data
-	drawCountriesFlow(map, selected_country, countries_and_centroids, flows, 
+	drawCountriesFlow(map, selected_country, 
+		countries_and_centroids, flows, pop,
 		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-		path, radius_scale) {
+		normalized_bool, path, radius_scale) {
 		// display circle at the centroid of selected country
 		map.append("circle")
 			.classed("selected-country-circle", true)
@@ -257,18 +268,10 @@ class WorldMapPlot {
 		self = this;
 		let flowing_countries = self.getFlowingCountries(selected_country, flows, inflow_bool, selected_year0, selected_gender, min_flow_threshold);
 		// console.log(flowing_countries);
-		let outflow_countries = flows.filter(dd =>
-			(dd.orig == selected_country.country.iso_a3) &
-			(dd.year0 == selected_year0) &
-			(dd.flow > min_flow_threshold) &
-			(dd.sex == selected_gender));
 
-		// compute inflowing countries to selected country
-		let inflow_countries = flows.filter(dd =>
-			(dd.dest == selected_country.country.iso_a3) &
-			(dd.year0 == selected_year0) &
-			(dd.flow > min_flow_threshold) &
-			(dd.sex == selected_gender));
+		// get country population
+		let selected_country_population = self.getCountryPopulation(selected_country, pop, selected_year0);
+		let pop_factor = normalized_bool ? selected_country_population : 1;
 
 		// display circles at centroids of destination countries
 		let flow_extremity_code = inflow_bool ? "orig_code" : "dest_code";
@@ -282,7 +285,12 @@ class WorldMapPlot {
 			.append("circle")
 			// .classed("outflow-country", true)
 			.classed(flow_class, true)
-			.attr("r", dd => radius_scale(dd.flow))
+			// .attr("r", dd => {
+			// 	console.log(radius_scale(dd.flow / pop_factor));
+			// 	radius_scale(dd.flow / pop_factor);
+			// })
+			.attr("r", dd => radius_scale(dd.flow / pop_factor))
+			// .attr("r", dd => radius_scale(dd.flow))
 			.attr("cx", 0)
 			.attr("cy", 0)
 			.attr("transform", function(dd) {
@@ -299,10 +307,13 @@ class WorldMapPlot {
 		// let dest_country = countries_and_centroids.find((ddd) => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
 
 		// display arcs
+		// let arc_class = inflow_bool ? "arc_in" : "arc_out";
+		// map.selectAll("." + arc_class)
 		map.selectAll(".arc")
 			.data(flowing_countries)
 			.enter()
 			.append("path")
+			// .classed(arc_class, true)
 			.classed("arc", true)
 			.attr("d", dd => {
 				let dest_country = countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
@@ -320,9 +331,9 @@ class WorldMapPlot {
 	}
 
 	// Populate filter and setup event listeners
-	handleFilter(map, country_names, countries_and_centroids, flows, 
+	handleFilter(map, country_names, countries_and_centroids, flows, pop,
 		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-		path, radius_scale) {
+		normalized_bool, path, radius_scale) {
 		// Handle filter results - STARTS HERE;
 		populateCountries("countries_list", country_names)
 		var submitButton = document.getElementById("submit_filter");
@@ -348,9 +359,10 @@ class WorldMapPlot {
 			}
 			normalized = filters[4];
 			self.removePreviousSelections(map, inflow_bool);
-			self.displaySelectedCountries(map, null, checkedCountries, countries_and_centroids, flows, 
+			self.displaySelectedCountries(map, null, checkedCountries, 
+				countries_and_centroids, flows, pop,
 				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
-				path, radius_scale)
+				normalized_bool, path, radius_scale)
 		});
 
 		// Clear filters button on-click listener - sets filters to default values
@@ -378,9 +390,4 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
 	// make an instance of WorldMapPlot class
 	world_map = new WorldMapPlot();
-
-	// resize plots when user resizes the browser's window (seems unncessary now though)
-	// window.addEventListener('resize', () => {
-	// 	console.log('resized');
-	// });
 });

@@ -357,7 +357,8 @@ class WorldMapPlot {
 			} else if (filters[3]) {
 				selected_gender = "f";
 			}
-			normalized = filters[4];
+			normalized_bool = filters[4];
+			// normalized = filters[4];
 			self.removePreviousSelections(map, inflow_bool);
 			self.displaySelectedCountries(map, null, checkedCountries, 
 				countries_and_centroids, flows, pop,

@@ -22,9 +22,12 @@ https://www.gapminder.org/tools/#$chart-type=bubbles
 - Show top k flows (normalized and un-normalized) for selected countries
 - For both gender: total flow in, total flow out, and difference between in/out
 
+### Color code map (aka Choropleth)
+- Add possibility to show the map color coded by country, with color being a measure of the overall in/out-flows (un-)normalized flow
+
 ### Misc (lower priority)
 - Make it possible to click on a country situated under arcs or circles
-- Improve visual components (e.g. the way arcs look, whether to use circles at centroids to show the number of migrants)
+- Improve visual components (e.g. the way arcs look, whether to use circles at centroids to show the number of migrants, display the number of migrants at the k largest sources/destinations countries)
 - Try to clean in order to avoid the Errors such as `Error: <path> attribute d: Expected number, "MNaN, ...`
 
 ## 2) Overall migration flows (fig. 2 in milestone2_report.pdf)

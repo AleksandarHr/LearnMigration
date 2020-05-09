@@ -218,8 +218,6 @@ class WorldMapPlot {
 		let arc_class = inflow_bool ? "arc_in" : "arc_out";
 		map.selectAll("." + arc_class)
 			.remove();
-		// map.selectAll(".arc")
-		// 	.remove();
 	}
 
 	// Display selected countries
@@ -310,12 +308,10 @@ class WorldMapPlot {
 		// display arcs
 		let arc_class = inflow_bool ? "arc_in" : "arc_out";
 		map.selectAll("." + arc_class)
-		// map.selectAll(".arc")
 			.data(flowing_countries)
 			.enter()
 			.append("path")
 			.classed(arc_class, true)
-			// .classed("arc", true)
 			.attr("d", dd => {
 				let dest_country = countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
 				let x_0 = selected_country.centroid[0];

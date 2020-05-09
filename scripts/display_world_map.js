@@ -1,5 +1,5 @@
-// const prefix = "../LearnMigration/"
-const prefix = "../"
+const prefix = "../LearnMigration/"
+// const prefix = "../"
 
 class WorldMapPlot {
 

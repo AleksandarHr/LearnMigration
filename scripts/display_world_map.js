@@ -231,6 +231,10 @@ class WorldMapPlot {
 		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
 		normalized_bool, path, radius_scale) {
 
+		// remove previous flows' displayed
+		self.removePreviousSelections(map, true);
+		self.removePreviousSelections(map, false);
+
 		if (clicked_country != null) {
 			self.drawCountriesFlow(map, clicked_country, 
 				countries_and_centroids, flows, pop,
@@ -238,9 +242,6 @@ class WorldMapPlot {
 				normalized_bool, path, radius_scale);
 		} else {
 			self = this;
-			// remove previous flows' displayed
-			self.removePreviousSelections(map, true);
-			self.removePreviousSelections(map, false);
 			for (var i = 0; i < filtered_countries.length; i++) {
 				// get country name
 				// console.log(countries_and_centroids.find(x => x.name == "Somalia"));

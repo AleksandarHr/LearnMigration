@@ -59,6 +59,11 @@
 	opacity: 0.5;
 }
 
+.arc {
+	fill: green;
+	fill-opacity: 0.4;
+}
+
 .arc_in {
 	fill: green;
 	fill-opacity: 0.4;

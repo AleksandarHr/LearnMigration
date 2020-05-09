@@ -72,8 +72,8 @@ class WorldMapPlot {
 			let selected_year0 = 2010;
 			// let inflow_bool = true;
 			let inflow_bool = false;
-			let normalized_bool = true;
-			// let normalized_bool = false;
+			// let normalized_bool = true;
+			let normalized_bool = false;
 
 			// set scales
 			// logarithmic scale for the radius of the flowing countries
@@ -177,9 +177,6 @@ class WorldMapPlot {
 					.classed("arc_hovered", true)
 					.attr("d", dd => {
 						let dest_country = countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-						// let dest_country = countries_and_centroids.find(ddd => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
-						// let dest_country = countries_and_centroids.find(ddd => {
-						// 	ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0")});
 						let x_0 = hovered_country.centroid[0];
 						let x_1 = dest_country.centroid[0];
 						let y_0 = hovered_country.centroid[1];
@@ -218,11 +215,11 @@ class WorldMapPlot {
 		map.selectAll("." + flow_class)
 			.remove();
 		// remove arcs from previous selection if any
-		// let arc_class = inflow_bool ? "arc_in" : "arc_out";
-		// map.selectAll("." + arc_class)
-		// 	.remove();
-		map.selectAll(".arc")
+		let arc_class = inflow_bool ? "arc_in" : "arc_out";
+		map.selectAll("." + arc_class)
 			.remove();
+		// map.selectAll(".arc")
+		// 	.remove();
 	}
 
 	// Display selected countries
@@ -311,14 +308,14 @@ class WorldMapPlot {
 		// let dest_country = countries_and_centroids.find((ddd) => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
 
 		// display arcs
-		// let arc_class = inflow_bool ? "arc_in" : "arc_out";
-		// map.selectAll("." + arc_class)
-		map.selectAll(".arc")
+		let arc_class = inflow_bool ? "arc_in" : "arc_out";
+		map.selectAll("." + arc_class)
+		// map.selectAll(".arc")
 			.data(flowing_countries)
 			.enter()
 			.append("path")
-			// .classed(arc_class, true)
-			.classed("arc", true)
+			.classed(arc_class, true)
+			// .classed("arc", true)
 			.attr("d", dd => {
 				let dest_country = countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
 				let x_0 = selected_country.centroid[0];

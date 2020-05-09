@@ -24,7 +24,6 @@ https://www.gapminder.org/tools/#$chart-type=bubbles
 
 ### Misc (lower priority)
 - Make it possible to click on a country situated under arcs or circles
-- Change arcs color for (doing now)
 - Improve visual components (e.g. the way arcs look, whether to use circles at centroids to show the number of migrants)
 - Try to clean in order to avoid the Errors such as `Error: <path> attribute d: Expected number, "MNaN, ...`
 
@@ -32,7 +31,7 @@ https://www.gapminder.org/tools/#$chart-type=bubbles
 Maybe we could use some python library to make this interactive plot more quickly?
 
 ## 3) Migrants' stocks by age (fig. 3 in milestone2_report.pdf)
-There is probably some example of d3 code for such _age pyramid_ like viz.
+There is probably some of d3 code examples for such _age pyramid_ like viz.
 
 ## 4) Refugees' population map (fig. 4 in milestone2_report.pdf)
 We might take some snippets from the world map viz for this one.

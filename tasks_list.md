@@ -14,7 +14,7 @@ https://www.gapminder.org/tools/#$chart-type=bubbles
 - "Play" button to run the time evolution of the migration flows of the selected countries
 
 ### Tips (little block window appearing on hover)
-- Show name of country and its population in the selected time interval
+- Show name of country and its population in the selected time interval. If another country is selected, display the flow(s) between the selected country and the hovered country
 - For both gender: total flow in, total flow out, and difference between in/out
 
 ### Selected countries' statistics and additional viz

@@ -27,7 +27,6 @@ https://www.gapminder.org/tools/#$chart-type=bubbles
 
 ### Misc (lower priority)
 - Show difference between female and male flows: radius of a circle is proportional to the magnitude of the difference, and the color (choose 2 colors like pink and light blue?) for the sign of the difference. This would make it clear where are the largest differences and towards which gender
-- Make it possible to click on a country situated under arcs or circles
 - Improve visual components (e.g. the way arcs look, whether to use circles at centroids to show the number of migrants, display the number of migrants at the k largest sources/destinations countries)
 - Try to clean in order to avoid the Errors such as `Error: <path> attribute d: Expected number, "MNaN, ...`
 

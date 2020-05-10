@@ -52,11 +52,13 @@
 .inflow-country {
 	fill: green;
 	opacity: 0.5;
+	pointer-events: none;
 }
 
 .outflow-country {
 	fill: orange;
 	opacity: 0.5;
+	pointer-events: none;
 }
 
 .arc {
@@ -67,11 +69,13 @@
 .arc_in {
 	fill: green;
 	fill-opacity: 0.4;
+	pointer-events: none;
 }
 
 .arc_out {
 	fill: orange;
 	fill-opacity: 0.4;
+	pointer-events: none;
 }
 
 .arc_hovered {

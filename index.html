@@ -30,6 +30,10 @@
 
 	<body>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--		<script src="https://unpkg.com/d3-simple-slider"></script>-->
+<!--		<script src="https://d3js.org/d3.v5.min.js"></script>-->
+
 		<div id="tooltip" class="hidden"></div>
 
 		<!-- Navigation -->
@@ -109,7 +113,6 @@
 		</div>
 		<!-- /.intro-header -->
 
-
 		<a id="Abstract"></a>
 		<!--    <div class="content-section-a"> -->
 		<div class="container">
@@ -149,6 +152,30 @@
 				</div>
 			</div>
 		</div>
+
+<!--		&lt;!&ndash;	asli&ndash;&gt;-->
+<!--		<div id='inc_dec'>-->
+
+<!--			<svg id='inc_dec_svg' width = '960' height='600'-->
+<!--				 viewBox="0 0 960 600"-->
+<!--				 perserveAspectRatio="xMinYMid">-->
+<!--			</svg>-->
+
+<!--			<div id='inc_dec_card' class='info-card' style="display: none">-->
+<!--			</div>-->
+
+<!--		</div>-->
+<!--		&lt;!&ndash;asli finished &ndash;&gt;-->
+
+		<form class="form-inline">
+
+			<div class="form-row" >
+				<div class="col-4">
+					<div id="simple_slider_d3" />
+				</div>
+			</div>
+		</form>
+
 		<!--UN MAP STARTED-->
 		<div class="push-20 h-100">
 			<div class="container h-100">
@@ -197,6 +224,9 @@
 				</div>
 			</div>
 		</div>
+
+
+
 		<!--UN MAP DESCRIPTION END-->
 		<!--  <a id="mig_stock"></a>
 		<div class="content-section-b" class="push-20">
@@ -335,25 +365,6 @@
 					'slow');
 			});
 		</script>
-		<!-- Footer -->
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12 ">
-						<ul class="list-inline">
-							<li>
-								<a href="#home">Home</a>
-							</li>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="container">
-
-				<p class="copyright text-muted small" style="text-align:center;">Made by <a href="mailto:jonathan.donz@epfl.ch">Jonathan Doenz</a>, <a href="mailto:asli.yorusun@epfl.ch">Asli Yörüsün</a> and <a href="mailto:aleksandar.hrusanov@epfl.ch">Aleksandar Hrusanov</a></p>
-			</div>
-		</footer>
 
 		<!-- import scripts -->
 		<script src="https://d3js.org/d3.v4.min.js"></script>
@@ -377,14 +388,38 @@
 		<!-- import d3-queue for queuing imports -->
 		<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- display world map script -->
 		<script src="./scripts/display_world_map.js"></script>
 		<script src="./scripts/filter_panel.js"></script>
 
+<!--asli added-->
+		<script src="./scripts/simple_slider.js"></script>
+<!--asli finished-->
+
 		<!-- auto-refresh browser page when saving saving code -->
 		<script type="text/javascript" src="http://livejs.com/live.js"></script>
+
+
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12 ">
+						<ul class="list-inline">
+							<li>
+								<a href="#home">Home</a>
+							</li>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+
+				<p class="copyright text-muted small" style="text-align:center;">Made by <a href="mailto:jonathan.donz@epfl.ch">Jonathan Doenz</a>, <a href="mailto:asli.yorusun@epfl.ch">Asli Yörüsün</a> and <a href="mailto:aleksandar.hrusanov@epfl.ch">Aleksandar Hrusanov</a></p>
+			</div>
+		</footer>
 
 	</body>
 

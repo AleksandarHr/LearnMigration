@@ -1,0 +1,753 @@
+location,event_year,route,causal,reason,value
+Aegean,2000,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,63
+Aegean,2001,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,16
+Aegean,2001,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Aegean,2002,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,114
+Aegean,2002,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,51
+Aegean,2003,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,66
+Aegean,2003,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Aegean,2004,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,54
+Aegean,2004,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,8
+Aegean,2005,Eastern Mediterranean Route,authorities related death,shot by the police,2
+Aegean,2005,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,11
+Aegean,2005,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Aegean,2006,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,43
+Aegean,2006,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,3
+Aegean,2006,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,55
+Aegean,2007,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,73
+Aegean,2007,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,34
+Aegean,2008,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,45
+Aegean,2008,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Aegean,2009,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,22
+Aegean,2009,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Aegean,2010,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,9
+Aegean,2010,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Aegean,2011,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,4
+Aegean,2012,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,27
+Aegean,2013,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,17
+Aegean,2013,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",burned,3
+Aegean,2014,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,54
+Aegean,2014,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",burned,1
+Aegean,2015,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,111
+Aegean,2015,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,124
+Aegean,2015,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",shot,1
+Africa,2000,Western African Route,drowning or exhaustion related death,drowned,1
+Africa,2000,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,2
+Africa,2002,Western Mediterranean Route,drowning or exhaustion related death,drowned,14
+Africa,2003,Western Mediterranean Route,drowning or exhaustion related death,drowned,11
+Africa,2003,Western Mediterranean Route,malicious intent related death / manslaughter,murdered,13
+Africa,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,36
+Africa,2004,Central Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Africa,2004,Central Mediterranean Route,malicious intent related death / manslaughter,murdered,2
+Africa,2004,Western African Route,drowning or exhaustion related death,drowned,14
+Africa,2004,Western Mediterranean Route,drowning or exhaustion related death,drowned,4
+Africa,2004,Western Mediterranean Route,suicide,suicide - jumped in water,1
+Africa,2005,Western Mediterranean Route,drowning or exhaustion related death,drowned,2
+Africa,2005,Western Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Africa,2006,Central Mediterranean Route,drowning or exhaustion related death,starved,8
+Africa,2006,Western Mediterranean Route,drowning or exhaustion related death,drowned,45
+Africa,2006,Western Mediterranean Route,drowning or exhaustion related death,starved,28
+Africa,2006,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,18
+Africa,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,1
+Africa,2008,Central Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Africa,2008,Western African Route,unknown - supposedly exhaustion related death,unknown,25
+Africa,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Africa,2015,Central Mediterranean Route,drowning or exhaustion related death,drowned,5
+Albania,2000,Apulia and Calabria Route,drowning or exhaustion related death,drowned,15
+Albania,2000,Circular Route from Greece and Albania,unknown - supposedly exhaustion related death,unknown,1
+Albania,2002,Apulia and Calabria Route,drowning or exhaustion related death,drowned,7
+Albania,2002,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,15
+Albania,2004,Apulia and Calabria Route,drowning or exhaustion related death,drowned,5
+Albania,2004,Apulia and Calabria Route,drowning or exhaustion related death,hypothermia,21
+Albania,2008,Circular Route from Greece and Albania,drowning or exhaustion related death,drowned,2
+Algeria,2003,Western Mediterranean Route,drowning or exhaustion related death,died from dehydration,23
+Algeria,2003,Western Mediterranean Route,drowning or exhaustion related death,drowned,9
+Algeria,2005,Western Mediterranean Route,drowning or exhaustion related death,drowned,52
+Algeria,2005,Western Mediterranean Route,drowning or exhaustion related death,starved,18
+Algeria,2005,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,4
+Algeria,2006,Western Mediterranean Route,drowning or exhaustion related death,drowned,26
+Algeria,2006,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,13
+Algeria,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,2
+Algeria,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,36
+Algeria,2007,Western Mediterranean Route,drowning or exhaustion related death,drowned,27
+Algeria,2007,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,20
+Algeria,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,15
+Algeria,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Algeria,2008,Western Mediterranean Route,drowning or exhaustion related death,drowned,58
+Algeria,2008,Western Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Algeria,2008,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,32
+Algeria,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,12
+Algeria,2009,Western Mediterranean Route,drowning or exhaustion related death,drowned,4
+Algeria,2009,Western Mediterranean Route,drowning or exhaustion related death,starved,14
+Algeria,2009,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,42
+Algeria,2010,Central Mediterranean Route,drowning or exhaustion related death,drowned,43
+Algeria,2010,Western Mediterranean Route,drowning or exhaustion related death,drowned,6
+Algeria,2010,Western Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Algeria,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,18
+Algeria,2011,Western Mediterranean Route,drowning or exhaustion related death,drowned,36
+Algeria,2011,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,13
+Algeria,2012,Western Mediterranean Route,drowning or exhaustion related death,drowned,1
+Algeria,2013,Central Mediterranean Route,drowning or exhaustion related death,exhaustion,87
+Algeria,2015,Western Mediterranean Route,drowning or exhaustion related death,drowned,6
+Austria,2000,Western Balkan Route,suicide,suicide - jumped from building,1
+Austria,2000,Western Balkan Route,unknown - supposedly exhaustion related death,unknown,2
+Austria,2008,Western Balkan Route,malicious intent related death / manslaughter,burned or asphyxiated due to arson attack,1
+Austria,2015,Western Balkan Route,drowning or exhaustion related death,asphyxiated,71
+Balearic Islands,2010,Western Mediterranean Route,drowning or exhaustion related death,drowned,5
+Barbados,2006,Western African Route,drowning or exhaustion related death,starved,37
+Bojador,2000,Western African Route,drowning or exhaustion related death,drowned,14
+Bulgaria,2000,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,3
+Bulgaria,2001,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,6
+Bulgaria,2002,Eastern Mediterranean Route,authorities related death,police violence,1
+Bulgaria,2002,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,2
+Bulgaria,2006,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Bulgaria,2008,Eastern Mediterranean Route,drowning or exhaustion related death,heart failure,1
+Bulgaria,2009,Eastern Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Bulgaria,2015,Eastern Mediterranean Route,authorities related death,shot by the police,1
+Cameroon,2003,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,1
+Canary Islands,2000,Western African Route,drowning or exhaustion related death,drowned,34
+Canary Islands,2001,Western African Route,drowning or exhaustion related death,drowned,9
+Canary Islands,2002,Western African Route,drowning or exhaustion related death,drowned,21
+Canary Islands,2003,Western African Route,drowning or exhaustion related death,drowned,26
+Canary Islands,2004,Western African Route,drowning or exhaustion related death,drowned,6
+Canary Islands,2004,Western African Route,unknown - supposedly exhaustion related death,unknown,42
+Canary Islands,2005,Western African Route,drowning or exhaustion related death,drowned,70
+Canary Islands,2005,Western African Route,drowning or exhaustion related death,starved,12
+Canary Islands,2005,Western African Route,unknown - supposedly exhaustion related death,unknown,67
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,asphyxiated,4
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,died from dehydration,1
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,drowned,269
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,hypothermia,4
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,lack of medical care,1
+Canary Islands,2006,Western African Route,drowning or exhaustion related death,starved,59
+Canary Islands,2006,Western African Route,suicide,suicide - jumped in water,4
+Canary Islands,2006,Western African Route,unknown - supposedly exhaustion related death,unknown,69
+Canary Islands,2006,Western African Route,"violent accidental death (transport, blown in minefield, etc)",burned,18
+Canary Islands,2007,Western African Route,authorities related death,shot by the police,2
+Canary Islands,2007,Western African Route,drowning or exhaustion related death,drowned,60
+Canary Islands,2007,Western African Route,drowning or exhaustion related death,frozen,1
+Canary Islands,2007,Western African Route,drowning or exhaustion related death,hypothermia and dehydration,1
+Canary Islands,2007,Western African Route,drowning or exhaustion related death,starved,81
+Canary Islands,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,84
+Canary Islands,2008,Western African Route,drowning or exhaustion related death,died from dehydration,3
+Canary Islands,2008,Western African Route,drowning or exhaustion related death,starved,3
+Canary Islands,2008,Western African Route,drowning or exhaustion related death,starved or died from dehydration,11
+Canary Islands,2008,Western African Route,unknown - supposedly exhaustion related death,unknown,50
+Canary Islands,2009,Western African Route,drowning or exhaustion related death,starved,3
+Catania,2001,Central Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Catania,2001,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Catania,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,15
+Catania,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Catania,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Catania,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,24
+Catania,2005,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,101
+Catania,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,3
+Catania,2006,Central Mediterranean Route,drowning or exhaustion related death,starved,1
+Catania,2006,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,9
+Catania,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,21
+Catania,2007,Central Mediterranean Route,drowning or exhaustion related death,starved,1
+Catania,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Catania,2008,Central Mediterranean Route,drowning or exhaustion related death,lack of medical care,2
+Catania,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,14
+Catania,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,7
+Catania,2009,Central Mediterranean Route,drowning or exhaustion related death,illness,1
+Catania,2009,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Catania,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,5
+Catania,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,2
+Catania,2013,Central Mediterranean route,drowning or exhaustion related death,drowned,19
+Catania,2015,Central Mediterranean route,drowning or exhaustion related death,asphyxiated,49
+Central Mediterranean,2015,Central Mediterranean route,drowning or exhaustion related death,drowned,3
+Chad,2013,Central Mediterranean Route,drowning or exhaustion related death,exhaustion,1
+Crete,2004,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,26
+Crete,2005,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,1
+Crete,2005,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Crete,2006,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,7
+Crete,2006,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,8
+Crete,2007,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Crete,2011,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,38
+Croatia,2000,Western Balkan Route,authorities related death,shot by the police,1
+Croatia,2002,Western Balkan Route,drowning or exhaustion related death,drowned,8
+Cyprus,2002,Eastern Mediterranean Route,authorities related death,shot by the police,1
+Cyprus,2005,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,34
+Dakar,2006,Western African Route,drowning or exhaustion related death,drowned,103
+Dakar,2006,Western African Route,unknown - supposedly exhaustion related death,unknown,21
+Dakar,2006,Western African Route,"violent accidental death (transport, blown in minefield, etc)",burned,4
+Dakar,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,41
+Dakar,2009,Western African Route,drowning or exhaustion related death,drowned,4
+Edko,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,8
+Egypt,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,2
+Egypt,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,58
+Egypt,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,30
+Egypt,2013,Central Mediterranean Route,drowning or exhaustion related death,drowned,34
+Egypt,2013,Eastern Mediterranean Route,authorities related death,shot by the police,2
+Egypt,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,15
+Egypt,2014,Central Mediterranean route,drowning or exhaustion related death,lack of medical care,1
+Egypt,2015,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Egypt,2015,Central Mediterranean route,drowning or exhaustion related death,drowned,8
+Egypt,2015,Central Mediterranean route,malicious intent related death / manslaughter,lack of medical care,1
+Egypt,2015,Western Mediterranean Route,drowning or exhaustion related death,drowned,11
+France,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,17
+France,2009,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Gambia,2007,Western African Route,drowning or exhaustion related death,drowned,58
+Germany,2015,Central European Route,"violent accidental death (transport, blown in minefield, etc)",burned,1
+Germany,2015,Central European Route,"violent accidental death (transport, blown in minefield, etc)",intoxicated,1
+Gibraltar,2000,Western Mediterranean Route,drowning or exhaustion related death,drowned,13
+Gibraltar,2000,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,21
+Gibraltar,2001,Western Mediterranean Route,drowning or exhaustion related death,drowned,1
+Gibraltar,2004,Western Mediterranean Route,drowning or exhaustion related death,starved,12
+Gibraltar,2005,Western Mediterranean Route,drowning or exhaustion related death,drowned,22
+Gibraltar,2005,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Gibraltar,2007,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Gibraltar,2009,Western Mediterranean Route,drowning or exhaustion related death,frozen,2
+Gibraltar,2009,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Gibraltar,2010,Western Mediterranean Route,drowning or exhaustion related death,drowned,2
+Gibraltar,2011,Western Mediterranean Route,drowning or exhaustion related death,starved,1
+Gibraltar,2012,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,29
+Gibraltar,2014,Western Mediterranean Route,drowning or exhaustion related death,drowned,9
+Greece,2000,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,1
+Greece,2000,Circular Route from Greece and Albania,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,3
+Greece,2000,Eastern Borders Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,1
+Greece,2000,Eastern Mediterranean Route,drowning or exhaustion related death,asphyxiated,2
+Greece,2000,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,1
+Greece,2000,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,8
+Greece,2000,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,1
+Greece,2000,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,11
+Greece,2001,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,6
+Greece,2001,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Greece,2001,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,5
+Greece,2002,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,1
+Greece,2002,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,2
+Greece,2002,Apulia and Calabria Route,"violent accidental death (transport, blown in minefield, etc)",crushed,2
+Greece,2002,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,12
+Greece,2002,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Greece,2002,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Greece,2002,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,3
+Greece,2003,Apulia and Calabria Route,drowning or exhaustion related death,hypothermia,6
+Greece,2003,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,26
+Greece,2003,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,14
+Greece,2004,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,24
+Greece,2004,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,5
+Greece,2004,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Greece,2004,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,13
+Greece,2005,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,8
+Greece,2005,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Greece,2006,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Greece,2006,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,6
+Greece,2007,Circular Route from Greece and Albania,unknown - supposedly exhaustion related death,unknown,2
+Greece,2007,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,1
+Greece,2007,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Greece,2007,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Greece,2008,Eastern Mediterranean Route,authorities related death,police violence,1
+Greece,2008,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,8
+Greece,2008,Eastern Mediterranean Route,drowning or exhaustion related death,frozen,2
+Greece,2008,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,8
+Greece,2008,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Greece,2009,Eastern Mediterranean Route,authorities related death,police violence,1
+Greece,2009,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,23
+Greece,2009,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Greece,2010,Eastern Borders Route,drowning or exhaustion related death,frozen,3
+Greece,2010,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,71
+Greece,2010,Eastern Mediterranean Route,other,killed by bomb,1
+Greece,2011,Eastern Mediterranean Route,authorities related death,shot by the police,1
+Greece,2011,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,9
+Greece,2011,Eastern Mediterranean Route,drowning or exhaustion related death,frozen,7
+Greece,2011,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Greece,2011,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Greece,2012,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,3
+Greece,2012,Eastern Mediterranean Route,drowning or exhaustion related death,frozen,6
+Greece,2012,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,17
+Greece,2012,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,2
+Greece,2013,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,13
+Greece,2014,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,1
+Greece,2014,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,4
+Greece,2015,Apulia and Calabria Route,"violent accidental death (transport, blown in minefield, etc)",run over by a bus,1
+Greece,2015,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",run over by a train,1
+Guine,2014,Western African Route,drowning or exhaustion related death,drowned,38
+Hungary,2002,Western Balkan Route,suicide,suicide - other,1
+Hungary,2004,Western Balkan Route,malicious intent related death / manslaughter,died after a fight,1
+Hungary,2009,Eastern Borders Route,drowning or exhaustion related death,drowned,16
+Hungary,2009,Western Balkan Route,drowning or exhaustion related death,drowned,1
+Hungary,2015,Central European Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Hungary,2015,Central European Route,"violent accidental death (transport, blown in minefield, etc)",run over by a car,1
+Italy,2000,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,2
+Italy,2000,Apulia and Calabria Route,drowning or exhaustion related death,drowned,62
+Italy,2000,Apulia and Calabria Route,malicious intent related death / manslaughter,murdered,1
+Italy,2000,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,14
+Italy,2000,Apulia and Calabria Route,"violent accidental death (transport, blown in minefield, etc)",crushed,3
+Italy,2000,Apulia and Calabria Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Italy,2000,Central Mediterranean Route,drowning or exhaustion related death,drowned,7
+Italy,2001,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,2
+Italy,2001,Apulia and Calabria Route,drowning or exhaustion related death,drowned,19
+Italy,2001,Apulia and Calabria Route,malicious intent related death / manslaughter,murdered,12
+Italy,2001,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,4
+Italy,2001,Central Mediterranean Route,drowning or exhaustion related death,drowned,4
+Italy,2002,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,4
+Italy,2002,Apulia and Calabria Route,drowning or exhaustion related death,drowned,28
+Italy,2002,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,10
+Italy,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Italy,2002,Western Balkan Route,drowning or exhaustion related death,drowned,1
+Italy,2003,Apulia and Calabria Route,drowning or exhaustion related death,asphyxiated,1
+Italy,2003,Apulia and Calabria Route,drowning or exhaustion related death,drowned,23
+Italy,2003,Apulia and Calabria Route,drowning or exhaustion related death,hypothermia,29
+Italy,2003,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,29
+Italy,2003,Western Balkan Route,drowning or exhaustion related death,starved,1
+Italy,2005,Apulia and Calabria Route,malicious intent related death / manslaughter,"wrong medical treatment, overdose",1
+Italy,2005,Apulia and Calabria Route,suicide,suicide - jumped from building,1
+Italy,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,29
+Italy,2005,Central Mediterranean Route,malicious intent related death / manslaughter,murdered,9
+Italy,2006,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,8
+Italy,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,6
+Italy,2006,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,4
+Italy,2007,Apulia and Calabria Route,drowning or exhaustion related death,drowned,25
+Italy,2007,Central Mediterranean Route,drowning or exhaustion related death,starved,3
+Italy,2008,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,1
+Italy,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Italy,2009,Apulia and Calabria Route,"violent accidental death (transport, blown in minefield, etc)",fall,2
+Italy,2009,Central Mediterranean Route,drowning or exhaustion related death,frozen,1
+Italy,2009,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Italy,2010,Apulia and Calabria Route,drowning or exhaustion related death,drowned,4
+Italy,2010,Apulia and Calabria Route,unknown - supposedly exhaustion related death,unknown,2
+Italy,2011,Apulia and Calabria Route,drowning or exhaustion related death,drowned,83
+Italy,2011,Apulia and Calabria Route,malicious intent related death / manslaughter,shot,1
+Italy,2011,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,43
+Italy,2012,Apulia and Calabria Route,drowning or exhaustion related death,drowned,8
+Italy,2013,Apulia and Calabria Route,drowning or exhaustion related death,died in childbirth,2
+Italy,2013,Apulia and Calabria Route,drowning or exhaustion related death,illness,1
+Italy,2013,Central Mediterranean Route,drowning or exhaustion related death,drowned,10
+Italy,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,79
+Italy,2014,Central Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,1
+Italy,2015,Central Mediterranean route,unknown - supposedly exhaustion related death,unknown,36
+Lampedusa,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,12
+Lampedusa,2002,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,107
+Lampedusa,2003,Central Mediterranean Route,drowning or exhaustion related death,drowned,86
+Lampedusa,2003,Central Mediterranean Route,drowning or exhaustion related death,heart failure,1
+Lampedusa,2003,Central Mediterranean Route,drowning or exhaustion related death,starved,29
+Lampedusa,2003,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,18
+Lampedusa,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,32
+Lampedusa,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Lampedusa,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,18
+Lampedusa,2005,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Lampedusa,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,124
+Lampedusa,2006,Central Mediterranean Route,drowning or exhaustion related death,starved,17
+Lampedusa,2006,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,268
+Lampedusa,2007,Central Mediterranean Route,drowning or exhaustion related death,died from dehydration,34
+Lampedusa,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,160
+Lampedusa,2007,Central Mediterranean Route,drowning or exhaustion related death,starved,27
+Lampedusa,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,47
+Lampedusa,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,78
+Lampedusa,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,31
+Lampedusa,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,67
+Lampedusa,2009,Central Mediterranean Route,drowning or exhaustion related death,frozen,9
+Lampedusa,2009,Central Mediterranean Route,drowning or exhaustion related death,starved,72
+Lampedusa,2009,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Lampedusa,2010,Central Mediterranean Route,drowning or exhaustion related death,drowned,2
+Lampedusa,2010,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Lampedusa,2011,Central Mediterranean Route,drowning or exhaustion related death,asphyxiated,25
+Lampedusa,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,1925
+Lampedusa,2011,Central Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Lampedusa,2011,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,104
+Lampedusa,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,103
+Lampedusa,2012,Central Mediterranean Route,drowning or exhaustion related death,starved,64
+Lampedusa,2012,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,5
+Lampedusa,2013,Central Mediterranean Route,drowning or exhaustion related death,drowned,352
+Lampedusa,2013,Central Mediterranean route,drowning or exhaustion related death,drowned,34
+Lampedusa,2014,Central European Route,drowning or exhaustion related death,asphyxiated,19
+Lampedusa,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,312
+Lampedusa,2014,Central Mediterranean Route,drowning or exhaustion related death,hypothermia and dehydration,17
+Lampedusa,2014,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,18
+Lampedusa,2014,Central Mediterranean route,drowning or exhaustion related death,drowned,4
+Lampedusa,2015,Central Mediterranean Route,drowning or exhaustion related death,hypothermia,29
+Lampedusa,2015,Central Mediterranean route,drowning or exhaustion related death,drowned,12
+"Las Palmas, Spain",2000,Western African Route,authorities related death,police violence,1
+"Las Palmas, Spain",2000,Western African Route,drowning or exhaustion related death,drowned,6
+"Las Palmas, Spain",2001,Western African Route,drowning or exhaustion related death,drowned,33
+"Las Palmas, Spain",2001,Western African Route,unknown - supposedly exhaustion related death,unknown,9
+"Las Palmas, Spain",2002,Western African Route,drowning or exhaustion related death,drowned,41
+"Las Palmas, Spain",2002,Western African Route,drowning or exhaustion related death,heart failure,2
+"Las Palmas, Spain",2002,Western African Route,unknown - supposedly exhaustion related death,unknown,6
+"Las Palmas, Spain",2003,Western African Route,drowning or exhaustion related death,died from dehydration,12
+"Las Palmas, Spain",2003,Western African Route,drowning or exhaustion related death,drowned,204
+"Las Palmas, Spain",2003,Western African Route,drowning or exhaustion related death,starved,25
+"Las Palmas, Spain",2003,Western African Route,unknown - supposedly exhaustion related death,unknown,23
+"Las Palmas, Spain",2004,Western African Route,drowning or exhaustion related death,asphyxiated,5
+"Las Palmas, Spain",2004,Western African Route,drowning or exhaustion related death,drowned,148
+"Las Palmas, Spain",2004,Western African Route,drowning or exhaustion related death,hypothermia,16
+"Las Palmas, Spain",2004,Western African Route,unknown - supposedly exhaustion related death,unknown,5
+"Las Palmas, Spain",2005,Western African Route,drowning or exhaustion related death,drowned,17
+"Las Palmas, Spain",2005,Western African Route,drowning or exhaustion related death,exhaustion,1
+"Las Palmas, Spain",2005,Western African Route,drowning or exhaustion related death,starved,14
+"Las Palmas, Spain",2005,Western African Route,unknown - supposedly exhaustion related death,unknown,3
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,died from dehydration,3
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,drowned,7
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,heat exhaustion,2
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,hypothermia,2
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,hypothermia and dehydration,3
+"Las Palmas, Spain",2006,Western African Route,drowning or exhaustion related death,starved,2
+"Las Palmas, Spain",2006,Western African Route,unknown - supposedly exhaustion related death,unknown,8
+"Las Palmas, Spain",2007,Western African Route,drowning or exhaustion related death,drowned,52
+"Las Palmas, Spain",2007,Western African Route,drowning or exhaustion related death,starved,14
+"Las Palmas, Spain",2007,Western African Route,unknown - supposedly exhaustion related death,unknown,26
+"Las Palmas, Spain",2008,Western African Route,drowning or exhaustion related death,drowned,1
+"Las Palmas, Spain",2008,Western African Route,drowning or exhaustion related death,heart failure,2
+"Las Palmas, Spain",2008,Western African Route,drowning or exhaustion related death,hypothermia,3
+"Las Palmas, Spain",2008,Western African Route,drowning or exhaustion related death,hypothermia and dehydration,5
+"Las Palmas, Spain",2008,Western African Route,drowning or exhaustion related death,starved,13
+"Las Palmas, Spain",2008,Western African Route,unknown - supposedly exhaustion related death,unknown,52
+"Las Palmas, Spain",2009,Western African Route,drowning or exhaustion related death,died from dehydration,3
+"Las Palmas, Spain",2009,Western African Route,drowning or exhaustion related death,drowned,25
+"Las Palmas, Spain",2009,Western African Route,drowning or exhaustion related death,heart failure,1
+"Las Palmas, Spain",2009,Western African Route,unknown - supposedly exhaustion related death,unknown,3
+"Las Palmas, Spain",2012,Western African Route,drowning or exhaustion related death,drowned,1
+"Las Palmas, Spain",2015,Western African Route,drowning or exhaustion related death,drowned,12
+Libya,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,68
+Libya,2003,Central Mediterranean Route,drowning or exhaustion related death,died from dehydration,200
+Libya,2003,Central Mediterranean Route,drowning or exhaustion related death,drowned,22
+Libya,2003,Central Mediterranean Route,drowning or exhaustion related death,starved,50
+Libya,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,56
+Libya,2004,Central Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Libya,2004,Central Mediterranean Route,drowning or exhaustion related death,starved,1
+Libya,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,5
+Libya,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,35
+Libya,2006,Central Mediterranean Route,authorities related death,shot by the police,2
+Libya,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,9
+Libya,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,34
+Libya,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,25
+Libya,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,92
+Libya,2008,Central Mediterranean Route,drowning or exhaustion related death,starved,49
+Libya,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,100
+Libya,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,1100
+Libya,2009,Central Mediterranean Route,drowning or exhaustion related death,starved,11
+Libya,2010,Central Mediterranean Route,malicious intent related death / manslaughter,executed,20
+Libya,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,1332
+Libya,2011,Central Mediterranean Route,drowning or exhaustion related death,starved,63
+Libya,2012,Central Mediterranean Route,drowning or exhaustion related death,died from dehydration,10
+Libya,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,155
+Libya,2012,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,56
+Libya,2013,Central Mediterranean route,drowning or exhaustion related death,exhaustion,62
+Libya,2014,Central Mediterranean Route,drowning or exhaustion related death,asphyxiated,3
+Libya,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,1429
+Libya,2014,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,288
+Libya,2014,Central Mediterranean route,drowning or exhaustion related death,drowned,218
+Libya,2014,Central Mediterranean route,unknown - supposedly exhaustion related death,unknown,4
+Libya,2015,Central European Route,unknown - supposedly exhaustion related death,unknown,82
+Libya,2015,Central Mediterranean Route,drowning or exhaustion related death,drowned,750
+Libya,2015,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,53
+Libya,2015,Central Mediterranean route,drowning or exhaustion related death,drowned,1210
+Libya,2015,Central Mediterranean route,drowning or exhaustion related death,heart failure,1
+Libya,2015,Central Mediterranean route,malicious intent related death / manslaughter,shot,1
+Libya,2015,Central Mediterranean route,unknown - supposedly exhaustion related death,unknown,589
+Libya,2015,Central Mediterranean route,"violent accidental death (transport, blown in minefield, etc)",burned,1
+Libya,2015,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Libya,2015,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Linosa,2005,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Linosa,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Linosa,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Linosa,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Lithuania,2006,Eastern Borders Route,suicide,suicide - other,1
+Macedonia,2015,Western Balkan Route,"violent accidental death (transport, blown in minefield, etc)",run over by a train,14
+Malta,2003,Central Mediterranean Route,suicide,suicide - hanged,1
+Malta,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,24
+Malta,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Malta,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,60
+Malta,2005,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Malta,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,43
+Malta,2006,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,49
+Malta,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,118
+Malta,2007,Central Mediterranean Route,drowning or exhaustion related death,starved,2
+Malta,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,125
+Malta,2008,Central Mediterranean Route,drowning or exhaustion related death,died of suddent infant death,1
+Malta,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,178
+Malta,2008,Central Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Malta,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,92
+Malta,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Malta,2011,Central Mediterranean Route,authorities related death,police violence,1
+Malta,2011,Central Mediterranean Route,drowning or exhaustion related death,starved,1
+Malta,2011,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Malta,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,2
+Malta,2012,Central Mediterranean Route,drowning or exhaustion related death,starved,7
+Malta,2012,Central Mediterranean Route,malicious intent related death / manslaughter,died (presumably) from ill treatments,1
+Malta,2012,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Malta,2013,Central Mediterranean route,drowning or exhaustion related death,drowned,31
+Malta,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,507
+Malta,2014,Central Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,10
+Malta,2015,Central Mediterranean Route,drowning or exhaustion related death,drowned or thirst,21
+Mauritania,2005,Western African Route,drowning or exhaustion related death,drowned,30
+Mauritania,2006,Western African Route,drowning or exhaustion related death,died from dehydration,20
+Mauritania,2006,Western African Route,drowning or exhaustion related death,drowned,158
+Mauritania,2006,Western African Route,drowning or exhaustion related death,starved,75
+Mauritania,2006,Western African Route,unknown - supposedly exhaustion related death,unknown,3
+Mauritania,2007,Western African Route,suicide,suicide - jumped in water,10
+Mauritania,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,73
+Mauritania,2009,Western African Route,drowning or exhaustion related death,drowned,1
+Mediterranean Sea,2004,Western Mediterranean Route,drowning or exhaustion related death,drowned,1
+Mediterranean Sea,2006,Western Mediterranean Route,drowning or exhaustion related death,drowned,1
+Mediterranean Sea,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,30
+Mediterranean Sea,2014,Central Mediterranean route,unknown - supposedly exhaustion related death,unknown,2
+Morocco,2000,Western African Route,unknown - supposedly exhaustion related death,unknown,12
+Morocco,2000,Western Mediterranean Route,drowning or exhaustion related death,drowned,58
+Morocco,2001,Western Mediterranean Route,drowning or exhaustion related death,drowned,55
+Morocco,2001,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Morocco,2002,Western African Route,drowning or exhaustion related death,drowned,32
+Morocco,2002,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,2
+Morocco,2002,Western Mediterranean Route,drowning or exhaustion related death,drowned,19
+Morocco,2002,Western Mediterranean Route,drowning or exhaustion related death,hypothermia,8
+Morocco,2002,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,73
+Morocco,2003,Western African Route,drowning or exhaustion related death,drowned,25
+Morocco,2003,Western Mediterranean Route,authorities related death,shot by the police,1
+Morocco,2003,Western Mediterranean Route,drowning or exhaustion related death,drowned,71
+Morocco,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Morocco,2004,Western African Route,drowning or exhaustion related death,drowned,29
+Morocco,2004,Western African Route,unknown - supposedly exhaustion related death,unknown,46
+Morocco,2004,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,1
+Morocco,2004,Western Mediterranean Route,drowning or exhaustion related death,drowned,12
+Morocco,2004,Western Mediterranean Route,suicide,suicide - jumped in water,1
+Morocco,2004,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,21
+Morocco,2005,Western African Route,drowning or exhaustion related death,drowned,103
+Morocco,2005,Western African Route,unknown - supposedly exhaustion related death,unknown,11
+Morocco,2005,Western Mediterranean Route,authorities related death,shot by the police,1
+Morocco,2005,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,3
+Morocco,2005,Western Mediterranean Route,drowning or exhaustion related death,drowned,65
+Morocco,2005,Western Mediterranean Route,drowning or exhaustion related death,starved,11
+Morocco,2006,Western African Route,drowning or exhaustion related death,drowned,142
+Morocco,2006,Western African Route,unknown - supposedly exhaustion related death,unknown,23
+Morocco,2006,Western Mediterranean Route,drowning or exhaustion related death,died of kidney failure,1
+Morocco,2006,Western Mediterranean Route,drowning or exhaustion related death,drowned,75
+Morocco,2006,Western Mediterranean Route,drowning or exhaustion related death,starved,5
+Morocco,2006,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,16
+Morocco,2007,Western African Route,drowning or exhaustion related death,drowned,50
+Morocco,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,92
+Morocco,2007,Western Mediterranean Route,drowning or exhaustion related death,died of kidney failure,1
+Morocco,2007,Western Mediterranean Route,drowning or exhaustion related death,drowned,49
+Morocco,2008,Western African Route,drowning or exhaustion related death,drowned,8
+Morocco,2008,Western African Route,drowning or exhaustion related death,starved,6
+Morocco,2008,Western African Route,unknown - supposedly exhaustion related death,unknown,24
+Morocco,2008,Western Mediterranean Route,drowning or exhaustion related death,drowned,86
+Morocco,2008,Western Mediterranean Route,drowning or exhaustion related death,starved,7
+Morocco,2008,Western Mediterranean Route,malicious intent related death / manslaughter,died (presumably) from ill treatments,7
+Morocco,2008,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,49
+Morocco,2008,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Morocco,2009,Western Mediterranean Route,drowning or exhaustion related death,frozen,1
+Morocco,2009,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Morocco,2010,Western Mediterranean Route,drowning or exhaustion related death,drowned,40
+Morocco,2011,Central Mediterranean Route,drowning or exhaustion related death,died from dehydration,2
+Morocco,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Morocco,2012,Central Mediterranean Route,drowning or exhaustion related death,died from dehydration,2
+Morocco,2012,Western Mediterranean Route,drowning or exhaustion related death,drowned,143
+Morocco,2013,Western Mediterranean Route,drowning or exhaustion related death,drowned,10
+Morocco,2013,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Morocco,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,8
+Morocco,2014,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,11
+Morocco,2015,Western Mediterranean Route,drowning or exhaustion related death,drowned,8
+Morocco,2015,Western Mediterranean Route,malicious intent related death / manslaughter,stabbed,1
+Niger,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Niger,2015,Central European Route,drowning or exhaustion related death,died from dehydration,18
+Niger,2015,Central Mediterranean route,drowning or exhaustion related death,exhaustion,18
+Niger,2015,Central Mediterranean route,unknown - supposedly exhaustion related death,unknown,30
+Pantelleria,2001,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Pantelleria,2003,Central Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Pantelleria,2003,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Pantelleria,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,6
+Pantelleria,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Pantelleria,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Pantelleria,2009,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Pantelleria,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,21
+Poland,2015,Western Balkan Route,"violent accidental death (transport, blown in minefield, etc)",run over by a car,1
+Portugal,2004,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Romania,2001,Western Balkan Route,"violent accidental death (transport, blown in minefield, etc)",car accident,3
+Sardinia,2000,Central Mediterranean Route,drowning or exhaustion related death,drowned,5
+Sardinia,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,36
+Sardinia,2003,Central Mediterranean Route,drowning or exhaustion related death,drowned,9
+Sardinia,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,15
+Sardinia,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,33
+Sardinia,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Sardinia,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,5
+Sardinia,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,44
+Sardinia,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Sardinia,2010,Central Mediterranean Route,drowning or exhaustion related death,drowned,7
+Sardinia,2011,Central Mediterranean Route,suicide,suicide - hanged,1
+Sardinia,2011,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,3
+Sardinia,2015,Central European Route,unknown - supposedly exhaustion related death,unknown,4
+Senegal,2006,Western African Route,drowning or exhaustion related death,drowned,34
+Senegal,2006,Western African Route,unknown - supposedly exhaustion related death,unknown,7
+Senegal,2007,Western African Route,drowning or exhaustion related death,drowned,160
+Senegal,2007,Western African Route,drowning or exhaustion related death,starved,92
+Senegal,2007,Western African Route,unknown - supposedly exhaustion related death,unknown,213
+Senegal,2009,Western African Route,drowning or exhaustion related death,drowned,4
+Serbia,2015,Western Balkan Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Sicily,2000,Central Mediterranean Route,malicious intent related death / manslaughter,burned or asphyxiated due to arson attack,4
+Sicily,2001,Central Mediterranean Route,drowning or exhaustion related death,drowned,4
+Sicily,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,25
+Sicily,2003,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,9
+Sicily,2004,Central Mediterranean Route,drowning or exhaustion related death,starved,26
+Sicily,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,71
+Sicily,2005,Central Mediterranean Route,drowning or exhaustion related death,drowned,30
+Sicily,2005,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,153
+Sicily,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Sicily,2006,Central Mediterranean Route,drowning or exhaustion related death,starved,17
+Sicily,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,24
+Sicily,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,13
+Sicily,2008,Central Mediterranean Route,drowning or exhaustion related death,starved,2
+Sicily,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,1
+Sicily,2009,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,11
+Sicily,2011,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Sicily,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,6
+Sicily,2013,Central Mediterranean route,drowning or exhaustion related death,drowned,1
+Sicily,2014,Central Mediterranean Route,drowning or exhaustion related death,asphyxiated,75
+Sicily,2014,Central Mediterranean Route,drowning or exhaustion related death,suffocated or drowned,45
+Sicily,2014,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Sicily,2015,Central European Route,drowning or exhaustion related death,drowned,12
+Sicily,2015,Central Mediterranean Route,drowning or exhaustion related death,drowned,50
+Sicily,2015,Central Mediterranean route,drowning or exhaustion related death,drowned,40
+Slovakia,2003,Eastern Borders Route,drowning or exhaustion related death,hypothermia,1
+Slovakia,2003,Eastern Borders Route,unknown - supposedly exhaustion related death,unknown,1
+Slovakia,2005,Eastern Borders Route,drowning or exhaustion related death,hypothermia,3
+Slovenia,2003,Western Balkan Route,drowning or exhaustion related death,asphyxiated,1
+Southern Adriatic,2001,Apulia and Calabria Route,drowning or exhaustion related death,drowned,3
+Spain,2000,Western Mediterranean Route,authorities related death,shot by the police,1
+Spain,2000,Western Mediterranean Route,drowning or exhaustion related death,drowned,198
+Spain,2000,Western Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Spain,2000,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,42
+Spain,2000,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,3
+Spain,2000,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,8
+Spain,2000,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Spain,2000,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",run over by a truck,3
+Spain,2001,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,6
+Spain,2001,Western Mediterranean Route,drowning or exhaustion related death,drowned,130
+Spain,2001,Western Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Spain,2001,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2001,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,19
+Spain,2001,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,13
+Spain,2001,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Spain,2002,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,17
+Spain,2002,Western Mediterranean Route,drowning or exhaustion related death,drowned,100
+Spain,2002,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2002,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,32
+Spain,2002,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Spain,2003,Western Mediterranean Route,authorities related death,shot by the police,1
+Spain,2003,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,12
+Spain,2003,Western Mediterranean Route,drowning or exhaustion related death,drowned,300
+Spain,2003,Western Mediterranean Route,drowning or exhaustion related death,starved,2
+Spain,2003,Western Mediterranean Route,malicious intent related death / manslaughter,burned or asphyxiated due to arson attack,4
+Spain,2003,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2003,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,15
+Spain,2003,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",fall,1
+Spain,2004,Western African Route,drowning or exhaustion related death,drowned,11
+Spain,2004,Western Mediterranean Route,authorities related death,shot by the police,4
+Spain,2004,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,10
+Spain,2004,Western Mediterranean Route,drowning or exhaustion related death,drowned,25
+Spain,2004,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,33
+Spain,2004,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,5
+Spain,2005,Western African Route,drowning or exhaustion related death,drowned,9
+Spain,2005,Western Mediterranean Route,authorities related death,shot by the police,18
+Spain,2005,Western Mediterranean Route,drowning or exhaustion related death,drowned,32
+Spain,2005,Western Mediterranean Route,drowning or exhaustion related death,hypothermia,3
+Spain,2005,Western Mediterranean Route,drowning or exhaustion related death,starved,20
+Spain,2005,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,22
+Spain,2005,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,6
+Spain,2006,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,2
+Spain,2006,Western Mediterranean Route,authorities related death,shot by the police,6
+Spain,2006,Western Mediterranean Route,drowning or exhaustion related death,drowned,18
+Spain,2006,Western Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Spain,2006,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,42
+Spain,2007,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,2
+Spain,2007,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,1
+Spain,2007,Western Mediterranean Route,drowning or exhaustion related death,drowned,26
+Spain,2007,Western Mediterranean Route,drowning or exhaustion related death,frozen,2
+Spain,2007,Western Mediterranean Route,drowning or exhaustion related death,starved,1
+Spain,2007,Western Mediterranean Route,malicious intent related death / manslaughter,murdered,1
+Spain,2007,Western Mediterranean Route,suicide,suicide - put on fire,1
+Spain,2007,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,32
+Spain,2007,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,2
+Spain,2008,Western African Route,unknown - supposedly exhaustion related death,unknown,24
+Spain,2008,Western Mediterranean Route,authorities related death,shot by the police,1
+Spain,2008,Western Mediterranean Route,drowning or exhaustion related death,drowned,72
+Spain,2008,Western Mediterranean Route,drowning or exhaustion related death,starved,50
+Spain,2008,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2008,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,32
+Spain,2008,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Spain,2008,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",run over by a bus,2
+Spain,2009,Western Mediterranean Route,drowning or exhaustion related death,drowned,120
+Spain,2009,Western Mediterranean Route,other,bled to death due to barbed wire,2
+Spain,2009,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2009,Western Mediterranean Route,suicide,suicide - other,1
+Spain,2009,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,45
+Spain,2010,Western Mediterranean Route,drowning or exhaustion related death,drowned,30
+Spain,2010,Western Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Spain,2010,Western Mediterranean Route,suicide,suicide - hanged,1
+Spain,2010,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,5
+Spain,2010,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,2
+Spain,2011,Western African Route,drowning or exhaustion related death,drowned,7
+Spain,2011,Western Mediterranean Route,drowning or exhaustion related death,drowned,170
+Spain,2011,Western Mediterranean Route,drowning or exhaustion related death,frozen,2
+Spain,2011,Western Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Spain,2011,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,2
+Spain,2011,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",burned,3
+Spain,2011,Western Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",run over,1
+Spain,2012,Western African Route,drowning or exhaustion related death,drowned,1
+Spain,2012,Western Mediterranean Route,drowning or exhaustion related death,drowned,25
+Spain,2012,Western Mediterranean Route,drowning or exhaustion related death,lack of medical care,1
+Spain,2012,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Spain,2013,Western African Route,drowning or exhaustion related death,drowned,1
+Spain,2013,Western Mediterranean Route,drowning or exhaustion related death,drowned,19
+Spain,2013,Western Mediterranean Route,drowning or exhaustion related death,heart failure,1
+Spain,2013,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,1
+Spain,2014,Western Mediterranean Route,authorities related death,police violence,13
+Spain,2014,Western Mediterranean Route,drowning or exhaustion related death,drowned,22
+Spain,2015,Western Mediterranean Route,authorities related death,fall,1
+Spain,2015,Western Mediterranean Route,authorities related death,police violence,2
+Spain,2015,Western Mediterranean Route,drowning or exhaustion related death,asphyxiated,1
+Spain,2015,Western Mediterranean Route,drowning or exhaustion related death,drowned,1
+Spain,2015,Western Mediterranean Route,unknown - supposedly exhaustion related death,unknown,5
+Syria,2012,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,7
+Tunisia,2002,Central Mediterranean Route,drowning or exhaustion related death,drowned,9
+Tunisia,2002,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,10
+Tunisia,2003,Central Mediterranean Route,drowning or exhaustion related death,drowned,244
+Tunisia,2003,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,4
+Tunisia,2003,Central Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",crushed,1
+Tunisia,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,164
+Tunisia,2004,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,76
+Tunisia,2005,Central Mediterranean Route,drowning or exhaustion related death,starved,4
+Tunisia,2006,Central Mediterranean Route,drowning or exhaustion related death,drowned,17
+Tunisia,2006,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Tunisia,2007,Central Mediterranean Route,drowning or exhaustion related death,drowned,31
+Tunisia,2007,Central Mediterranean Route,drowning or exhaustion related death,frozen,1
+Tunisia,2007,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,55
+Tunisia,2008,Central Mediterranean Route,drowning or exhaustion related death,asphyxiated,2
+Tunisia,2008,Central Mediterranean Route,drowning or exhaustion related death,drowned,162
+Tunisia,2008,Central Mediterranean Route,unknown - supposedly exhaustion related death,unknown,69
+Tunisia,2009,Central Mediterranean Route,drowning or exhaustion related death,drowned,38
+Tunisia,2011,Central Mediterranean Route,drowning or exhaustion related death,drowned,114
+Tunisia,2011,Central Mediterranean Route,malicious intent related death / manslaughter,burned or asphyxiated due to arson attack,4
+Tunisia,2012,Central Mediterranean Route,drowning or exhaustion related death,drowned,3
+Tunisia,2014,Central Mediterranean Route,drowning or exhaustion related death,drowned,36
+Turkey,2000,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,31
+Turkey,2001,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,27
+Turkey,2001,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,1
+Turkey,2001,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,41
+Turkey,2001,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,2
+Turkey,2002,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,14
+Turkey,2002,Eastern Mediterranean Route,drowning or exhaustion related death,hypothermia,7
+Turkey,2002,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,10
+Turkey,2002,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,1
+Turkey,2002,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",car accident,1
+Turkey,2003,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,9
+Turkey,2004,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,28
+Turkey,2005,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,37
+Turkey,2005,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,34
+Turkey,2006,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,66
+Turkey,2006,Eastern Mediterranean Route,"violent accidental death (transport, blown in minefield, etc)",blown in minefield,1
+Turkey,2007,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,123
+Turkey,2007,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,67
+Turkey,2008,Eastern Mediterranean Route,drowning or exhaustion related death,asphyxiated,31
+Turkey,2008,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,27
+Turkey,2008,Eastern Mediterranean Route,malicious intent related death / manslaughter,shot,2
+Turkey,2008,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,6
+Turkey,2009,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,11
+Turkey,2009,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,7
+Turkey,2012,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,125
+Turkey,2013,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,24
+Turkey,2014,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,30
+Turkey,2015,Eastern Mediterranean Route,drowning or exhaustion related death,drowned,23
+Turkey,2015,Eastern Mediterranean Route,unknown - supposedly exhaustion related death,unknown,50
+Ukraine,2004,Eastern Borders Route,drowning or exhaustion related death,died of a shock,1
+Zelid,2004,Central Mediterranean Route,drowning or exhaustion related death,drowned,41

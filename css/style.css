@@ -22,9 +22,6 @@
 	/* background: white; */
 }
 
-.map {
-	
-}
 
 .country {
 	stroke: white;
@@ -114,6 +111,7 @@
 	width:200px;
 	height: 300px;
 	overflow-y: scroll;
+}
 
 /* sankey */
 body {
@@ -121,7 +119,7 @@ body {
 }
 
 /* Tooltip CSS */
-.tooltip {
+.tooltip-sankey {
     top: 100px;
     left: 100px;
     -moz-border-radius: 5px;
@@ -140,7 +138,7 @@ body {
 
 }
 
-.tooltip.bottom::before{
+.tooltip-sankey.bottom::before{
     content:'';
     display:block;
     width:0;
@@ -154,7 +152,7 @@ body {
 
     bottom:35px; /* arbitrarily set */
 }
-.tooltip.left::before{
+.tooltip-sankey.left::before{
     content:'';
     display:block;
     width:0;

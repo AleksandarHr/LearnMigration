@@ -1,5 +1,5 @@
 const prefix = "../LearnMigration/"
-//const prefix = "../"
+// const prefix = "../"
 
 class WorldMapPlot {
 
@@ -22,7 +22,7 @@ class WorldMapPlot {
 		this.width = this.SVG_WIDTH - this.margin.left - this.margin.right;
 
 		// construct world map's svg
-		var svg = d3.select("#world-map")
+		var svg = d3version4.select("#world-map")
 			.append("svg")
 			.classed("world-map_svg", true)
 			.attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
@@ -31,35 +31,35 @@ class WorldMapPlot {
 			.attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
 		// enable zoom on map
-		svg.call(d3.zoom()
+		svg.call(d3version4.zoom()
 			.scaleExtent([1, 15])
 			.on("zoom", function () {
-				// map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-				// g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
-				map.attr("transform", d3.event.transform); // updated for d3 v4));
+				// map.style("stroke-width", 1.5 / d3version4.event.transform.k + "px");
+				// g.attr("transform", "translate(" + d3version4.event.translate + ")scale(" + d3version4.event.scale + ")"); // not in d3version4 v4
+				map.attr("transform", d3version4.event.transform); // updated for d3version4 v4));
 			}));
 
 
 		// create projection
 		// here are some that look pretty good to Jon:
-		var projection = d3.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
-		// var projection2 = d3.geoNaturalEarth2().translate([width / 2, height / 2]).scale(150)
-		// var projection = d3.geoMercator().translate([width / 2, height / 2])
-		// var projection = d3.geoWinkel3().translate([width / 2, height / 2]).scale(150)
+		var projection = d3version4.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
+		// var projection2 = d3version4.geoNaturalEarth2().translate([width / 2, height / 2]).scale(150)
+		// var projection = d3version4.geoMercator().translate([width / 2, height / 2])
+		// var projection = d3version4.geoWinkel3().translate([width / 2, height / 2]).scale(150)
 
 		// create path generator
-		var path = d3.geoPath().projection(projection)
+		var path = d3version4.geoPath().projection(projection)
 
 		// import world atlas topojson
-		d3.queue()
-		.defer(d3.json, prefix + "data/world.json")
-			// .defer(d3.json, prefix + "data/world_50m.json") // this map makes Australia's centroid to be in the Indian ocean...
-		// .defer(d3.json, "https://unpkg.com/world-atlas@1.1.4/world/50m.json")
-		// .defer(d3.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
-			.defer(d3.json, prefix + "data/country_codes_and_names.json")
-			.defer(d3.csv, prefix + "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
-			.defer(d3.csv, prefix + "data/pop.csv")
-		// .defer(d3.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
+		d3version4.queue()
+		.defer(d3version4.json, prefix + "data/world.json")
+			// .defer(d3version4.json, prefix + "data/world_50m.json") // this map makes Australia's centroid to be in the Indian ocean...
+		// .defer(d3version4.json, "https://unpkg.com/world-atlas@1.1.4/world/50m.json")
+		// .defer(d3version4.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
+			.defer(d3version4.json, prefix + "data/country_codes_and_names.json")
+			.defer(d3version4.csv, prefix + "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
+			.defer(d3version4.csv, prefix + "data/pop.csv")
+		// .defer(d3version4.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
 			.await(ready);
 
 		self = this;
@@ -77,7 +77,7 @@ class WorldMapPlot {
 
 			// set scales
 			// logarithmic scale for the radius of the flowing countries
-			const radius_scale = d3.scaleSymlog()
+			const radius_scale = d3version4.scaleSymlog()
 				.domain([0, 2.83e6])
 				.constant(0.01)
 				.range([0, 30]);
@@ -151,7 +151,7 @@ class WorldMapPlot {
 			.attr("class", "country")
 			.attr("d", path)
 			.on("mouseover", function(d) {
-				d3.select(this).classed("hovered", true);
+				d3version4.select(this).classed("hovered", true);
 
 				// get hovered country
 				let hovered_country = countries_and_centroids.find(dd => dd.country.numeric == d.id);
@@ -191,7 +191,7 @@ class WorldMapPlot {
 
 			})
 			.on("mouseout", function(d) {
-				d3.select(this).classed("hovered", false);
+				d3version4.select(this).classed("hovered", false);
 			})
 			.on("click", function(d) {
 				self.removePreviousSelections(map, inflow_bool);
@@ -207,7 +207,7 @@ class WorldMapPlot {
 	removePreviousSelections(map, inflow_bool) {
 		// REMOVE PRIOR SELECTION
 		// remove prior selection if any
-		d3.selectAll(".selected").classed("selected", false);
+		d3version4.selectAll(".selected").classed("selected", false);
 		// remove previously selected country's circle
 		map.selectAll(".selected-country-circle").classed("selected-country-circle", false);
 		// remove circles identifying previously selected flowing countries

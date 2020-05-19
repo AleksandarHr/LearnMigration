@@ -1,5 +1,5 @@
-const prefix = "../LearnMigration/"
-// const prefix = "../"
+// const prefix = "../LearnMigration/"
+const prefix = "../"
 
 class WorldMapPlot {
 
@@ -101,15 +101,15 @@ class WorldMapPlot {
 			// console.log(countries_and_centroids);
 			// let australia = countries_and_centroids.find(dd => dd.country.name == "Australia");
 			// console.log(projection.invert(australia.centroid));
-			console.log({country_codes_and_names, countries_and_centroids, flows, pop});
+			// console.log({country_codes_and_names, countries_and_centroids, flows, pop});
 
 			self.displayCountries(map, countries, countries_and_centroids, flows, pop,
-				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 				normalized_bool, path, radius_scale);
 
 			// Get results from  filter selections
 			self.handleFilter(map, country_names, countries_and_centroids, flows, pop,
-				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 				normalized_bool, path, radius_scale);
 			// var checkedCountries = filterSelections[0];
 			// var gender = filterSelections[1];
@@ -139,8 +139,8 @@ class WorldMapPlot {
 	}
 
 	// Displaying countries on the map and defining hover/click behavior
-	displayCountries(map, countries, countries_and_centroids, flows, pop, 
-		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+	displayCountries(map, countries, countries_and_centroids, flows, pop,
+		inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 		normalized_bool, path, radius_scale) {
 		self = this;
 		// display countries and define hovering/selecting behavior
@@ -161,7 +161,7 @@ class WorldMapPlot {
 				// console.log(hovered_country_population);
 
 				// get in/out flowing countries to/from the hovered country
-				let flowing_countries = self.getFlowingCountries(hovered_country, flows, inflow_bool, 
+				let flowing_countries = self.getFlowingCountries(hovered_country, flows, inflow_bool,
 					selected_year0, selected_gender, min_flow_threshold);
 
 				// remove arcs from previous hover if any
@@ -196,9 +196,9 @@ class WorldMapPlot {
 			.on("click", function(d) {
 				self.removePreviousSelections(map, inflow_bool);
 				let selected_country = countries_and_centroids.find(dd => dd.country.numeric == d.id);
-				self.displaySelectedCountries(map, selected_country, null, 
+				self.displaySelectedCountries(map, selected_country, null,
 					countries_and_centroids, flows, pop,
-					inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+					inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 					normalized_bool, path, radius_scale);
 			}) // end of "on click"
 	}
@@ -221,9 +221,9 @@ class WorldMapPlot {
 	}
 
 	// Display selected countries
-	displaySelectedCountries(map, clicked_country, filtered_countries, 
+	displaySelectedCountries(map, clicked_country, filtered_countries,
 		countries_and_centroids, flows, pop,
-		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+		inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 		normalized_bool, path, radius_scale) {
 
 		// remove previous flows' displayed
@@ -231,9 +231,9 @@ class WorldMapPlot {
 		self.removePreviousSelections(map, false);
 
 		if (clicked_country != null) {
-			self.drawCountriesFlow(map, clicked_country, 
+			self.drawCountriesFlow(map, clicked_country,
 				countries_and_centroids, flows, pop,
-				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 				normalized_bool, path, radius_scale);
 		} else {
 			self = this;
@@ -243,18 +243,18 @@ class WorldMapPlot {
 				let selected_country = countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filtered_countries[i]));
 				// console.log("You selected the country: \n" + selected_country.country.name);
 
-				self.drawCountriesFlow(map, selected_country, 
+				self.drawCountriesFlow(map, selected_country,
 					countries_and_centroids, flows, pop,
-					inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+					inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 					normalized_bool, path, radius_scale)
 			}
 		}
 	}
 
 	// Draws selected countries and their respective flow data
-	drawCountriesFlow(map, selected_country, 
+	drawCountriesFlow(map, selected_country,
 		countries_and_centroids, flows, pop,
-		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+		inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 		normalized_bool, path, radius_scale) {
 		// display circle at the centroid of selected country
 		map.append("circle")
@@ -329,7 +329,7 @@ class WorldMapPlot {
 
 	// Populate filter and setup event listeners
 	handleFilter(map, country_names, countries_and_centroids, flows, pop,
-		inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+		inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 		normalized_bool, path, radius_scale) {
 		// Handle filter results - STARTS HERE;
 		populateCountries("countries_list", country_names)
@@ -357,9 +357,9 @@ class WorldMapPlot {
 			normalized_bool = filters[4];
 			// normalized = filters[4];
 			self.removePreviousSelections(map, inflow_bool);
-			self.displaySelectedCountries(map, null, checkedCountries, 
+			self.displaySelectedCountries(map, null, checkedCountries,
 				countries_and_centroids, flows, pop,
-				inflow_bool, selected_year0, min_flow_threshold, selected_gender, 
+				inflow_bool, selected_year0, min_flow_threshold, selected_gender,
 				normalized_bool, path, radius_scale)
 		});
 

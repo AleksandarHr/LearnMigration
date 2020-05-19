@@ -166,31 +166,34 @@ body {
     bottom:35px; /* arbitrarily set */
 }
 
-* Bar Chart */
-.chart,
-.axis {
-  font-family: 'Courier New';
-  font-size: 1em;
+/* Bar Chart */
+.chart {
+  background: #8a8a8a;
+  margin: 10px;
+  padding-top: 10px;
 }
 
-.title {
-  font-size: 2em;
-  font-weight: bold;
+.chart .right {
+  stroke: white;
+  fill: indianred;
 }
 
-.bar { stroke: black; }
-
-.bar--female { fill: none; }
-.bar--male   { fill: gray; }
-
-.axis .domain,
-.axis--y .tick line {
-  display: none;
+.chart .left {
+  stroke: white;
+  fill: steelblue;
 }
 
-.label { font-size: 0.75em; }
+.chart rect:hover {
+  fill: #64707d;
+}
 
-.axis--y text { alignment-baseline: after-edge; }
+.chart text {
+  fill: white;
+}
+
+.chart text.name {
+  fill: black;
+}
 
 /* Sankey CSS */
 .node rect {

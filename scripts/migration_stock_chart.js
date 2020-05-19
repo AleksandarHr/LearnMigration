@@ -69,7 +69,7 @@ class MigrationStockChart {
             .rangeBands([10, this.height]);
 
         var yPosByIndex = function(d, index) {
-            return y(index);
+            return y.range()[index];
         }
 
         chart.selectAll("rect.left")
@@ -90,7 +90,7 @@ class MigrationStockChart {
                 return this.width - xFrom(d);
             })
             .attr("y", function(d, z) {
-                return y(z) + y.rangeBand() / 2;
+                return yPosByIndex(d, z) + y.rangeBand() / 2;
             })
             .attr("dx", "20")
             .attr("dy", ".36em")
@@ -130,125 +130,13 @@ class MigrationStockChart {
                 return xTo(d) + rightOffset;
             })
             .attr("y", function(d, z) {
-                return y(z) + y.rangeBand() / 2;
+                return yPosByIndex(d, z) + y.rangeBand() / 2;
             })
             .attr("dx", -5)
             .attr("dy", ".36em")
             .attr("text-anchor", "end")
             .attr('class', 'score')
             .text(String);
-        // var margin = {
-        //     top: 50,
-        //     right: 0,
-        //     bottom: 20,
-        //     left: 30,
-        // };
-        // var width = chart.attr('width') - margin.left - margin.right;
-        // var height = chart.attr('height') - margin.top - margin.bottom;
-        // var innerChart = chart.append('g')
-        //     .attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top + ')');
-        //
-        // var pFormat = d3.format('.2r');
-
-        // var total = d3.sum(this.chart_data, function(d) {
-        //     return d.female + d.male;
-        // });
-        //
-        // this.chart_data.map(function(d) {
-        //     d.female = d.female / total;
-        //     d.male = d.male / total;
-        // });
-
-        // var x = d3version4.scaleLinear()
-        //     .domain([0, d3.max([
-        //         d3.max(this.chart_data, function(d) {
-        //             return d.female;
-        //         }),
-        //         d3.max(this.chart_data, function(d) {
-        //             return d.male;
-        //         })
-        //     ])])
-        //     .rangeRound([0, this.SVG_WIDTH / 2]);
-        //
-        // var y = d3version4.scaleBand()
-        //     .domain(this.chart_data.map(function(d) {
-        //         return d.grade;
-        //     }))
-        //     .rangeRound([0, this.SVG_HEIGHT]);
-        //
-        // var grade = innerChart.selectAll('g')
-        //     .data(this.chart_data)
-        //     .enter()
-        //     .append('g')
-        //     .attr('transform', function(d, i) {
-        //         return 'translate(0, ' + (i * y.bandwidth()) + ')';
-        //     });
-        //
-        // grade.append('rect')
-        //     .attr('class', 'bar bar--female')
-        //     .attr('x', function(d) {
-        //         return (this.SVG_WIDTH / 2) - x(d.female);
-        //     })
-        //     .attr('width', function(d) {
-        //         return x(d.female);
-        //     })
-        //     .attr('height', y.bandwidth());
-        //
-        // grade.append('text')
-        //     .attr('class', 'label')
-        //     .attr('alignment-baseline', 'middle')
-        //     .attr('x', function(d) {
-        //         return (this.SVG_WIDTH / 2) - x(d.female) + 4;
-        //     })
-        //     .attr('y', y.bandwidth() / 2)
-        //     .text(function(d) {
-        //         return pFormat(d.female * 100);
-        //     });
-        //
-        // grade.append('rect')
-        //     .attr('class', 'bar bar--male')
-        //     .attr('x', this.SVG_WIDTH / 2)
-        //     .attr('width', function(d) {
-        //         return x(d.male);
-        //     })
-        //     .attr('height', y.bandwidth());
-        //
-        // grade.append('text')
-        //     .attr('class', 'label')
-        //     .attr('alignment-baseline', 'middle')
-        //     .attr('text-anchor', 'end')
-        //     .attr('x', function(d) {
-        //         return (this.SVG_WIDTH / 2) + x(d.male) - 4;
-        //     })
-        //     .attr('y', y.bandwidth() / 2)
-        //     .text(function(d) {
-        //         return pFormat(d.male * 100);
-        //     });
-        //
-        // // innerChart.append('g')
-        // //     .attr('class', 'axis axis--y')
-        // //     .call(d3version4.axisLeft(y));
-        //
-        // chart.append('text')
-        //     .attr('class', 'axis axis--x')
-        //     .attr('x', this.SVG_WIDTH / 4)
-        //     .attr('y', this.SVG_HEIGHT + this.margin.top + this.margin.bottom)
-        //     .attr('text-anchor', 'middle')
-        //     .text('Female');
-        //
-        // chart.append('text')
-        //     .attr('class', 'axis axis--x')
-        //     .attr('x', this.SVG_WIDTH * .75)
-        //     .attr('y', this.SVG_HEIGHT + this.margin.top + this.margin.bottom)
-        //     .attr('text-anchor', 'middle')
-        //     .text('Male');
-        //
-        // chart.append('text')
-        //     .attr('class', 'title')
-        //     .attr('x', this.SVG_WIDTH / 2)
-        //     .attr('y', 25)
-        //     .attr('text-anchor', 'middle')
-        //     .text('Enrollment Percentages');
     }
 }
 
@@ -267,6 +155,7 @@ function ready(error, stock_data) {
         console.log("Error loading data: " + error);
         throw error;
     }
+    // this.prep();
     var generateChartButton = document.getElementById("generate_chart_button");
     generateChartButton.addEventListener('click', function() {
         var chosen_country = "Austria";
@@ -274,6 +163,35 @@ function ready(error, stock_data) {
         migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data, chosen_country, chosen_year);
     });
 }
+
+// function prep() {
+//   // dc.js chart types
+//   let countrySelect = dc.selectMenu('#countries_bar_chart');
+//   let yearBarChartSelect = dc.selectMenu('#years_bar_chart');
+//
+//   countrySelect.on('pretransition', function(chart) {
+//       // add styling to select input
+//       d3.select('#countries_bar_chart').classed('dc-chart', false);
+//       // use Bootstrap styling
+//       chart.select('select').classed('form-control', true);
+//   });
+//
+//   countrySelect.on('filtered', function(chart, filter) {
+//       if (filter != null && steps.length < 4) {
+//           steps.push({ "name": "location", "label": "Location" });
+//           p = 0.85;
+//       }
+//       else if (filter == null) {
+//           steps.pop();
+//           p = 0.75;
+//       }
+//       let datum = transformToGraph(routeDim.top(Infinity));
+//       renderSankey(datum);
+//       bindHover();
+//       renderLabels();
+//   });
+// }
+
 
 whenDocumentLoaded(() => {
     d3.queue()

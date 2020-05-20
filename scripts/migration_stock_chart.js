@@ -127,7 +127,7 @@ class MigrationStockChart {
             })
             .attr("dx", "20")
             .attr("dy", ".36em")
-            .attr("text-anchor", "end")
+            .attr("text-anchor", "middle")
             .attr('class', 'leftscore')
             .text(String);
 

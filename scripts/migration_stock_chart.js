@@ -9,7 +9,7 @@ class MigrationStockChart {
         // set svg's height and with
         this.width = 500;
         this.bar_height = 20;
-        this.height = 15 * this.bar_height; // # age groups * 20
+        this.height = 15 * this.bar_height + 30; // # age groups * 20
         this.chosen_country = chosen_country;
         this.chosen_year = chosen_year;
         this.stock_data = stock_data;
@@ -26,19 +26,22 @@ class MigrationStockChart {
         this.rightOffset = this.width + this.labelArea;
 
         this.SVG_HEIGHT = this.height + this.margin.top + this.margin.bottom + 50;
-        this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right;
+        this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right + 60;
 
         this.prepareData();
 
         var me = this;
-        this.chart = d3.select('#' + this.element_id)
+        var migration_chart_svg = d3.select('#' + this.element_id)
             .append('svg')
             .attr('class', 'chart')
-            .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
+            .attr("viewBox", `-30 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
+
+        this.chart = migration_chart_svg.append("g")
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
         this.y = d3.scale.ordinal()
             .domain(this.age_groups)
-            .rangeBands([0, me.height]);
+            .rangeBands([30, me.height]);
 
         this.yPosByIndex = function(d, index) {
             return me.y.range()[index];
@@ -111,14 +114,14 @@ class MigrationStockChart {
         numbers_male.enter()
             .append("text")
             .attr("x", function(d) {
-                return me.width - xLeft(d);
+                return me.width - xLeft(d) - 22;
             })
             .attr("y", function(d, z) {
                 return me.yPosByIndex(d, z) + me.y.rangeBand() / 2;
             })
             .attr("dx", "20")
             .attr("dy", ".36em")
-            .attr("text-anchor", "middle")
+            .attr("text-anchor", "end")
             .attr('class', 'leftscore')
             .style('fill', 'black')
             .text(String);
@@ -148,26 +151,42 @@ class MigrationStockChart {
         numbers_female.enter()
             .append("text")
             .attr("x", function(d) {
-                return xRight(d) + me.rightOffset;
+                return xRight(d) + me.rightOffset + 7;
             })
             .attr("y", function(d, z) {
                 return me.yPosByIndex(d, z) + me.y.rangeBand() / 2;
             })
             .attr("dx", -5)
             .attr("dy", ".36em")
-            .attr("text-anchor", "end")
+            .attr("text-anchor", "start")
             .attr('class', 'score')
             .style('fill', 'black')
             .text(String);
         // numbers_female.exit().remove();
 
-        // this.chart.append('text')
-        //     .attr('class', 'title')
-        //     .attr('x', me.width / 2)
-        //     .attr('y', 10)
-        //     .style('fill', 'black')
-        //     .attr('text-anchor', 'middle')
-        //     .text('Male');
+        this.chart.append('text')
+            .attr('class', 'title')
+            .attr('x', me.width / 2)
+            .attr('y', 10)
+            .style('fill', 'black')
+            .attr('text-anchor', 'middle')
+            .text('Male');
+
+        this.chart.append('text')
+            .attr('class', 'title')
+            .attr('x', 3 / 2 * me.width)
+            .attr('y', 10)
+            .style('fill', 'black')
+            .attr('text-anchor', 'middle')
+            .text('Female');
+
+        this.chart.append('text')
+            .attr('class', 'title')
+            .attr('x', (this.labelArea / 2) + me.width)
+            .attr('y', 10)
+            .style('fill', 'black')
+            .attr('text-anchor', 'middle')
+            .text(this.chosen_country + ' : ' + this.chosen_year);
     }
 }
 
@@ -186,8 +205,8 @@ function ready(error, stock_data) {
         console.log("Error loading data: " + error);
         throw error;
     }
-    var default_year = 1990
-    var default_country = "Cuba"
+    var default_country = "Afghanistan";
+    var default_year = 1990;
     var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data, default_country, default_year);
     selectParameters(stock_data, migrationStockChart);
 }
@@ -265,6 +284,7 @@ function selectParameters(stock_data, chart_object) {
     countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
             // show data for selected country only
+            console.log(filter)
             chart_object.setCountry(filter);
         } else {
             // show all countries

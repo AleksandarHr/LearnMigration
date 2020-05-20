@@ -25,7 +25,7 @@ class MigrationStockChart {
         this.labelArea = 80;
         this.rightOffset = this.width + this.labelArea;
 
-        this.SVG_HEIGHT = this.height + this.margin.top + this.margin.bottom;
+        this.SVG_HEIGHT = this.height + this.margin.top + this.margin.bottom + 50;
         this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right;
 
         this.prepareData();
@@ -56,7 +56,6 @@ class MigrationStockChart {
 
     setCountry(selected_country) {
         this.chosen_country = selected_country
-        console.log("HERE 1");
         this.prepareData();
         this.renderChart(this);
     }
@@ -85,28 +84,20 @@ class MigrationStockChart {
         var me = self;
         var bars_male = this.chart.selectAll(".rect.male").data(me.male_stock_numbers);
         var bars_female = this.chart.selectAll(".rect.female").data(me.female_stock_numbers);
-        var numbers_male = this.chart.selectAll("text.leftscore").data(me.male_stock_numbers)
-        var numbers_female = this.chart.selectAll("text.score").data(me.female_stock_numbers)
+        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers)
+        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers)
 
-        var bar_male_exit = bars_male.exit().remove();
-        var bar_female_exit = bars_female.exit().remove();
-        var numbers_male_exit = numbers_male.exit().remove();
-        var numbers_female_exit = numbers_female.exit().remove();
-
+        this.chart.selectAll("*").remove();
 
         var xLeft = d3version4.scaleLinear()
             .domain([0, d3.max(this.male_stock_numbers)])
             .range([0, me.width]);
 
-        console.log(this.male_stock_numbers)
-        console.log(d3.max(this.male_stock_numbers))
-        console.log(xLeft(d3.max(this.male_stock_numbers)))
-
         var xRight = d3version4.scaleLinear()
             .domain([0, d3.max(this.female_stock_numbers)])
             .range([0, me.width]);
 
-        var bar_male_enter = bars_male.enter()
+        bars_male.enter()
             .append("rect")
             .attr("x", function(d) {
                 return me.width - xLeft(d);
@@ -115,10 +106,10 @@ class MigrationStockChart {
             .attr("class", "male")
             .attr("width", xLeft)
             .attr("height", me.y.rangeBand());
+        // bars_male.exit().remove();
 
-        this.chart.selectAll("text.leftscore")
-            .data(this.male_stock_numbers)
-            .enter().append("text")
+        numbers_male.enter()
+            .append("text")
             .attr("x", function(d) {
                 return me.width - xLeft(d);
             })
@@ -129,7 +120,9 @@ class MigrationStockChart {
             .attr("dy", ".36em")
             .attr("text-anchor", "middle")
             .attr('class', 'leftscore')
+            .style('fill', 'black')
             .text(String);
+        // numbers_male.exit().remove();
 
         this.chart.selectAll("text.name")
             .data(this.age_groups)
@@ -143,17 +136,17 @@ class MigrationStockChart {
             .attr('class', 'name')
             .text(String);
 
-        var bar_female_enter = bars_female.enter()
+        bars_female.enter()
             .append("rect")
             .attr("x", me.rightOffset)
             .attr("y", me.yPosByIndex)
             .attr("class", "female")
             .attr("width", xRight)
             .attr("height", me.y.rangeBand());
+        // bars_female.exit().remove();
 
-        this.chart.selectAll("text.score")
-            .data(this.female_stock_numbers)
-            .enter().append("text")
+        numbers_female.enter()
+            .append("text")
             .attr("x", function(d) {
                 return xRight(d) + me.rightOffset;
             })
@@ -164,8 +157,17 @@ class MigrationStockChart {
             .attr("dy", ".36em")
             .attr("text-anchor", "end")
             .attr('class', 'score')
+            .style('fill', 'black')
             .text(String);
+        // numbers_female.exit().remove();
 
+        // this.chart.append('text')
+        //     .attr('class', 'title')
+        //     .attr('x', me.width / 2)
+        //     .attr('y', 10)
+        //     .style('fill', 'black')
+        //     .attr('text-anchor', 'middle')
+        //     .text('Male');
     }
 }
 
@@ -196,7 +198,8 @@ function selectParameters(stock_data, chart_object) {
     var countries_data = []
     for (i = 0; i < all_countries.length; i++) {
         countries_data.push({
-            country: all_countries[i]
+            country: all_countries[i],
+            stuff: 10
         })
     }
 
@@ -210,6 +213,9 @@ function selectParameters(stock_data, chart_object) {
         .dimension(countryDimension)
         .group(countryDimension.group())
         .multiple(false)
+        .title(function(d) {
+            return d.key;
+        })
         .numberVisible(null)
         .promptText('All Countries')
         .promptValue(null);
@@ -241,6 +247,9 @@ function selectParameters(stock_data, chart_object) {
         .group(yearDimension.group())
         .multiple(false)
         .numberVisible(null)
+        .title(function(d) {
+            return d.key;
+        })
         .promptText('Year')
         .promptValue(null);
 

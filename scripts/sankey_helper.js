@@ -1,4 +1,3 @@
-
 function getSize() {
     var myWidth = 0,
         myHeight = 0;
@@ -6,13 +5,11 @@ function getSize() {
         //Non-IE
         myWidth = window.innerWidth;
         myHeight = window.innerHeight;
-    }
-    else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+    } else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
         //IE 6+ in 'standards compliant mode'
         myWidth = document.documentElement.clientWidth;
         myHeight = document.documentElement.clientHeight;
-    }
-    else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+    } else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
         //IE 4 compatible
         myWidth = document.body.clientWidth;
         myHeight = document.body.clientHeight;
@@ -23,8 +20,10 @@ function getSize() {
     };
 }
 
-var formatNumber = d3.format(",.0f"),    // zero decimal places
-    format = function(d) { return formatNumber(d) + " " + units; };
+var formatNumber = d3.format(",.0f"), // zero decimal places
+    format = function(d) {
+        return formatNumber(d) + " " + units;
+    };
 
 // create tooltip
 let tooltip = d3.select("body").append("div").style({
@@ -60,7 +59,16 @@ let margins = {
 let p = 0.8;
 
 // Define the hierarchical categories of the sankey
-let steps = [{ "name": "route", "label": "Migration Route" }, { "name": "causal", "label": "Event (Death / Missing) Causality" }, { "name": "reason", "label": "Specific Reason of the Event" }];
+let steps = [{
+    "name": "route",
+    "label": "Migration Route"
+}, {
+    "name": "causal",
+    "label": "Event (Death / Missing) Causality"
+}, {
+    "name": "reason",
+    "label": "Specific Reason of the Event"
+}];
 
 // append the svg canvas to the page
 let svg = d3.select("#flow").append("svg")
@@ -147,10 +155,12 @@ d3.csv("./csv/filteredsankey.csv", function(error, data) {
 
     routeSelect.on('filtered', function(chart, filter) {
         if (filter != null && steps.length < 4) {
-            steps.push({ "name": "location", "label": "Location" });
+            steps.push({
+                "name": "location",
+                "label": "Location"
+            });
             p = 0.85;
-        }
-        else if (filter == null) {
+        } else if (filter == null) {
             steps.pop();
             p = 0.75;
         }
@@ -168,8 +178,7 @@ d3.csv("./csv/filteredsankey.csv", function(error, data) {
             return d.key;
         })
         .promptText('All event years')
-        .promptValue(null)
-    ;
+        .promptValue(null);
 
     yearSelect.on('pretransition', function(chart) {
         // add styling to select input
@@ -265,8 +274,7 @@ function transformToGraph(data) {
         let Item2 = b.group;
         if (Item1 != Item2) {
             return (Item1.localeCompare(Item2));
-        }
-        else {
+        } else {
             return (a.name.localeCompare(b.name));
         }
     }
@@ -330,8 +338,7 @@ function renderLabels() {
         .attr("text-anchor", function(d, i) {
             if (steps.length < 4) {
                 return "middle";
-            }
-            else {
+            } else {
                 return "end";
             }
         })
@@ -463,7 +470,9 @@ function renderSankey(graph) {
         .append("title");
 
     nodes.call(d3.behavior.drag()
-        .origin(function(d) { return d; })
+        .origin(function(d) {
+            return d;
+        })
         .on("dragstart", function() {
             this.parentNode.appendChild(this);
         })
@@ -501,16 +510,14 @@ function renderSankey(graph) {
         .attr("x", function(d) {
             if (d.x < width - width / 3) {
                 return 6 + sankey.nodeWidth();
-            }
-            else {
+            } else {
                 return -6;
             }
         })
         .attr("text-anchor", function(d) {
             if (d.x < width - width / 3) {
                 return "start";
-            }
-            else {
+            } else {
                 return "end";
             }
         })
@@ -524,8 +531,7 @@ function renderSankey(graph) {
         .text(function(d) {
             if (d.dy > 25) { // arbitrary number of <rect> height
                 return d.name;
-            }
-            else {
+            } else {
                 return null;
             }
         });
@@ -548,11 +554,12 @@ function bindHover() {
             let key = d.source.name + " → " + d.target.name;
             let amount = formatNumber(d.value);
             showDetail(e, key, amount, null, null)
-        }
-        else if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar') {
+        } else if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar' &&
+            e.target.className.baseVal != 'male' && e.target.className.baseVal != 'female') {
             let d = d3.select(e.target).data()[0];
             let key = d.name;
             let amount = formatNumber(d.value);
+            console.log(e.target.className.baseVal);
             showDetail(e, key, amount, null, null)
         }
     });
@@ -575,7 +582,7 @@ function showDetail(event, key, amount) {
 
     var tooltipWidth = parseInt(tooltip.style('width'));
     var tooltipHeight = parseInt(tooltip.style('height'));
-    var classed,notClassed;
+    var classed, notClassed;
 
     if (event.pageX > document.body.clientWidth / 2) {
         x_hover = tooltipWidth + 30;
@@ -590,8 +597,8 @@ function showDetail(event, key, amount) {
     y_hover = (document.body.clientHeight - event.pageY < (tooltipHeight + 4)) ? event.pageY - (tooltipHeight - 40) : event.pageY - tooltipHeight - 40;
 
     return tooltip
-        .classed(classed,true)
-        .classed(notClassed,false)
+        .classed(classed, true)
+        .classed(notClassed, false)
         .style({
             "visibility": "visible",
             "top": y_hover + "px",

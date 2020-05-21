@@ -96,7 +96,7 @@ let linksGroup = svg.append("g");
 let nodesGroup = svg.append("g");
 
 // load the data
-d3.csv("./csv/filteredsankey.csv", function(error, data) {
+d3.csv("./data/filteredsankey.csv", function(error, data) {
 
     if (error) throw error;
 

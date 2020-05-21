@@ -1,7 +1,3 @@
-// const prefix = "../LearnMigration/"
-// const prefix = "../";
-const csv_stock_col = "InternationalMigrantStocks"
-
 class MigrationStockChart {
 
     constructor(element_id, stock_data) {
@@ -445,7 +441,7 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
     d3.queue()
-        .defer(d3.csv, prefix + "csv/International_and_totalStock_GenderAge.csv")
+        .defer(d3.csv, gender_age_stock_path)
         .await(this.bar_chart_ready);
 });
 

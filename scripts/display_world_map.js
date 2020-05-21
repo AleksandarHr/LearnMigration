@@ -1,6 +1,3 @@
-const prefix = "../LearnMigration/"
-// const prefix = "../"
-
 class WorldMapPlot {
 
     constructor(data, country_codes_and_names, flows, pop) {
@@ -170,17 +167,18 @@ class WorldMapPlot {
     // Clears any previous visualized selections and flow data
     removePreviousSelections() {
         // REMOVE PRIOR SELECTION
+        self = this;
         // remove prior selection if any
         d3version4.selectAll(".selected").classed("selected", false);
         // remove previously selected country's circle
-        this.map.selectAll(".selected-country-circle").classed("selected-country-circle", false);
+        self.map.selectAll(".selected-country-circle").classed("selected-country-circle", false);
         // remove circles identifying previously selected flowing countries
-        let flow_class = this.inflow_bool ? "inflow-country" : "outflow-country";
-        this.map.selectAll("." + flow_class)
+        let flow_class = self.inflow_bool ? "inflow-country" : "outflow-country";
+        self.map.selectAll("." + flow_class)
             .remove();
         // remove arcs from previous selection if any
-        let arc_class = this.inflow_bool ? "arc_in" : "arc_out";
-        this.map.selectAll("." + arc_class)
+        let arc_class = self.inflow_bool ? "arc_in" : "arc_out";
+        self.map.selectAll("." + arc_class)
             .remove();
     }
 
@@ -190,7 +188,7 @@ class WorldMapPlot {
         self = this;
         this.removePreviousSelections();
         if (self.selected_country != null) {
-            this.drawCountriesFlow();
+            self.drawCountriesFlow();
         } else {
             for (var i = 0; i < self.filtered_countries.length; i++) {
                 // get country name
@@ -289,20 +287,16 @@ class WorldMapPlot {
 
         // Submit filters button on-click listener: registers filter selections
         submitButton.addEventListener('click', function() {
+            self.removePreviousSelections();
             var filters = submitFilter(self.country_names);
             self.filtered_countries = filters[0];
             self.inflow_bool = filters[1];
-            // if (filters[1]) {
-            // 	flow = "outflow";
-            // }
             if (filters[2]) {
                 self.selected_gender = "m";
             } else if (filters[3]) {
                 self.selected_gender = "f";
             }
             self.normalized_bool = filters[4];
-            // normalized = filters[4];
-            self.removePreviousSelections();
             self.displaySelectedCountries()
         });
 
@@ -344,13 +338,13 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
 whenDocumentLoaded(() => {
     // import world atlas topojson
     d3version4.queue()
-        .defer(d3version4.json, prefix + "data/world.json")
+        .defer(d3version4.json, world_json_path)
         // .defer(d3version4.json, prefix + "data/world_50m.json") // this map makes Australia's centroid to be in the Indian ocean...
         // .defer(d3version4.json, "https://unpkg.com/world-atlas@1.1.4/world/50m.json")
         // .defer(d3version4.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
-        .defer(d3version4.json, prefix + "data/country_codes_and_names.json")
-        .defer(d3version4.csv, prefix + "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv")
-        .defer(d3version4.csv, prefix + "data/pop.csv")
+        .defer(d3version4.json, country_codes_and_names_path)
+        .defer(d3version4.csv, migflow_gender_path)
+        .defer(d3version4.csv, pop_path)
         // .defer(d3version4.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
         .await(this.world_map_ready);
 });

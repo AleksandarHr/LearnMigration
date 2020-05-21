@@ -446,10 +446,10 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
     d3.queue()
         .defer(d3.csv, prefix + "csv/International_and_totalStock_GenderAge.csv")
-        .await(this.ready);
+        .await(this.bar_chart_ready);
 });
 
-function ready(error, stock_data) {
+function bar_chart_ready(error, stock_data) {
     if (error) {
         console.log("Error loading data: " + error);
         throw error;

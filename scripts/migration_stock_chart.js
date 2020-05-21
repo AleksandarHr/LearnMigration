@@ -10,9 +10,12 @@ class MigrationStockChart {
         this.width = 500;
         this.bar_height = 20;
         this.height = 15 * this.bar_height + 30; // # age groups * 20
+
+        this.stock_data = stock_data;
+        this.all_countries = Array.from([...new Set(this.stock_data.map(x => x.Destination))]).sort();
+        this.all_years = Array.from([...new Set(this.stock_data.map(x => x.Year))]).sort();
         this.chosen_country = chosen_country;
         this.chosen_year = chosen_year;
-        this.stock_data = stock_data;
         this.element_id = element_id
         // set margins
         this.margin = {
@@ -83,29 +86,31 @@ class MigrationStockChart {
     }
 
     prepareTotalData() {
-      this.male_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("male"))
-      this.female_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("female"))
-      this.age_groups = this.male_stock_data.map(d => d.AgeGroup);
+        this.male_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("male"))
+        this.female_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("female"))
+        this.age_groups = this.male_stock_data.map(d => d.AgeGroup);
 
-      var male_age_group_filtered =[];
-      var female_age_group_filtered = [];
-      this.age_groups.forEach((age_group, i) => {
-        male_age_group_filtered[i] = this.male_stock_data_all.filter(d => d.AgeGroup == age_group)
-        console.log(male_age_group_filtered[i]);
-        console.log(male_age_group_filtered[i].reduce((a, b) => ({"InternationalMigrantStocks": a.InternationalMigrantStocks + b.InternationalMigrantStocks})));
-        female_age_group_filtered[i] = this.female_stock_data_all.filter(d => d.AgeGroup == age_group)
-      });
+        var male_age_group_filtered = [];
+        var female_age_group_filtered = [];
+        this.age_groups.forEach((age_group, i) => {
+            male_age_group_filtered[i] = this.male_stock_data_all.filter(d => d.AgeGroup == age_group)
+            console.log(male_age_group_filtered[i]);
+            console.log(male_age_group_filtered[i].reduce((a, b) => ({
+                "InternationalMigrantStocks": a.InternationalMigrantStocks + b.InternationalMigrantStocks
+            })));
+            female_age_group_filtered[i] = this.female_stock_data_all.filter(d => d.AgeGroup == age_group)
+        });
 
-      // this.male_stock_numbers = this.male_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
-      // this.female_stock_numbers = this.female_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
-      //
-      // this.chart_data = d3.range(15).map(i => {
-      //     return {
-      //         age_gr: this.age_groups[i],
-      //         male: this.male_stock_numbers[i],
-      //         female: this.female_stock_numbers[i]
-      //     };
-      // });
+        // this.male_stock_numbers = this.male_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
+        // this.female_stock_numbers = this.female_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
+        //
+        // this.chart_data = d3.range(15).map(i => {
+        //     return {
+        //         age_gr: this.age_groups[i],
+        //         male: this.male_stock_numbers[i],
+        //         female: this.female_stock_numbers[i]
+        //     };
+        // });
     }
 
     renderChart(self) {
@@ -132,6 +137,9 @@ class MigrationStockChart {
             })
             .attr("y", me.yPosByIndex)
             .attr("class", "male")
+            .attr("id", function(d, idx) {
+                return idx;
+            })
             .attr("width", xLeft)
             .attr("height", me.y.rangeBand());
         // bars_male.exit().remove();
@@ -169,6 +177,9 @@ class MigrationStockChart {
             .attr("x", me.rightOffset)
             .attr("y", me.yPosByIndex)
             .attr("class", "female")
+            .attr("id", function(d, idx) {
+                return idx;
+            })
             .attr("width", xRight)
             .attr("height", me.y.rangeBand());
         // bars_female.exit().remove();
@@ -233,16 +244,15 @@ function ready(error, stock_data) {
     var default_country = "Afghanistan";
     var default_year = 1990;
     var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data, default_country, default_year);
-    selectParameters(stock_data, migrationStockChart, default_country, default_year);
+    selectParameters(migrationStockChart, default_country, default_year);
 }
 
-function selectParameters(stock_data, chart_object, default_country, default_year) {
+function selectParameters(chart_object, default_country, default_year) {
 
-    const all_countries = Array.from([...new Set(stock_data.map(x => x.Destination))]).sort();
     var countries_data = []
-    for (i = 0; i < all_countries.length; i++) {
+    for (i = 0; i < chart_object.all_countries.length; i++) {
         countries_data.push({
-            country: all_countries[i],
+            country: chart_object.all_countries[i],
             stuff: 10
         })
     }
@@ -272,11 +282,10 @@ function selectParameters(stock_data, chart_object, default_country, default_yea
     });
     countrySelect.filter(default_country)
 
-    const all_years = Array.from([...new Set(stock_data.map(x => x.Year))]).sort();
     var years_data = []
-    for (i = 0; i < all_years.length; i++) {
+    for (i = 0; i < chart_object.all_years.length; i++) {
         years_data.push({
-            country: all_years[i]
+            country: chart_object.all_years[i]
         })
     }
 
@@ -314,7 +323,7 @@ function selectParameters(stock_data, chart_object, default_country, default_yea
             chart_object.setCountry(default_country);
             countrySelect.filter(default_country)
         }
-        onBarChartHover()
+        onBarChartHover(chart_object)
     });
 
     yearSelect.on('filtered', function(chart, filter) {
@@ -326,22 +335,45 @@ function selectParameters(stock_data, chart_object, default_country, default_yea
             chart_object.setYear(default_year);
             yearSelect.filter(default_year)
         }
-        onBarChartHover()
+        onBarChartHover(chart_object)
     });
 
     dc.renderAll();
-    onBarChartHover()
+    onBarChartHover(chart_object)
 }
 
-function onBarChartHover() {
+function onBarChartHover(chart_object) {
     document.body.addEventListener('mousemove', function(e) {
-      if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar' &&
+        if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar' &&
             (e.target.className.baseVal == 'male' || e.target.className.baseVal == 'female')) {
-            let d = d3.select(e.target).data()[0];
-            let key = d.name;
-            let amount = formatNumber(d.value);
-            console.log(e.target.className.baseVal);
-            showBarChartDetail();
+            let hovered_year = chart_object.chosen_year
+            if (hovered_year == 1990) {
+                showBarChartDetail(e, false);
+            } else {
+                let previous_year_index = chart_object.all_years.indexOf(hovered_year) - 1;
+                if (previous_year_index < 0) {
+                    showBarChartDetail(e, false);
+                } else {
+                    let previous_year = chart_object.all_years[previous_year_index]
+                    let hovered_age_group = (chart_object.age_groups[e.target.id])
+                    let hovered_country = chart_object.chosen_country
+                    let previous_count = 0;
+
+                    if (e.target.className.baseVal == 'male') {
+                      let relevant_data = chart_object.stock_data.filter(d => d.Gender.localeCompare("male") == 0 &
+                          d.Destination.localeCompare(hovered_country) == 0 & d.Year == previous_year & d.AgeGroup.localeCompare(hovered_age_group) == 0 );
+                          if (relevant_data.length != 1) {
+                            showBarChartDetail(e, false);
+                        } else {
+                            console.log(relevant_data[0].InternationalMigrantStocks)
+                            previous_count = relevant_data[0].InternationalMigrantStocks
+                        }
+                    }
+                    let hovered_count = d3.select(e.target).data()[0];
+
+                    showBarChartDetail(e, true);
+                }
+            }
         }
     });
 
@@ -350,10 +382,15 @@ function onBarChartHover() {
     });
 }
 
-function showBarChartDetail(){
+function showBarChartDetail(e, prior_information) {
+    var content = "";
+    if (!prior_information) {
+        content = "<b>" + "No Prior Information" + "</b><br/>";
+    } else {
 
+    }
+    renderDetail(e, content);
 }
-
 
 whenDocumentLoaded(() => {
     d3.queue()

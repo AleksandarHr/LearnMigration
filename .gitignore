@@ -5,3 +5,4 @@ idea/
 .idea/modules.xml
 .idea/sbt.xml
 .idea/vcs.xml
+./scripts/constants.js

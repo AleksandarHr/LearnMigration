@@ -1,7 +1,7 @@
 *.DS_Store
 idea/
-idea/.gitignore
-idea/codeStyles/codeStyleConfig.xml
-idea/modules.xml
-idea/sbt.xml
-idea/vcs.xml
+.idea/.gitignore
+.idea/codeStyles/codeStyleConfig.xml
+.idea/modules.xml
+.idea/sbt.xml
+.idea/vcs.xml

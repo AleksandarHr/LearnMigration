@@ -28,7 +28,7 @@ class MigrationStockChart {
         this.SVG_HEIGHT = this.height + this.margin.top + this.margin.bottom + 50;
         this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right + 60;
 
-        this.prepareData();
+        this.prepareSelectedData();
 
         var me = this;
         var migration_chart_svg = d3.select('#' + this.element_id)
@@ -53,17 +53,17 @@ class MigrationStockChart {
 
     setYear(selected_year) {
         this.chosen_year = selected_year
-        this.prepareData();
+        this.prepareSelectedData();
         this.renderChart(this);
     }
 
     setCountry(selected_country) {
         this.chosen_country = selected_country
-        this.prepareData();
+        this.prepareSelectedData();
         this.renderChart(this);
     }
 
-    prepareData() {
+    prepareSelectedData() {
         this.male_stock_data = this.stock_data.filter(d => d.Gender.localeCompare("male") == 0 &
             d.Destination.localeCompare(this.chosen_country) == 0 & d.Year == this.chosen_year);
         this.female_stock_data = this.stock_data.filter(d => d.Gender.localeCompare("female") == 0 &
@@ -80,7 +80,32 @@ class MigrationStockChart {
                 female: this.female_stock_numbers[i]
             };
         });
+    }
 
+    prepareTotalData() {
+      this.male_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("male"))
+      this.female_stock_data_all = this.stock_data.filter(d => d.Gender.localeCompare("female"))
+      this.age_groups = this.male_stock_data.map(d => d.AgeGroup);
+
+      var male_age_group_filtered =[];
+      var female_age_group_filtered = [];
+      this.age_groups.forEach((age_group, i) => {
+        male_age_group_filtered[i] = this.male_stock_data_all.filter(d => d.AgeGroup == age_group)
+        console.log(male_age_group_filtered[i]);
+        console.log(male_age_group_filtered[i].reduce((a, b) => ({"InternationalMigrantStocks": a.InternationalMigrantStocks + b.InternationalMigrantStocks})));
+        female_age_group_filtered[i] = this.female_stock_data_all.filter(d => d.AgeGroup == age_group)
+      });
+
+      // this.male_stock_numbers = this.male_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
+      // this.female_stock_numbers = this.female_stock_data.map(d => parseInt(d.InternationalMigrantStocks));
+      //
+      // this.chart_data = d3.range(15).map(i => {
+      //     return {
+      //         age_gr: this.age_groups[i],
+      //         male: this.male_stock_numbers[i],
+      //         female: this.female_stock_numbers[i]
+      //     };
+      // });
     }
 
     renderChart(self) {
@@ -186,7 +211,7 @@ class MigrationStockChart {
             .attr('y', 10)
             .style('fill', 'black')
             .attr('text-anchor', 'middle')
-            .text(this.chosen_country + ' : ' + this.chosen_year);
+            .text("Age Group");
     }
 }
 
@@ -208,10 +233,10 @@ function ready(error, stock_data) {
     var default_country = "Afghanistan";
     var default_year = 1990;
     var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data, default_country, default_year);
-    selectParameters(stock_data, migrationStockChart);
+    selectParameters(stock_data, migrationStockChart, default_country, default_year);
 }
 
-function selectParameters(stock_data, chart_object) {
+function selectParameters(stock_data, chart_object, default_country, default_year) {
 
     const all_countries = Array.from([...new Set(stock_data.map(x => x.Destination))]).sort();
     var countries_data = []
@@ -245,7 +270,7 @@ function selectParameters(stock_data, chart_object) {
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });
-
+    countrySelect.filter(default_country)
 
     const all_years = Array.from([...new Set(stock_data.map(x => x.Year))]).sort();
     var years_data = []
@@ -278,17 +303,18 @@ function selectParameters(stock_data, chart_object) {
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });
-
-    dc.renderAll();
+    yearSelect.filter(default_year)
 
     countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
             // show data for selected country only
-            console.log(filter)
             chart_object.setCountry(filter);
         } else {
-            // show all countries
+            // show default country
+            chart_object.setCountry(default_country);
+            countrySelect.filter(default_country)
         }
+        onBarChartHover()
     });
 
     yearSelect.on('filtered', function(chart, filter) {
@@ -296,9 +322,36 @@ function selectParameters(stock_data, chart_object) {
             // show data for selected year only
             chart_object.setYear(filter);
         } else {
-            // show all years
+            // show default year
+            chart_object.setYear(default_year);
+            yearSelect.filter(default_year)
+        }
+        onBarChartHover()
+    });
+
+    dc.renderAll();
+    onBarChartHover()
+}
+
+function onBarChartHover() {
+    document.body.addEventListener('mousemove', function(e) {
+      if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar' &&
+            (e.target.className.baseVal == 'male' || e.target.className.baseVal == 'female')) {
+            let d = d3.select(e.target).data()[0];
+            let key = d.name;
+            let amount = formatNumber(d.value);
+            console.log(e.target.className.baseVal);
+            showBarChartDetail();
         }
     });
+
+    document.body.addEventListener('mouseout', function(e) {
+        if (e.target.className.animVal == 'link' || e.target.nodeName == 'rect') hideDetail();
+    });
+}
+
+function showBarChartDetail(){
+
 }
 
 

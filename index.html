@@ -156,35 +156,38 @@
         <div class="container h-100">
             <div class="row h-100">
                 <div id="world-map" class="h-100">
-                    <!-- <div id="world-map_div" class="h-100"> -->
-                    <button class="filter_button" onclick="toggleFilter('filter_panel')">Filter</button>
-                    <div class="filter_panel" id="filter_panel">
-                        <form>
-                            <div class="countries_list" id="countries_list">
+                    <div class="row">
+                        <div class="col-xs-4 col-md-4">
+                            <div id="world_map_countries" class="form-group">
+                                <label for="world_map_countries" class="col-form-label">Select Countries</label>
                             </div>
-                            <div class="flow_type">
-                                <input id="inflow" type='radio' value="inflow" name="flow" checked>
-                                <label for="inflow">Inflow</label>
-                                <input id="outflow" type='radio' value="outflow" name="flow">
-                                <label for="outflow">Outflow</label>
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <div id="world_map_gender" class="form-group">
+                                <label for="world_map_gender" class="col-form-label">Select Gender</label>
                             </div>
-                            <div class="gender">
-                                <input id="male" type='radio' value="male" name="gender">
-                                <label for="male">Male</label>
-                                <input id="female" type='radio' value="female" name="gender">
-                                <label for="female">Female</label>
-                                <input id="both" type='radio' value="both" name="gender" checked>
-                                <label for="both">Both</label>
+                            <div>
+                            <input type="radio" class="gender_cb" id="male_checkbox" value="male" name="gender"> Male
+                            <input type="radio" class="gender_cb" id="female_checkbox" value="female" name="gender"> Female
+                            <input type="radio" class="gender_cb" id="both_genders_checkbox" value="both" name="gender" checked="true"> Both
+                          </div>
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <div id="world_map_flow" class="form-group">
+                                <label for="world_map_flow" class="col-form-label">Select Flow</label>
                             </div>
-                            <div class="normalize_flow">
-                                <input id='normalize' type='checkbox' value='normalize'>
-                                <label for='normalize'>Normalize Flow</label>
+                            <input type="radio" class="flow_cb" id="inflow_cb" value="inflow" name="flow"> Inflow
+                            <input type="radio" class="flow_cb" id="outflow_cb" value="outflow" name="flow" checked="true"> Outflow
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <div id="world_map_flow" class="form-group">
+                                <label for="world_map_flow" class="col-form-label">Normalize Flow</label>
                             </div>
-                            <input id="submit_filter" type="button" value="Submit">
-                            <input id="clear_filter" type="button" value="Clear">
-                            <input id="close_panel" type="button" value="Close">
-                        </form>
+                            <input type="radio" class="normalize_flow" id="yes_normalize" name="normalize"> Yes
+                            <input type="radio" class="normalize_flow" id="no_normalize" name="normalize" checked="true"> No                        </div>
+                        <div class="col-xs-6 col-md-6"></div>
                     </div>
+                    <!-- <div id="world-map_div" class="h-100"> -->
                 </div>
             </div>
         </div>

@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-// const prefix = "../LearnMigration/"
-const prefix = "../"
-
-=======
->>>>>>> master
 class WorldMapPlot {
 
     constructor(data, country_codes_and_names, flows, pop) {
@@ -87,25 +81,7 @@ class WorldMapPlot {
                 "country": d,
                 "centroid": this.path.centroid(country)
             });
-<<<<<<< HEAD
-            // console.log(countries_and_centroids);
-            // console.log(countries_and_centroids.find(dd => dd.country.name == "India"));
-
-            self.displayCountries(svg, countries, countries_and_centroids, flows,
-                selected_year0, min_flow_threshold, selected_gender, path, radius_scale);
-
-            // Get results from  filter selections
-            var filterSelections = self.handleFilter(svg, country_names, countries_and_centroids, flows, selected_year0, selected_gender, min_flow_threshold, radius_scale);
-            // var checkedCountries = filterSelections[0];
-            // var gender = filterSelections[1];
-            // var flow = filterSelections[2];
-            // var normalized = filterSelections[3];
-            // console.log(checkedCountries);
-            // self.handleSelectedCountries(svg, checkedCountries);
-        } // end of function `ready`
-=======
         });
->>>>>>> master
     } // end of constructor
 
     try_call() {
@@ -181,12 +157,6 @@ class WorldMapPlot {
                 d3version4.select(this).classed("hovered", false);
             })
             .on("click", function(d) {
-<<<<<<< HEAD
-                // remove prior selection if any
-                d3.selectAll(".selected").classed("selected", false);
-                // add clicked country to selected class
-                d3.select(this).classed("selected", true)
-=======
                 self.removePreviousSelections();
                 self.selected_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
                 self.filtered_countries = null;
@@ -211,7 +181,6 @@ class WorldMapPlot {
         self.map.selectAll("." + arc_class)
             .remove();
     }
->>>>>>> master
 
     // Display selected countries
     displaySelectedCountries() {
@@ -303,119 +272,90 @@ class WorldMapPlot {
                 return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
             });
     }
-
-    // Populate filter and setup event listeners
-<<<<<<< HEAD
-    handleFilter(svg, country_names, countries_and_centroids, flows, selected_year0, selected_gender, min_flow_threshold, radius_scale) {
-=======
-    handleFilter() {
->>>>>>> master
-        self = this;
-        // Handle filter results - STARTS HERE;
-        populateCountries("countries_list", self.country_names)
-        var submitButton = document.getElementById("submit_filter");
-        var clearButton = document.getElementById("clear_filter");
-        var closeButton = document.getElementById("close_panel");
-        // var flow = "inflow";
-        var selected_gender = "b";
-        var normalized = true;
-
-        // Submit filters button on-click listener: registers filter selections
-        submitButton.addEventListener('click', function() {
-            self.removePreviousSelections();
-            var filters = submitFilter(self.country_names);
-            self.filtered_countries = filters[0];
-            self.inflow_bool = filters[1];
-            if (filters[2]) {
-                self.selected_gender = "m";
-            } else if (filters[3]) {
-                self.selected_gender = "f";
-            }
-<<<<<<< HEAD
-            normalized = filters[4];
-            self.handleSelectedCountries(svg, checkedCountries, countries_and_centroids, flows, selected_year0, selected_gender, min_flow_threshold, radius_scale);
-=======
-            self.normalized_bool = filters[4];
-            self.displaySelectedCountries()
->>>>>>> master
-        });
-
-        // Clear filters button on-click listener - sets filters to default values
-        clearButton.addEventListener('click', function() {
-            clearFilters(self.country_names.length);
-            self.removePreviousSelections();
-        });
-
-        closeButton.addEventListener('click', function() {
-            toggleFilter('filter_panel');
-        });
-    }
-<<<<<<< HEAD
-
-    handleSelectedCountries(svg, country_names, countries_and_centroids, flows, selected_year0, selected_gender, min_flow_threshold, radius_scale) {
-        // remove prior selection if any
-        d3.selectAll(".selected").classed("selected", false);
-
-        // remove previously selected country's circle
-        svg.selectAll(".selected-country-circle").classed("selected-country-circle", false);
-
-        // remove circles identifying previously selected flowing countries
-        svg.selectAll(".outflow-country")
-            .remove();
-        for (var i = 0; i < country_names.length; i++) {
-            console.log("Updating " + country_names[i]);
-            // // add clicked country to selected class
-            // d3.select(map_obj).classed("selected", true)
-
-            // get country name
-            // console.log(countries_and_centroids.find(x => x.name == "Somalia"));
-            let selected_country = countries_and_centroids.find(dd => 0 == (dd.country.name.localeCompare(country_names[i])));
-            // console.log("You selected the country: \n" + selected_country.country.name);
-
-
-            // // display circle at the centroid of selected country
-            // svg.append("circle")
-            //     .classed("selected-country-circle", true)
-            //     .attr("r", 4)
-            //     .attr("cx", selected_country.centroid[0])
-            //     .attr("cy", selected_country.centroid[1]);
-
-            // compute outflowing countries from selected country
-            let outflow_countries = flows.filter(dd =>
-                (dd.orig == selected_country.country.iso_a3) &
-                (dd.year0 == selected_year0) &
-                (dd.flow > min_flow_threshold) &
-                (dd.sex == selected_gender));
-
-            // compute inflowing countries to selected country
-            let inflow_countries = flows.filter(dd =>
-                (dd.dest == selected_country.country.iso_a3) &
-                (dd.year0 == selected_year0) &
-                (dd.flow > min_flow_threshold) &
-                (dd.sex == selected_gender));
-
-            // display circles at centroids of destination countries
-            svg.selectAll(".outflow-country")
-                .data(outflow_countries)
-                .enter()
-                // .append("g")
-                .append("circle")
-                .classed("outflow-country", true)
-                .attr("r", dd => radius_scale(dd.flow))
-                .attr("cx", 0)
-                .attr("cy", 0)
-                .attr("transform", function(dd) {
-                    // get destination country
-                    let dest_country = countries_and_centroids.find((ddd) => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
-
-                    return "translate(" + dest_country.centroid + ")";
-                });
-        }
-    } // end of "on click"
-=======
->>>>>>> master
 } // end of class WorldMapPlot
 
+
+function setupWorldMapSelectionControls(world_map_object) {
+    // Creating data for Select Destination Country menu
+    var countries_data = []
+    for (i = 0; i < world_map_object.country_names.length; i++) {
+        countries_data.push({
+            country: world_map_object.country_names[i],
+        })
+    }
+
+    // Setting up the dropdown menu for Destination Country selection
+    let countrySelect = dc.selectMenu('#world_map_countries');
+    var ndx = crossfilter(countries_data);
+    var countryDimension = ndx.dimension(function(d) {
+        return d.country
+    });
+
+    countrySelect
+        .dimension(countryDimension)
+        .group(countryDimension.group())
+        .multiple(false)
+        .title(function(d) {
+            return d.key;
+        })
+        .numberVisible(null)
+        .promptText('All Countries')
+        .promptValue(null);
+
+    // Add styling to the dropdown menu
+    countrySelect.on('pretransition', function(chart) {
+        // add styling to select input
+        d3.select('#routes').classed('dc-chart', false);
+        // use Bootstrap styling
+        chart.select('select').classed('form-control', true);
+    });
+
+    // Add functionality on country selection
+    countrySelect.on('filtered', function(chart, filter) {
+        if (filter != null) {
+            world_map_object.removePreviousSelections();
+            world_map_object.selected_country = self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter));
+            world_map_object.displaySelectedCountries();
+        } else {
+            // otherwise, show the last selected country
+        }
+    });
+
+    // Render the two dropdown menus
+    dc.renderAll();
+
+    d3.selectAll(".gender_cb").on("change", function() {
+        world_map_object.removePreviousSelections();
+        if (d3.select("#male_checkbox").property("checked")) {
+            world_map_object.selected_gender = 'm';
+        } else if (d3.select("#female_checkbox").property("checked")) {
+            world_map_object.selected_gender = 'f';
+        } else {
+            world_map_object.selected_gender = 'b';
+        }
+        world_map_object.displaySelectedCountries();
+    });
+
+    d3.selectAll(".flow_cb").on("change", function() {
+        world_map_object.removePreviousSelections();
+        if (d3.select("#inflow_cb").property("checked")) {
+            world_map_object.inflow_bool = true;
+        } else {
+            world_map_object.inflow_bool = false;
+        }
+        world_map_object.displaySelectedCountries();
+    });
+
+    d3.selectAll(".normalize_flow").on("change", function() {
+        world_map_object.removePreviousSelections();
+        if (d3.select("#yes_normalize").property("checked")) {
+            world_map_object.normalized_bool = true;
+        } else {
+            world_map_object.normalized_bool = false;
+        }
+        world_map_object.displaySelectedCountries();
+    });
+}
 
 function whenDocumentLoaded(action) {
     if (document.readyState === "loading") {
@@ -435,8 +375,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
     world_map = new WorldMapPlot(data, country_codes_and_names, flows, pop);
     // Display countries
     world_map.displayCountries();
-    // Get results from  filter selections
-    world_map.handleFilter();
+    setupWorldMapSelectionControls(world_map);
 } // end of function `ready`
 
 whenDocumentLoaded(() => {

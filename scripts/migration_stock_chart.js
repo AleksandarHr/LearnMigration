@@ -234,7 +234,7 @@ class MigrationStockChart {
 /*
   A function to handle user menu selections (e.g. destination country and year)
 */
-function setupSelectionControls(chart_object) {
+function setupBarChartSelectionControls(chart_object) {
 
     // Creating data for Select Destination Country menu
     var countries_data = []
@@ -454,7 +454,7 @@ function bar_chart_ready(error, stock_data) {
     // Create a bar chart
     var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data);
     // Setup selection controls (e.g. dropdown select menus)
-    setupSelectionControls(migrationStockChart);
+    setupBarChartSelectionControls(migrationStockChart);
     // Bind hover functionality for the bar chart
     onBarChartHover(migrationStockChart)
 }

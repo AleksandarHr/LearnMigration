@@ -169,8 +169,10 @@ class WorldMapPlot {
         // REMOVE PRIOR SELECTION
         self = this;
         // remove prior selection if any
-        d3version4.selectAll(".selected").classed("selected", false);
+        self.map.selectAll(".selected").remove()
+        self.map.selectAll(".selected").classed("selected", false);
         // remove previously selected country's circle
+        self.map.selectAll(".selected-country-circle").remove()
         self.map.selectAll(".selected-country-circle").classed("selected-country-circle", false);
         // remove circles identifying previously selected flowing countries
         let flow_class = self.inflow_bool ? "inflow-country" : "outflow-country";
@@ -305,7 +307,7 @@ function setupWorldMapSelectionControls(world_map_object) {
     // Add styling to the dropdown menu
     countrySelect.on('pretransition', function(chart) {
         // add styling to select input
-        d3.select('#routes').classed('dc-chart', false);
+        d3.select('#world_map_countries').classed('dc-chart', false);
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });

@@ -1,5 +1,5 @@
-// const prefix = "../LearnMigration/"
-const prefix = "../"
+const prefix = "../LearnMigration/"
+// const prefix = "../"
 const country_codes_and_names_path = prefix + "data/country_codes_and_names.json"
 const migflow_gender_path = prefix + "data/migflows_gender_separated_1990_2015_filtered_without0flows.csv"
 const pop_path = prefix + "data/pop.csv"

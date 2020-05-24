@@ -355,7 +355,8 @@ function setupWorldMapSelectionControls(world_map_object) {
         }
         world_map_object.displaySelectedCountries();
     });
-}
+} // end of function setupWorldMapSelectionControls
+
 
 function whenDocumentLoaded(action) {
     if (document.readyState === "loading") {

@@ -420,7 +420,7 @@ function renderSankey(graph) {
     // http://jonathansoma.com/tutorials/d3/color-scale-examples/
     let color = d3.scale.ordinal().domain(nodeNames).range(colorbrewer.Dark2[8]);
     let quantile = d3.quantile(valueRange, p);
-    console.log("The " + p + " quantile value is: " + quantile);
+    // console.log("The " + p + " quantile value is: " + quantile);
 
     sankey
         .nodes(graph.nodes)

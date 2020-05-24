@@ -37,3 +37,8 @@ function hideDetail() {
     // hide tooltip
     return tooltip.style("visibility", "hidden");
 }
+
+// Collapse navbar dropdown when clicking on an item from it
+$('.navbar-collapse a').click(function(){
+	$(".navbar-collapse").collapse('hide');
+});

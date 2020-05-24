@@ -43,7 +43,7 @@ let dashboardHeight = getSize().height;
 let headerHeight = document.querySelector('#title').offsetHeight;
 let footerHeight = document.querySelector('#source > footnote').offsetHeight;
 
-let height = (dashboardHeight - headerHeight - footerHeight) * 6 / 9;
+let height = (dashboardHeight - headerHeight - footerHeight);
 
 width = (document.querySelector('#flow').offsetWidth - 16);
 

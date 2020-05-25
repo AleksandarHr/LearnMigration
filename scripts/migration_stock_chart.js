@@ -109,12 +109,11 @@ class MigrationStockChart {
     */
     renderChart(self) {
         var me = self;
-
         // Update d3 elements with new data
         var bars_male = this.chart.selectAll(".rect.male").data(me.male_stock_numbers);
         var bars_female = this.chart.selectAll(".rect.female").data(me.female_stock_numbers);
-        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers)
-        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers)
+        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers);
+        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers);
 
         // Remove old chart
         this.chart.selectAll("*").remove();
@@ -334,6 +333,10 @@ function setupBarChartSelectionControls(chart_object) {
     dc.renderAll();
 }
 
+var formatNumber = d3.format(",.0f"), // zero decimal places
+    format = function(d) {
+        return formatNumber(d) + " " + units;
+    };
 
 /*
   A function to define the hover functionality of the barchart - a pop-up dialogue
@@ -377,7 +380,7 @@ function onBarChartHover(chart_object) {
                             showBarChartDetail(e, false, null, null);
                         } else {
                             // Get the respective count from previous year
-                            previous_count = relevant_data[0].InternationalMigrantStocks
+                            previous_count = formatNumber(relevant_data[0].InternationalMigrantStocks)
                         }
                     } else if (e.target.className.baseVal == 'female') {
                         // If the user hovered a феmale bar, get the relevant count
@@ -392,12 +395,12 @@ function onBarChartHover(chart_object) {
                             showBarChartDetail(e, false, null, null);
                         } else {
                             // Get the respective count from previous year
-                            previous_count = relevant_data[0].InternationalMigrantStocks
+                            previous_count = formatNumber(relevant_data[0].InternationalMigrantStocks)
                         }
                     }
 
                     // Get the current count of the hovered bar
-                    let hovered_count = d3.select(e.target).data()[0];
+                    let hovered_count = formatNumber(d3.select(e.target).data()[0]);
 
                     // Display the actual pop-up dialogue
                     showBarChartDetail(e, true, hovered_count, previous_count);

@@ -12,6 +12,7 @@ class WorldMapPlot {
         this.country_names = [];
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
+        this.all_years = Array.from([...new Set(this.flows.map(x => x.year0))]).sort();
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -36,7 +37,6 @@ class WorldMapPlot {
         this.inflow_bool = false;
         this.normalized_bool = false;
         this.selected_country = null;
-        this.filtered_countries = null;
 
         // set scales
         // logarithmic scale for the radius of the flowing countries
@@ -159,7 +159,6 @@ class WorldMapPlot {
             .on("click", function(d) {
                 self.removePreviousSelections();
                 self.selected_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-                self.filtered_countries = null;
                 self.displaySelectedCountries();
             }) // end of "on click"
     }
@@ -189,15 +188,6 @@ class WorldMapPlot {
         this.removePreviousSelections();
         if (self.selected_country != null) {
             self.drawCountriesFlow();
-        } else {
-            for (var i = 0; i < self.filtered_countries.length; i++) {
-                // get country name
-                // console.log(countries_and_centroids.find(x => x.name == "Somalia"));
-                self.selected_country = self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(self.filtered_countries[i]));
-                // console.log("You selected the country: \n" + selected_country.country.name);
-
-                self.drawCountriesFlow()
-            }
         }
     }
 
@@ -276,7 +266,7 @@ class WorldMapPlot {
 
 
 function setupWorldMapSelectionControls(world_map_object) {
-    // Creating data for Select Destination Country menu
+    // Creating data for Select Country menu
     var countries_data = []
     for (i = 0; i < world_map_object.country_names.length; i++) {
         countries_data.push({
@@ -309,6 +299,14 @@ function setupWorldMapSelectionControls(world_map_object) {
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });
+
+    // Creating data for Select Country menu
+    var years_data = []
+    for (i = 0; i < world_map_object.all_years.length; i++) {
+        years_data.push({
+            year: world_map_object.all_years[i],
+        })
+    }
 
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {

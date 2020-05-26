@@ -16,7 +16,9 @@
 /* define style of classes */
 .world-map_svg {
     /* background: red; */
-    background: #8a8a8a;
+    /* background: black; */
+    background: #62626b;
+    /* background: #8a8a8a; */
     /* position: relative; */
     /* z-index: 0; */
     /* background: white; */
@@ -24,9 +26,11 @@
 
 
 .country {
-    stroke: white;
+    /* stroke: white; */
+	stroke: black;
     stroke-opacity: 0.25;
     stroke-width: 1.0;
+    /* stroke-width: 1.0; */
 }
 
 .hovered {

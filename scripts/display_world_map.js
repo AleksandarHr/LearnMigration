@@ -46,8 +46,11 @@ class WorldMapPlot {
             .range([0, 30]);
 
 		// Define color scales for migration flow's choropleth
-        this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateOranges);
-        this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolatePurples);
+        this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateYlGn);
+        // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateReds);
+        this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolateGnBu);
+        // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateOranges);
+        // this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolatePurples);
         // this.outflow_color_scale = d3version4.scaleSequential(["blue", "purple"]);
 		// this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 100]);
 		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 100]);
@@ -153,26 +156,26 @@ class WorldMapPlot {
                 self.map.selectAll(".arc_hovered")
                     .remove();
 
-                // display arcs
-                let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
-                self.map.selectAll(".arc_hovered")
-                    .data(flowing_countries)
-                    .enter()
-                    .append("path")
-                    .classed("arc_hovered", true)
-                    .attr("d", dd => {
-                        let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-                        let x_0 = hovered_country.centroid[0];
-                        let x_1 = dest_country.centroid[0];
-                        let y_0 = hovered_country.centroid[1];
-                        let y_1 = dest_country.centroid[1];
-                        let dx = x_1 - x_0;
-                        let dy = y_1 - y_0;
-                        let bend_factor = 10;
-                        let eucl_dist = Math.sqrt(dx * dx + dy * dy);
-                        let dr = eucl_dist * bend_factor;
-                        return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
-                    });
+                // // display arcs
+                // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
+                // self.map.selectAll(".arc_hovered")
+                //     .data(flowing_countries)
+                //     .enter()
+                //     .append("path")
+                //     .classed("arc_hovered", true)
+                //     .attr("d", dd => {
+                //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
+                //         let x_0 = hovered_country.centroid[0];
+                //         let x_1 = dest_country.centroid[0];
+                //         let y_0 = hovered_country.centroid[1];
+                //         let y_1 = dest_country.centroid[1];
+                //         let dx = x_1 - x_0;
+                //         let dy = y_1 - y_0;
+                //         let bend_factor = 10;
+                //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
+                //         let dr = eucl_dist * bend_factor;
+                //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
+                //     });
 
             })
             .on("mouseout", function(d) {
@@ -313,26 +316,26 @@ class WorldMapPlot {
         // console.log(countries_and_centroids.find(ddd => ddd.country.numeric == outflow_countries[0].dest_code.padStart(3, "0")));
         // let dest_country = countries_and_centroids.find((ddd) => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
 
-        // display arcs
-        let arc_class = self.inflow_bool ? "arc_in" : "arc_out";
-        self.map.selectAll("." + arc_class)
-            .data(flowing_countries)
-            .enter()
-            .append("path")
-            .classed(arc_class, true)
-            .attr("d", dd => {
-                let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-                let x_0 = self.selected_country.centroid[0];
-                let x_1 = dest_country.centroid[0];
-                let y_0 = self.selected_country.centroid[1];
-                let y_1 = dest_country.centroid[1];
-                let dx = x_1 - x_0;
-                let dy = y_1 - y_0;
-                let bend_factor = 10;
-                let eucl_dist = Math.sqrt(dx * dx + dy * dy);
-                let dr = eucl_dist * bend_factor;
-                return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
-            });
+        // // display arcs
+        // let arc_class = self.inflow_bool ? "arc_in" : "arc_out";
+        // self.map.selectAll("." + arc_class)
+        //     .data(flowing_countries)
+        //     .enter()
+        //     .append("path")
+        //     .classed(arc_class, true)
+        //     .attr("d", dd => {
+        //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
+        //         let x_0 = self.selected_country.centroid[0];
+        //         let x_1 = dest_country.centroid[0];
+        //         let y_0 = self.selected_country.centroid[1];
+        //         let y_1 = dest_country.centroid[1];
+        //         let dx = x_1 - x_0;
+        //         let dy = y_1 - y_0;
+        //         let bend_factor = 10;
+        //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
+        //         let dr = eucl_dist * bend_factor;
+        //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
+        //     });
     }
 } // end of class WorldMapPlot
 

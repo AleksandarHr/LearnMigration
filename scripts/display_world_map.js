@@ -12,7 +12,7 @@ class WorldMapPlot {
         this.country_names = [];
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
-        this.all_years = Array.from([...new Set(this.flows.map(x => x.year0))]).sort();
+        this.all_years = Array.from([...new Set(this.flows.map(x => parseInt(x.year0)))]).sort();
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -387,7 +387,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
     // Display countries
     world_map.displayCountries();
     setupWorldMapSelectionControls(world_map);
-    world_map_slider = new Slider("world_map_slider", [1990, 2010], 5, world_map);
+    world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
 } // end of function `ready`
 
 whenDocumentLoaded(() => {

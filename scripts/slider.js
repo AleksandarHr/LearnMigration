@@ -27,9 +27,6 @@ class Slider {
         // array useful for step sliders
         this.rangeValues = d3version4.range(this.range[0], this.range[1], this.step || 1).concat(this.range[1]);
         this.xAxis = d3version4.axisBottom(this.xScale).tickValues(this.rangeValues).tickFormat(function(d) {
-            if (this_slider.viz_object.constructor.name.localeCompare("MigrationStockChart") && d == 2020) {
-                return 2019;
-            }
             return d;
         });
 
@@ -40,9 +37,6 @@ class Slider {
                 this_slider.slider.interrupt();
             }).on('start drag', function() {
                 var selected_year = this_slider.dragged(d3version4.event.x);
-                if (this_slider.viz_object.constructor.name.localeCompare("MigrationStockChart") == 0 && selected_year == 2020) {
-                    selected_year = 2019;
-                }
                 viz_object.updateSelectedYear(selected_year);
             });
 
@@ -66,14 +60,16 @@ class Slider {
         this.trackOverlay = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-overlay')
             .call(drag);
 
-        // initial transition
-        this.slider.transition().duration(750)
-            .tween("drag", function() {
-                var i = d3version4.interpolate(0, 10);
-                return function(t) {
-                    this_slider.dragged(this_slider.xScale(i(t)));
-                }
-            });
+        if (viz_object.constructor.name.localeCompare("MigrationStockChart") == 0) {
+            // initial transition
+            this.slider.transition().duration(750)
+                .tween("drag", function() {
+                  var i = d3version4.interpolate(range[0], viz_object.chosen_year);
+                    return function(t) {
+                        this_slider.dragged(this_slider.xScale(i(t)));
+                    }
+                });
+        }
     }
 
     dragged(value) {
@@ -103,6 +99,8 @@ class Slider {
         }
         // use xVal as drag value
         this.handle.attr('cx', cx);
+        console.log(cx);
+        console.log(xVal);
         return xVal;
     }
 

@@ -96,26 +96,28 @@
     padding-right: 0 !important;
 }
 
-/* PANEL */
-.filter_button {
-    position: absolute;
-    right: 10px;
-    top: 5px;
+/* Slider */
+line.track {
+    stroke-opacity: 0.4;
+    stroke: #000;
+    stroke-width: 10px;
 }
-
-.filter_panel {
-    position: absolute;
-    z-index: 1;
-    background-color: #00CCFF;
-    height: 400px;
-    width: 200px;
+line.track-inset {
+    stroke: steelblue;
+    stroke-width: 8px;
 }
-
-.countries_list {
-	border:2px solid #ccc;
-	width:200px;
-	height: 300px;
-	overflow-y: scroll;
+line.track-overlay {
+    stroke: #ccc;
+    stroke-width: 40px;
+    stroke-opacity: 0;
+    cursor: crosshair;
+}
+.handle {
+    fill: red;
+    stroke: #000;
+}
+line.track-overlay, line.track, line.track-inset {
+    stroke-linecap: round;
 }
 
 /* sankey */

@@ -24,7 +24,7 @@ class MigrationStockChart {
 
         // a set of all available destination countries and years
         this.all_countries = Array.from([...new Set(this.stock_data.map(x => x.Destination))]).sort();
-        this.all_years = Array.from([...new Set(this.stock_data.map(x => x.Year))]).sort();
+        this.all_years = Array.from([...new Set(this.stock_data.map(x => parseInt(x.Year)))]).sort();
         this.age_groups = Array.from([...new Set(this.male_stock_data_all.map(d => d.AgeGroup))]);
 
         this.height = 15 * this.bar_height + 30; // # age groups * 20
@@ -32,8 +32,8 @@ class MigrationStockChart {
         this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right + 60;
 
         // Initialize the object with default country and year
-        this.chosen_country = this.all_countries[0];
-        this.chosen_year = this.all_years[0];
+        this.chosen_country = this.all_countries[getRandomInt(0, this.all_countries.length)];
+        this.chosen_year = this.all_years[getRandomInt(0, this.all_years.length)];
 
         // prepare data relevant to current selection
         this.prepareSelectedData();
@@ -62,7 +62,7 @@ class MigrationStockChart {
     }
 
     // Setter for year selection
-    setYear(selected_year) {
+    updateSelectedYear(selected_year) {
         this.chosen_year = selected_year
         this.prepareSelectedData();
         this.renderChart(this);
@@ -109,12 +109,11 @@ class MigrationStockChart {
     */
     renderChart(self) {
         var me = self;
-
         // Update d3 elements with new data
         var bars_male = this.chart.selectAll(".rect.male").data(me.male_stock_numbers);
         var bars_female = this.chart.selectAll(".rect.female").data(me.female_stock_numbers);
-        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers)
-        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers)
+        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers);
+        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers);
 
         // Remove old chart
         this.chart.selectAll("*").remove();
@@ -274,38 +273,38 @@ function setupBarChartSelectionControls(chart_object) {
     countrySelect.filter(chart_object.chosen_country)
 
     // Creating data for Select Year menu
-    var years_data = []
-    for (i = 0; i < chart_object.all_years.length; i++) {
-        years_data.push({
-            country: chart_object.all_years[i]
-        })
-    }
+    // var years_data = []
+    // for (i = 0; i < chart_object.all_years.length; i++) {
+    //     years_data.push({
+    //         country: chart_object.all_years[i]
+    //     })
+    // }
 
     // Setting up the dropdown menu for Year selection
-    let yearSelect = dc.selectMenu('#years_bar_chart');
-    var ndx = crossfilter(years_data);
-    var yearDimension = ndx.dimension(function(d) {
-        return d.country
-    });
-
-    yearSelect
-        .dimension(yearDimension)
-        .group(yearDimension.group())
-        .multiple(false)
-        .numberVisible(null)
-        .title(function(d) {
-            return d.key;
-        })
-        .promptText('Year')
-        .promptValue(null);
+    // let yearSelect = dc.selectMenu('#years_bar_chart');
+    // var ndx = crossfilter(years_data);
+    // var yearDimension = ndx.dimension(function(d) {
+    //     return d.country
+    // });
+    //
+    // yearSelect
+    //     .dimension(yearDimension)
+    //     .group(yearDimension.group())
+    //     .multiple(false)
+    //     .numberVisible(null)
+    //     .title(function(d) {
+    //         return d.key;
+    //     })
+    //     .promptText('Year')
+    //     .promptValue(null);
 
     // Add styling to the dropdown menu
-    yearSelect.on('pretransition', function(chart) {
-        d3.select('#routes').classed('dc-chart', false);
-        // use Bootstrap styling
-        chart.select('select').classed('form-control', true);
-    });
-    yearSelect.filter(chart_object.chosen_year)
+    // yearSelect.on('pretransition', function(chart) {
+    //     d3.select('#routes').classed('dc-chart', false);
+    //     // use Bootstrap styling
+    //     chart.select('select').classed('form-control', true);
+    // });
+    // yearSelect.filter(chart_object.chosen_year)
 
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {
@@ -319,21 +318,20 @@ function setupBarChartSelectionControls(chart_object) {
         }
     });
 
-    yearSelect.on('filtered', function(chart, filter) {
-        if (filter != null) {
-            // if an year was selected, show data for selected year only
-            chart_object.setYear(filter);
-        } else {
-            // otherwise, show the last selected year
-            chart_object.setYear(chart_object.chosen_year);
-            yearSelect.filter(chart_object.chosen_year)
-        }
-    });
+    // yearSelect.on('filtered', function(chart, filter) {
+    //     if (filter != null) {
+    //         // if an year was selected, show data for selected year only
+    //         chart_object.updateSelectedYear(filter);
+    //     } else {
+    //         // otherwise, show the last selected year
+    //         chart_object.updateSelectedYear(chart_object.chosen_year);
+    //         yearSelect.filter(chart_object.chosen_year)
+    //     }
+    // });
 
     // Render the two dropdown menus
     dc.renderAll();
 }
-
 
 /*
   A function to define the hover functionality of the barchart - a pop-up dialogue
@@ -351,12 +349,33 @@ function onBarChartHover(chart_object) {
             if (hovered_year == 1990) {
                 // if the selected year is 1990, there is no previous year's data to compare with
                 //    display "No Information"
-                showBarChartDetail(e, false, null, null);
+                // Find current ratio and current stock number count
+                let hovered_age_group = (chart_object.age_groups[e.target.id])
+                let hovered_country = chart_object.chosen_country
+                let rel_data_ratio = [];
+                if (e.target.className.baseVal == 'male') {
+                    // If the user hovered a male bar, get the relevant count and ratio
+                    rel_data_ratio = chart_object.male_stock_data_all.filter(d =>
+                        d.Destination.localeCompare(hovered_country) == 0 &
+                        d.Year == hovered_year &
+                        d.AgeGroup.localeCompare(hovered_age_group) == 0);
+                    current_ratio = rel_data_ratio[0].ratio
+                } else if (e.target.className.baseVal == 'female') {
+                    // If the user hovered a male bar, get the relevant count and ratio
+                        rel_data_ratio = chart_object.female_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+                        current_ratio = rel_data_ratio[0].ratio
+                    }
+
+                let hovered_count = d3.select(e.target).data()[0];
+                showBarChartDetail(e, false, hovered_count, null, current_ratio);
             } else {
                 // If there is previous year's data
                 let previous_year_index = chart_object.all_years.indexOf(hovered_year) - 1;
                 if (previous_year_index < 0) {
-                    showBarChartDetail(e, false, null, null);
+                    showBarChartDetail(e, false, hovered_count, null, current_ratio);
                 } else {
                     // Gather relevant data - e.g. previous year, hovered age group, hovered country
                     let previous_year = chart_object.all_years[previous_year_index]
@@ -364,6 +383,7 @@ function onBarChartHover(chart_object) {
                     let hovered_country = chart_object.chosen_country
                     let previous_count = 0;
                     let relevant_data = [];
+                    let relevant_data_ratio = [];
                     if (e.target.className.baseVal == 'male') {
                         // If the user hovered a male bar, get the relevant count
                         relevant_data = chart_object.male_stock_data_all.filter(d =>
@@ -371,13 +391,21 @@ function onBarChartHover(chart_object) {
                             d.Year == previous_year &
                             d.AgeGroup.localeCompare(hovered_age_group) == 0);
 
+                        relevant_data_ratio = chart_object.male_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+
                         if (relevant_data.length != 1) {
                             // We only expect one data point, if more - something wrong happened
                             //    show "No Information"
-                            showBarChartDetail(e, false, null, null);
+                            // Get relevant current ratio
+                            current_ratio = relevant_data_ratio[0].ratio
+//                            showBarChartDetail(e, false, null, null, null);
                         } else {
                             // Get the respective count from previous year
                             previous_count = relevant_data[0].InternationalMigrantStocks
+                            current_ratio = relevant_data_ratio[0].ratio
                         }
                     } else if (e.target.className.baseVal == 'female') {
                         // If the user hovered a феmale bar, get the relevant count
@@ -386,21 +414,31 @@ function onBarChartHover(chart_object) {
                             d.Year == previous_year &
                             d.AgeGroup.localeCompare(hovered_age_group) == 0);
 
+                        relevant_data_ratio = chart_object.female_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+
                         if (relevant_data.length != 1) {
                             // We only expect one data point, if more - something wrong happened
                             //    show "No Information"
-                            showBarChartDetail(e, false, null, null);
+                            // get relevant current ratio
+                            current_ratio = relevant_data_ratio[0].ratio
+//                            showBarChartDetail(e, false, null, null, null);
                         } else {
-                            // Get the respective count from previous year
+                            // Get the respective count from previous year and ratio from the current
                             previous_count = relevant_data[0].InternationalMigrantStocks
+                            current_ratio = relevant_data_ratio[0].ratio
                         }
                     }
 
                     // Get the current count of the hovered bar
                     let hovered_count = d3.select(e.target).data()[0];
+                    // Get change w.r.t. previous count which shows the evaluation over the 5 years
+                    let changed_in_count = (hovered_count - previous_count)/previous_count;
 
                     // Display the actual pop-up dialogue
-                    showBarChartDetail(e, true, hovered_count, previous_count);
+                    showBarChartDetail(e, true, hovered_count, changed_in_count, current_ratio);
                 }
             }
         }
@@ -415,15 +453,22 @@ function onBarChartHover(chart_object) {
 /*
   A function to display relevant information in the dialogue pop-up on hover
 */
-function showBarChartDetail(e, prior_information, current_count, previous_count) {
+function showBarChartDetail(e, prior_information, current_count, changed_in_count, current_ratio) {
     var content = "";
     if (!prior_information) {
         // No prior count data
-        content = "<b>" + "No Previous Count Data" + "</b><br/>";
+        content = "<b>" + "No Previous Data" + "</b><br/>";
+        content += "<b>" + "Migrant Stock Number: " + d3.format(",")(current_count) + "</b><br/>";
+        content += "<b>" + "Ratio of Selected Age Group w.r.t. Gender: " + d3.format(".2%")(current_ratio) + "</b><br/>";
     } else {
-        // Display previous and current count data
-        content = "<b>" + "Last Count Data: " + previous_count + "</b><br/>";
-        content += "<b>" + "Current Count Data: " + current_count + "</b><br/>";
+        // Display change w.r.t. previous and current count data, current data, current ratio
+        if (changed_in_count>0){
+            content = "<b>" + "Change over 5 years for the same Age Group: " + "↗ " + d3.format(".2%")(Math.abs(changed_in_count)) + "</b><br/>";
+        } else {
+            content = "<b>" + "Change over 5 years for the same Age Group: " + "↘ " + d3.format(".2%")(Math.abs(changed_in_count)) + "</b><br/>";
+        }
+        content += "<b>" + "Migrant Stock Number: " + d3.format(",")(current_count) + "</b><br/>";
+        content += "<b>" + "Ratio of Selected Age Group w.r.t. Gender: " + d3.format(".2%")(current_ratio) + "</b><br/>";
     }
 
     // Render the pop-up dialogue with relevant information
@@ -452,9 +497,10 @@ function bar_chart_ready(error, stock_data) {
     }
 
     // Create a bar chart
-    var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data);
+    var migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
+    migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart);
     // Setup selection controls (e.g. dropdown select menus)
-    setupBarChartSelectionControls(migrationStockChart);
+    setupBarChartSelectionControls(migration_stock_chart);
     // Bind hover functionality for the bar chart
-    onBarChartHover(migrationStockChart)
+    onBarChartHover(migration_stock_chart)
 }

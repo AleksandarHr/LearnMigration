@@ -14,6 +14,7 @@ class WorldMapPlot {
         this.country_names = [];
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
+        this.all_years = Array.from([...new Set(this.flows.map(x => parseInt(x.year0)))]).sort();
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -21,10 +22,10 @@ class WorldMapPlot {
 
         // set margins
         this.margin = {
-            top: 50,
-            left: 50,
-            right: 50,
-            bottom: 50
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
         };
 
         // set actual height and width (remove margins)
@@ -38,7 +39,6 @@ class WorldMapPlot {
         this.inflow_bool = false;
         this.normalized_bool = false;
         this.selected_country = null;
-        this.filtered_countries = null;
 
         // set scales
         // logarithmic scale for the radius of the flowing countries
@@ -76,7 +76,15 @@ class WorldMapPlot {
         self = this;
         // enable zoom on map
         svg.call(d3version4.zoom()
-            .scaleExtent([1, 15])
+            .extent([
+                [0, 0],
+                [this.width , this.height]
+            ])
+            .scaleExtent([1, 10])
+            .translateExtent([
+                [0, -1*(this.margin.top)],
+                [this.width + this.margin.right, this.height + this.margin.bottom]
+            ])
             .on("zoom", function() {
                 // map.style("stroke-width", 1.5 / d3version4.event.transform.k + "px");
                 // g.attr("transform", "translate(" + d3version4.event.translate + ")scale(" + d3version4.event.scale + ")"); // not in d3version4 v4
@@ -153,6 +161,18 @@ class WorldMapPlot {
 		});
 	}
 
+    updateSelectedCountry(country) {
+        this.removePreviousSelections();
+        this.selected_country = country;
+        this.displaySelectedCountries();
+    }
+
+    updateSelectedYear(year) {
+        this.removePreviousSelections();
+        this.selected_year0 = year;
+        this.displaySelectedCountries();
+    }
+
     // Displaying countries on the map and defining hover/click behavior
     displayCountries() {
         // display countries and define hovering/selecting behavior
@@ -212,10 +232,9 @@ class WorldMapPlot {
                 d3version4.select(this).classed("hovered", false);
             })
             .on("click", function(d) {
-                self.removePreviousSelections();
-                self.selected_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-                self.filtered_countries = null;
-                self.displaySelectedCountries();
+                // self.removePreviousSelections();
+                self.updateSelectedCountry(self.countries_and_centroids.find(dd => dd.country.numeric == d.id));
+                // self.displaySelectedCountries();
             }) // end of "on click"
     }
 
@@ -246,15 +265,6 @@ class WorldMapPlot {
         this.removePreviousSelections();
         if (self.selected_country != null) {
             self.drawCountriesFlow();
-        } else {
-            for (var i = 0; i < self.filtered_countries.length; i++) {
-                // get country name
-                // console.log(countries_and_centroids.find(x => x.name == "Somalia"));
-                self.selected_country = self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(self.filtered_countries[i]));
-                // console.log("You selected the country: \n" + selected_country.country.name);
-
-                self.drawCountriesFlow()
-            }
         }
     }
 
@@ -343,7 +353,7 @@ class WorldMapPlot {
 
 
 function setupWorldMapSelectionControls(world_map_object) {
-    // Creating data for Select Destination Country menu
+    // Creating data for Select Country menu
     var countries_data = []
     for (i = 0; i < world_map_object.country_names.length; i++) {
         countries_data.push({
@@ -377,12 +387,20 @@ function setupWorldMapSelectionControls(world_map_object) {
         chart.select('select').classed('form-control', true);
     });
 
+    // Creating data for Select Country menu
+    var years_data = []
+    for (i = 0; i < world_map_object.all_years.length; i++) {
+        years_data.push({
+            year: world_map_object.all_years[i],
+        })
+    }
+
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
-            world_map_object.removePreviousSelections();
-            world_map_object.selected_country = self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter));
-            world_map_object.displaySelectedCountries();
+            // world_map_object.removePreviousSelections();
+            world_map_object.updateSelectedCountry(self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter)));
+            // world_map_object.displaySelectedCountries();
         } else {
             // otherwise, show the last selected country
         }
@@ -444,6 +462,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
     // Display countries
     world_map.displayCountries();
     setupWorldMapSelectionControls(world_map);
+    world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
 } // end of function `ready`
 
 whenDocumentLoaded(() => {

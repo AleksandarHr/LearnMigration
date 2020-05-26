@@ -1,0 +1,105 @@
+class Slider {
+    constructor(element_id, range, step, viz_object) {
+        var margin = {
+            left: 30,
+            right: 30
+        };
+        var width = 860;
+        var height = 40;
+        this.range = range;
+        this.step = step;
+        this.viz_object = viz_object;
+
+        var svg = d3version4.select('#' + element_id).append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        this.slider = svg.append('g')
+            .classed('slider', true)
+            .attr('transform', 'translate(' + margin.left + ', ' + (height / 2) + ')');
+
+        // using clamp here to avoid slider exceeding the range limits
+        this.xScale = d3version4.scaleLinear()
+            .domain(this.range)
+            .range([0, width - margin.left - margin.right])
+            .clamp(true);
+
+        // array useful for step sliders
+        this.rangeValues = d3version4.range(this.range[0], this.range[1], this.step || 1).concat(this.range[1]);
+        this.xAxis = d3version4.axisBottom(this.xScale).tickValues(this.rangeValues).tickFormat(function(d) {
+            return d;
+        });
+
+        var this_slider = this;
+        // drag behavior initialization
+        var drag = d3version4.drag()
+            .on('start.interrupt', function() {
+                this_slider.slider.interrupt();
+            }).on('start drag', function() {
+                var selected_year = this_slider.dragged(d3version4.event.x);
+                viz_object.updateSelectedYear(selected_year);
+            });
+
+        // this is the main bar with a stroke (applied through CSS)
+        var track = this.slider.append('line').attr('class', 'track')
+            .attr('x1', this.xScale.range()[0])
+            .attr('x2', this.xScale.range()[1]);
+
+        // this is a bar (steelblue) that's inside the main "track" to make it look like a rect with a border
+        var trackInset = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-inset');
+
+        var ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
+            .call(this.xAxis);
+
+        // drag handle
+        this.handle = this.slider.append('circle').classed('handle', true)
+            .attr('r', 8);
+
+        // this is the bar on top of above tracks with stroke = transparent and on which the drag behaviour is actually called
+        // try removing above 2 tracks and play around with the CSS for this track overlay, you'll see the difference
+        this.trackOverlay = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-overlay')
+            .call(drag);
+
+        if (viz_object.constructor.name.localeCompare("MigrationStockChart") == 0) {
+            // initial transition
+            this.slider.transition().duration(750)
+                .tween("drag", function() {
+                  var i = d3version4.interpolate(range[0], viz_object.chosen_year);
+                    return function(t) {
+                        this_slider.dragged(this_slider.xScale(i(t)));
+                    }
+                });
+        }
+    }
+
+    dragged(value) {
+        var x = this.xScale.invert(value),
+            index = null,
+            midPoint, cx, xVal;
+        if (this.step) {
+            // if step has a value, compute the midpoint based on range values and reposition the slider based on the mouse position
+            for (var i = 0; i < this.rangeValues.length - 1; i++) {
+                if (x >= this.rangeValues[i] && x <= this.rangeValues[i + 1]) {
+                    index = i;
+                    break;
+                }
+            }
+            midPoint = (this.rangeValues[index] + this.rangeValues[index + 1]) / 2;
+            if (x < midPoint) {
+                cx = this.xScale(this.rangeValues[index]);
+                xVal = this.rangeValues[index];
+            } else {
+                cx = this.xScale(this.rangeValues[index + 1]);
+                xVal = this.rangeValues[index + 1];
+            }
+        } else {
+            // if step is null or 0, return the drag value as is
+            cx = this.xScale(x);
+            xVal = x.toFixed(3);
+        }
+        // use xVal as drag value
+        this.handle.attr('cx', cx);
+        return xVal;
+    }
+
+}

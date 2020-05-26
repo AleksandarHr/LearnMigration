@@ -24,7 +24,7 @@ class MigrationStockChart {
 
         // a set of all available destination countries and years
         this.all_countries = Array.from([...new Set(this.stock_data.map(x => x.Destination))]).sort();
-        this.all_years = Array.from([...new Set(this.stock_data.map(x => x.Year))]).sort();
+        this.all_years = Array.from([...new Set(this.stock_data.map(x => parseInt(x.Year)))]).sort();
         this.age_groups = Array.from([...new Set(this.male_stock_data_all.map(d => d.AgeGroup))]);
 
         this.height = 15 * this.bar_height + 30; // # age groups * 20
@@ -32,8 +32,8 @@ class MigrationStockChart {
         this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right + 60;
 
         // Initialize the object with default country and year
-        this.chosen_country = this.all_countries[0];
-        this.chosen_year = this.all_years[0];
+        this.chosen_country = this.all_countries[getRandomInt(0, this.all_countries.length)];
+        this.chosen_year = this.all_years[getRandomInt(0, this.all_years.length)];
 
         // prepare data relevant to current selection
         this.prepareSelectedData();
@@ -456,7 +456,7 @@ function bar_chart_ready(error, stock_data) {
 
     // Create a bar chart
     var migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
-    migration_chart_slider = new Slider("migration_stock_slider", [1990, 2020], 5, migration_stock_chart);
+    migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart);
     // Setup selection controls (e.g. dropdown select menus)
     setupBarChartSelectionControls(migration_stock_chart);
     // Bind hover functionality for the bar chart

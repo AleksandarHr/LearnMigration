@@ -12,7 +12,7 @@ class WorldMapPlot {
         this.country_names = [];
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
-        this.all_years = Array.from([...new Set(this.flows.map(x => x.year0))]).sort();
+        this.all_years = Array.from([...new Set(this.flows.map(x => parseInt(x.year0)))]).sort();
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -20,10 +20,10 @@ class WorldMapPlot {
 
         // set margins
         this.margin = {
-            top: 50,
-            left: 50,
-            right: 50,
-            bottom: 50
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
         };
 
         // set actual height and width (remove margins)
@@ -57,7 +57,15 @@ class WorldMapPlot {
         self = this;
         // enable zoom on map
         svg.call(d3version4.zoom()
-            .scaleExtent([1, 15])
+            .extent([
+                [0, 0],
+                [this.width , this.height]
+            ])
+            .scaleExtent([1, 10])
+            .translateExtent([
+                [0, -1*(this.margin.top)],
+                [this.width + this.margin.right, this.height + this.margin.bottom]
+            ])
             .on("zoom", function() {
                 // map.style("stroke-width", 1.5 / d3version4.event.transform.k + "px");
                 // g.attr("transform", "translate(" + d3version4.event.translate + ")scale(" + d3version4.event.scale + ")"); // not in d3version4 v4
@@ -105,15 +113,15 @@ class WorldMapPlot {
     }
 
     updateSelectedCountry(country) {
-      this.removePreviousSelections();
-      this.selected_country = country;
-      this.displaySelectedCountries();
+        this.removePreviousSelections();
+        this.selected_country = country;
+        this.displaySelectedCountries();
     }
 
     updateSelectedYear(year) {
-      this.removePreviousSelections();
-      this.selected_year0 = year;
-      this.displaySelectedCountries();
+        this.removePreviousSelections();
+        this.selected_year0 = year;
+        this.displaySelectedCountries();
     }
 
     // Displaying countries on the map and defining hover/click behavior
@@ -387,7 +395,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
     // Display countries
     world_map.displayCountries();
     setupWorldMapSelectionControls(world_map);
-    world_map_slider = new Slider("world_map_slider", [1990, 2010], 5, world_map);
+    world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
 } // end of function `ready`
 
 whenDocumentLoaded(() => {

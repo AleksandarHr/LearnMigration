@@ -333,11 +333,6 @@ function setupBarChartSelectionControls(chart_object) {
     dc.renderAll();
 }
 
-var formatNumber = d3.format(",.0f"), // zero decimal places
-    format = function(d) {
-        return formatNumber(d) + " " + units;
-    };
-
 /*
   A function to define the hover functionality of the barchart - a pop-up dialogue
     with comparative information about the hovered gender/age-group pair for the selected
@@ -354,12 +349,33 @@ function onBarChartHover(chart_object) {
             if (hovered_year == 1990) {
                 // if the selected year is 1990, there is no previous year's data to compare with
                 //    display "No Information"
-                showBarChartDetail(e, false, null, null);
+                // Find current ratio and current stock number count
+                let hovered_age_group = (chart_object.age_groups[e.target.id])
+                let hovered_country = chart_object.chosen_country
+                let rel_data_ratio = [];
+                if (e.target.className.baseVal == 'male') {
+                    // If the user hovered a male bar, get the relevant count and ratio
+                    rel_data_ratio = chart_object.male_stock_data_all.filter(d =>
+                        d.Destination.localeCompare(hovered_country) == 0 &
+                        d.Year == hovered_year &
+                        d.AgeGroup.localeCompare(hovered_age_group) == 0);
+                    current_ratio = rel_data_ratio[0].ratio
+                } else if (e.target.className.baseVal == 'female') {
+                    // If the user hovered a male bar, get the relevant count and ratio
+                        rel_data_ratio = chart_object.female_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+                        current_ratio = rel_data_ratio[0].ratio
+                    }
+
+                let hovered_count = d3.select(e.target).data()[0];
+                showBarChartDetail(e, false, hovered_count, null, current_ratio);
             } else {
                 // If there is previous year's data
                 let previous_year_index = chart_object.all_years.indexOf(hovered_year) - 1;
                 if (previous_year_index < 0) {
-                    showBarChartDetail(e, false, null, null);
+                    showBarChartDetail(e, false, hovered_count, null, current_ratio);
                 } else {
                     // Gather relevant data - e.g. previous year, hovered age group, hovered country
                     let previous_year = chart_object.all_years[previous_year_index]
@@ -367,6 +383,7 @@ function onBarChartHover(chart_object) {
                     let hovered_country = chart_object.chosen_country
                     let previous_count = 0;
                     let relevant_data = [];
+                    let relevant_data_ratio = [];
                     if (e.target.className.baseVal == 'male') {
                         // If the user hovered a male bar, get the relevant count
                         relevant_data = chart_object.male_stock_data_all.filter(d =>
@@ -374,13 +391,21 @@ function onBarChartHover(chart_object) {
                             d.Year == previous_year &
                             d.AgeGroup.localeCompare(hovered_age_group) == 0);
 
+                        relevant_data_ratio = chart_object.male_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+
                         if (relevant_data.length != 1) {
                             // We only expect one data point, if more - something wrong happened
                             //    show "No Information"
-                            showBarChartDetail(e, false, null, null);
+                            // Get relevant current ratio
+                            current_ratio = relevant_data_ratio[0].ratio
+//                            showBarChartDetail(e, false, null, null, null);
                         } else {
                             // Get the respective count from previous year
-                            previous_count = formatNumber(relevant_data[0].InternationalMigrantStocks)
+                            previous_count = relevant_data[0].InternationalMigrantStocks
+                            current_ratio = relevant_data_ratio[0].ratio
                         }
                     } else if (e.target.className.baseVal == 'female') {
                         // If the user hovered a феmale bar, get the relevant count
@@ -389,21 +414,31 @@ function onBarChartHover(chart_object) {
                             d.Year == previous_year &
                             d.AgeGroup.localeCompare(hovered_age_group) == 0);
 
+                        relevant_data_ratio = chart_object.female_stock_data_all.filter(d =>
+                            d.Destination.localeCompare(hovered_country) == 0 &
+                            d.Year == hovered_year &
+                            d.AgeGroup.localeCompare(hovered_age_group) == 0);
+
                         if (relevant_data.length != 1) {
                             // We only expect one data point, if more - something wrong happened
                             //    show "No Information"
-                            showBarChartDetail(e, false, null, null);
+                            // get relevant current ratio
+                            current_ratio = relevant_data_ratio[0].ratio
+//                            showBarChartDetail(e, false, null, null, null);
                         } else {
-                            // Get the respective count from previous year
-                            previous_count = formatNumber(relevant_data[0].InternationalMigrantStocks)
+                            // Get the respective count from previous year and ratio from the current
+                            previous_count = relevant_data[0].InternationalMigrantStocks
+                            current_ratio = relevant_data_ratio[0].ratio
                         }
                     }
 
                     // Get the current count of the hovered bar
-                    let hovered_count = formatNumber(d3.select(e.target).data()[0]);
+                    let hovered_count = d3.select(e.target).data()[0];
+                    // Get change w.r.t. previous count which shows the evaluation over the 5 years
+                    let changed_in_count = (hovered_count - previous_count)/previous_count;
 
                     // Display the actual pop-up dialogue
-                    showBarChartDetail(e, true, hovered_count, previous_count);
+                    showBarChartDetail(e, true, hovered_count, changed_in_count, current_ratio);
                 }
             }
         }
@@ -418,15 +453,22 @@ function onBarChartHover(chart_object) {
 /*
   A function to display relevant information in the dialogue pop-up on hover
 */
-function showBarChartDetail(e, prior_information, current_count, previous_count) {
+function showBarChartDetail(e, prior_information, current_count, changed_in_count, current_ratio) {
     var content = "";
     if (!prior_information) {
         // No prior count data
-        content = "<b>" + "No Previous Count Data" + "</b><br/>";
+        content = "<b>" + "No Previous Data" + "</b><br/>";
+        content += "<b>" + "Migrant Stock Number: " + d3.format(",")(current_count) + "</b><br/>";
+        content += "<b>" + "Ratio of Selected Age Group w.r.t. Gender: " + d3.format(".2%")(current_ratio) + "</b><br/>";
     } else {
-        // Display previous and current count data
-        content = "<b>" + "Last Count Data: " + previous_count + "</b><br/>";
-        content += "<b>" + "Current Count Data: " + current_count + "</b><br/>";
+        // Display change w.r.t. previous and current count data, current data, current ratio
+        if (changed_in_count>0){
+            content = "<b>" + "Change over 5 years for the same Age Group: " + "↗ " + d3.format(".2%")(Math.abs(changed_in_count)) + "</b><br/>";
+        } else {
+            content = "<b>" + "Change over 5 years for the same Age Group: " + "↘ " + d3.format(".2%")(Math.abs(changed_in_count)) + "</b><br/>";
+        }
+        content += "<b>" + "Migrant Stock Number: " + d3.format(",")(current_count) + "</b><br/>";
+        content += "<b>" + "Ratio of Selected Age Group w.r.t. Gender: " + d3.format(".2%")(current_ratio) + "</b><br/>";
     }
 
     // Render the pop-up dialogue with relevant information

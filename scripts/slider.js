@@ -99,8 +99,6 @@ class Slider {
         }
         // use xVal as drag value
         this.handle.attr('cx', cx);
-        console.log(cx);
-        console.log(xVal);
         return xVal;
     }
 

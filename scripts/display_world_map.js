@@ -104,6 +104,18 @@ class WorldMapPlot {
             .find(d => d.alpha3 == country.country.iso_a3).pop;
     }
 
+    updateSelectedCountry(country) {
+      this.removePreviousSelections();
+      this.selected_country = country;
+      this.displaySelectedCountries();
+    }
+
+    updateSelectedYear(year) {
+      this.removePreviousSelections();
+      this.selected_year0 = year;
+      this.displaySelectedCountries();
+    }
+
     // Displaying countries on the map and defining hover/click behavior
     displayCountries() {
         // display countries and define hovering/selecting behavior
@@ -157,9 +169,9 @@ class WorldMapPlot {
                 d3version4.select(this).classed("hovered", false);
             })
             .on("click", function(d) {
-                self.removePreviousSelections();
-                self.selected_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-                self.displaySelectedCountries();
+                // self.removePreviousSelections();
+                self.updateSelectedCountry(self.countries_and_centroids.find(dd => dd.country.numeric == d.id));
+                // self.displaySelectedCountries();
             }) // end of "on click"
     }
 
@@ -311,9 +323,9 @@ function setupWorldMapSelectionControls(world_map_object) {
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
-            world_map_object.removePreviousSelections();
-            world_map_object.selected_country = self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter));
-            world_map_object.displaySelectedCountries();
+            // world_map_object.removePreviousSelections();
+            world_map_object.updateSelectedCountry(self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter)));
+            // world_map_object.displaySelectedCountries();
         } else {
             // otherwise, show the last selected country
         }
@@ -375,6 +387,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop) {
     // Display countries
     world_map.displayCountries();
     setupWorldMapSelectionControls(world_map);
+    world_map_slider = new Slider("world_map_slider", [1990, 2010], 5, world_map);
 } // end of function `ready`
 
 whenDocumentLoaded(() => {

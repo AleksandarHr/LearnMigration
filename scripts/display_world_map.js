@@ -143,7 +143,7 @@ class WorldMapPlot {
 		let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
 		self.countries.forEach(d => {
 			// console.log("update flow");
-			let country = flowing_countries.find(dd => dd[country_id_field_name] == d['id']);
+			let country = flowing_countries.find(dd => dd[country_id_field_name].padStart(3, "0") == d['id']);
 
 			if (country != undefined) {
 				d.flow = country['flow'];

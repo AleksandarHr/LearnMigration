@@ -45,6 +45,18 @@ class WorldMapPlot {
             .constant(0.01)
             .range([0, 30]);
 
+		// Define color scales for migration flow's choropleth
+        this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateOranges);
+        this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolatePurples);
+        // this.outflow_color_scale = d3version4.scaleSequential(["blue", "purple"]);
+		// this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 100]);
+		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 100]);
+		// this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 2.83e6]);
+		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 2.83e6]);
+		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateBlues).domain([0, 2.83e6]);
+		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
+		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
+
         // construct world map's svg
         var svg = d3version4.select("#world-map")
             .append("svg")
@@ -82,6 +94,9 @@ class WorldMapPlot {
                 "centroid": this.path.centroid(country)
             });
         });
+		console.log(this.countries);
+		// add a flow field to each country from countries
+		this.countries.forEach(d => d.flow = 0.0);
     } // end of constructor
 
     try_call() {
@@ -108,12 +123,19 @@ class WorldMapPlot {
     displayCountries() {
         // display countries and define hovering/selecting behavior
         self = this;
+
+		// get correct scale corresponding to in/out flow
+		let color_scale = self.inflow_bool ? self.inflow_color_scale : self.outflow_color_scale;
+
+		console.log(self.inflow_bool);
         self.map.append("g").selectAll(".country")
             .data(self.countries)
             .enter()
             .append("path")
             .attr("class", "country")
             .attr("d", self.path)
+			.attr("fill", d => color_scale(d.flow))
+			// .attr("fill", d => self.outflow_color_scale(d.flow))
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
 
@@ -203,6 +225,34 @@ class WorldMapPlot {
         }
     }
 
+	resetCountriesFlow() {
+		self = this;
+		self.countries.forEach(d => d.flow = 0);
+	}
+
+	updateCountriesFlow(flowing_countries) {
+		self = this;
+		let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
+		self.countries.forEach(d => {
+			// console.log("update flow");
+			let country = flowing_countries.find(dd => dd[country_id_field_name] == d['id']);
+
+			if (country != undefined) {
+				d.flow = country['flow'];
+			}
+		});
+	}
+
+	print_countries_flow() {
+		self = this;
+		this.countries.forEach(d => {
+			let country = self.country_codes_and_names.find(dd => dd['numeric'] == d['id']);
+			if (country != undefined) {
+				console.log(country['name'] + ", flow = " + d.flow);
+			}
+		});
+	}
+
     // Draws selected countries and their respective flow data
     drawCountriesFlow() {
         self = this;
@@ -216,6 +266,16 @@ class WorldMapPlot {
         // compute outflowing countries from selected country
         let flowing_countries = self.getFlowingCountries(self.selected_country);
         // console.log(flowing_countries);
+
+		// update countries' flow variable
+		console.log(flowing_countries);
+		// self.resetCountriesFlow();
+		self.resetCountriesFlow();
+		self.updateCountriesFlow(flowing_countries);
+
+		// display updated colors on map
+		self.displayCountries();
+		self.print_countries_flow();
 
         // get country population
         let selected_country_population = self.getCountryPopulation(self.selected_country);

@@ -38,6 +38,14 @@ function hideDetail() {
     return tooltip.style("visibility", "hidden");
 }
 
+// Takes care of learnMoreMain button functionality
+$("#learnMoreMain").click(function() {
+	$('html,body').animate({
+		scrollTop: $("#Abstract").offset().top
+	},
+		'slow');
+});
+
 // Collapse navbar dropdown when clicking on an item from it
 $('.navbar-collapse a').click(function(){
 	$(".navbar-collapse").collapse('hide');

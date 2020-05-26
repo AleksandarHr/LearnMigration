@@ -8,6 +8,8 @@ class WorldMapPlot {
         this.pop = pop;
         // get countries' topographic data
         this.countries = topojson.feature(this.data, this.data.objects.countries).features;
+		// reset countries' flows
+		this.resetCountriesFlow();
         // compute list of all countries' names for filter selection
         this.country_names = [];
         this.countries_and_centroids = [];
@@ -46,6 +48,8 @@ class WorldMapPlot {
             .range([0, 30]);
 
 		// Define color scales for migration flow's choropleth
+		// yes I tried quite a bunch :P. Here is the website displaying the different chromatic scales:
+		// https://github.com/d3/d3-scale-chromatic
         this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateYlGn);
         // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateReds);
         this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolateGnBu);
@@ -98,8 +102,7 @@ class WorldMapPlot {
             });
         });
 		console.log(this.countries);
-		// add a flow field to each country from countries
-		this.countries.forEach(d => d.flow = 0.0);
+
     } // end of constructor
 
     try_call() {
@@ -122,12 +125,40 @@ class WorldMapPlot {
             .find(d => d.alpha3 == country.country.iso_a3).pop;
     }
 
+	resetCountriesFlow() {
+		self = this;
+		self.countries.forEach(d => d.flow = 0);
+	}
+
+	updateCountriesFlow(flowing_countries) {
+		self = this;
+		let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
+		self.countries.forEach(d => {
+			// console.log("update flow");
+			let country = flowing_countries.find(dd => dd[country_id_field_name] == d['id']);
+
+			if (country != undefined) {
+				d.flow = country['flow'];
+			}
+		});
+	}
+
+	print_countries_flow() {
+		self = this;
+		this.countries.forEach(d => {
+			let country = self.country_codes_and_names.find(dd => dd['numeric'] == d['id']);
+			if (country != undefined) {
+				console.log(country['name'] + ", flow = " + d.flow);
+			}
+		});
+	}
+
     // Displaying countries on the map and defining hover/click behavior
     displayCountries() {
         // display countries and define hovering/selecting behavior
         self = this;
 
-		// get correct scale corresponding to in/out flow
+		// get color scale corresponding to in/out flow
 		let color_scale = self.inflow_bool ? self.inflow_color_scale : self.outflow_color_scale;
 
 		console.log(self.inflow_bool);
@@ -138,7 +169,6 @@ class WorldMapPlot {
             .attr("class", "country")
             .attr("d", self.path)
 			.attr("fill", d => color_scale(d.flow))
-			// .attr("fill", d => self.outflow_color_scale(d.flow))
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
 
@@ -228,57 +258,29 @@ class WorldMapPlot {
         }
     }
 
-	resetCountriesFlow() {
-		self = this;
-		self.countries.forEach(d => d.flow = 0);
-	}
-
-	updateCountriesFlow(flowing_countries) {
-		self = this;
-		let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
-		self.countries.forEach(d => {
-			// console.log("update flow");
-			let country = flowing_countries.find(dd => dd[country_id_field_name] == d['id']);
-
-			if (country != undefined) {
-				d.flow = country['flow'];
-			}
-		});
-	}
-
-	print_countries_flow() {
-		self = this;
-		this.countries.forEach(d => {
-			let country = self.country_codes_and_names.find(dd => dd['numeric'] == d['id']);
-			if (country != undefined) {
-				console.log(country['name'] + ", flow = " + d.flow);
-			}
-		});
-	}
-
     // Draws selected countries and their respective flow data
     drawCountriesFlow() {
         self = this;
-        // display circle at the centroid of selected country
-        self.map.append("circle")
-            .classed("selected-country-circle", true)
-            .attr("r", 4)
-            .attr("cx", self.selected_country.centroid[0])
-            .attr("cy", self.selected_country.centroid[1]);
 
         // compute outflowing countries from selected country
         let flowing_countries = self.getFlowingCountries(self.selected_country);
         // console.log(flowing_countries);
 
 		// update countries' flow variable
-		console.log(flowing_countries);
-		// self.resetCountriesFlow();
+		// console.log(flowing_countries);
 		self.resetCountriesFlow();
 		self.updateCountriesFlow(flowing_countries);
 
 		// display updated colors on map
 		self.displayCountries();
 		self.print_countries_flow();
+
+        // display circle at the centroid of selected country
+        self.map.append("circle")
+            .classed("selected-country-circle", true)
+            .attr("r", 4)
+            .attr("cx", self.selected_country.centroid[0])
+            .attr("cy", self.selected_country.centroid[1]);
 
         // get country population
         let selected_country_population = self.getCountryPopulation(self.selected_country);

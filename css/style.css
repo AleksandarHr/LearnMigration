@@ -47,7 +47,8 @@
 }
 
 .selected-country-circle {
-    fill: blue;
+    fill: red;
+    /* fill: blue; */
 }
 
 .inflow-country {

@@ -24,7 +24,7 @@ class MigrationStockChart {
 
         // a set of all available destination countries and years
         this.all_countries = Array.from([...new Set(this.stock_data.map(x => x.Destination))]).sort();
-        this.all_years = Array.from([...new Set(this.stock_data.map(x => x.Year))]).sort();
+        this.all_years = Array.from([...new Set(this.stock_data.map(x => parseInt(x.Year)))]).sort();
         this.age_groups = Array.from([...new Set(this.male_stock_data_all.map(d => d.AgeGroup))]);
 
         this.height = 15 * this.bar_height + 30; // # age groups * 20
@@ -32,8 +32,8 @@ class MigrationStockChart {
         this.SVG_WIDTH = 2 * this.width + this.labelArea + this.margin.left + this.margin.right + 60;
 
         // Initialize the object with default country and year
-        this.chosen_country = this.all_countries[0];
-        this.chosen_year = this.all_years[0];
+        this.chosen_country = this.all_countries[getRandomInt(0, this.all_countries.length)];
+        this.chosen_year = this.all_years[getRandomInt(0, this.all_years.length)];
 
         // prepare data relevant to current selection
         this.prepareSelectedData();
@@ -62,7 +62,7 @@ class MigrationStockChart {
     }
 
     // Setter for year selection
-    setYear(selected_year) {
+    updateSelectedYear(selected_year) {
         this.chosen_year = selected_year
         this.prepareSelectedData();
         this.renderChart(this);
@@ -273,38 +273,38 @@ function setupBarChartSelectionControls(chart_object) {
     countrySelect.filter(chart_object.chosen_country)
 
     // Creating data for Select Year menu
-    var years_data = []
-    for (i = 0; i < chart_object.all_years.length; i++) {
-        years_data.push({
-            country: chart_object.all_years[i]
-        })
-    }
+    // var years_data = []
+    // for (i = 0; i < chart_object.all_years.length; i++) {
+    //     years_data.push({
+    //         country: chart_object.all_years[i]
+    //     })
+    // }
 
     // Setting up the dropdown menu for Year selection
-    let yearSelect = dc.selectMenu('#years_bar_chart');
-    var ndx = crossfilter(years_data);
-    var yearDimension = ndx.dimension(function(d) {
-        return d.country
-    });
-
-    yearSelect
-        .dimension(yearDimension)
-        .group(yearDimension.group())
-        .multiple(false)
-        .numberVisible(null)
-        .title(function(d) {
-            return d.key;
-        })
-        .promptText('Year')
-        .promptValue(null);
+    // let yearSelect = dc.selectMenu('#years_bar_chart');
+    // var ndx = crossfilter(years_data);
+    // var yearDimension = ndx.dimension(function(d) {
+    //     return d.country
+    // });
+    //
+    // yearSelect
+    //     .dimension(yearDimension)
+    //     .group(yearDimension.group())
+    //     .multiple(false)
+    //     .numberVisible(null)
+    //     .title(function(d) {
+    //         return d.key;
+    //     })
+    //     .promptText('Year')
+    //     .promptValue(null);
 
     // Add styling to the dropdown menu
-    yearSelect.on('pretransition', function(chart) {
-        d3.select('#routes').classed('dc-chart', false);
-        // use Bootstrap styling
-        chart.select('select').classed('form-control', true);
-    });
-    yearSelect.filter(chart_object.chosen_year)
+    // yearSelect.on('pretransition', function(chart) {
+    //     d3.select('#routes').classed('dc-chart', false);
+    //     // use Bootstrap styling
+    //     chart.select('select').classed('form-control', true);
+    // });
+    // yearSelect.filter(chart_object.chosen_year)
 
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {
@@ -318,16 +318,16 @@ function setupBarChartSelectionControls(chart_object) {
         }
     });
 
-    yearSelect.on('filtered', function(chart, filter) {
-        if (filter != null) {
-            // if an year was selected, show data for selected year only
-            chart_object.setYear(filter);
-        } else {
-            // otherwise, show the last selected year
-            chart_object.setYear(chart_object.chosen_year);
-            yearSelect.filter(chart_object.chosen_year)
-        }
-    });
+    // yearSelect.on('filtered', function(chart, filter) {
+    //     if (filter != null) {
+    //         // if an year was selected, show data for selected year only
+    //         chart_object.updateSelectedYear(filter);
+    //     } else {
+    //         // otherwise, show the last selected year
+    //         chart_object.updateSelectedYear(chart_object.chosen_year);
+    //         yearSelect.filter(chart_object.chosen_year)
+    //     }
+    // });
 
     // Render the two dropdown menus
     dc.renderAll();
@@ -497,9 +497,10 @@ function bar_chart_ready(error, stock_data) {
     }
 
     // Create a bar chart
-    var migrationStockChart = new MigrationStockChart("migration_stock_chart", stock_data);
+    var migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
+    migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart);
     // Setup selection controls (e.g. dropdown select menus)
-    setupBarChartSelectionControls(migrationStockChart);
+    setupBarChartSelectionControls(migration_stock_chart);
     // Bind hover functionality for the bar chart
-    onBarChartHover(migrationStockChart)
+    onBarChartHover(migration_stock_chart)
 }

@@ -27,6 +27,9 @@ class Slider {
         // array useful for step sliders
         this.rangeValues = d3version4.range(this.range[0], this.range[1], this.step || 1).concat(this.range[1]);
         this.xAxis = d3version4.axisBottom(this.xScale).tickValues(this.rangeValues).tickFormat(function(d) {
+            if (this_slider.viz_object.constructor.name.localeCompare("MigrationStockChart") && d == 2020) {
+                return 2019;
+            }
             return d;
         });
 
@@ -37,13 +40,10 @@ class Slider {
                 this_slider.slider.interrupt();
             }).on('start drag', function() {
                 var selected_year = this_slider.dragged(d3version4.event.x);
-                if (viz_object.constructor.name.localeCompare("WorldMapPlot") == 0) {
-                    // World map viz slider
-                    viz_object.updateSelectedYear(selected_year);
-                } else if (viz_object.constructor.name.localeCompare("MigrationStockChart") == 0) {
-                  // Migration stock bar chart slider
-
+                if (this_slider.viz_object.constructor.name.localeCompare("MigrationStockChart") == 0 && selected_year == 2020) {
+                    selected_year = 2019;
                 }
+                viz_object.updateSelectedYear(selected_year);
             });
 
         // this is the main bar with a stroke (applied through CSS)

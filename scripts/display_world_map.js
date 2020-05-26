@@ -8,13 +8,14 @@ class WorldMapPlot {
         this.pop = pop;
         // get countries' topographic data
         this.countries = topojson.feature(this.data, this.data.objects.countries).features;
-		// reset countries' flows
-		this.resetCountriesFlow();
+        // reset countries' flows
+        this.resetCountriesFlow();
         // compute list of all countries' names for filter selection
         this.country_names = [];
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
         this.all_years = Array.from([...new Set(this.flows.map(x => parseInt(x.year0)))]).sort();
+        this.countrySelect = null;
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -47,22 +48,25 @@ class WorldMapPlot {
             .constant(0.01)
             .range([0, 30]);
 
-		// Define color scales for migration flow's choropleth
-		// yes I tried quite a bunch :P. Here is the website displaying the different chromatic scales:
-		// https://github.com/d3/d3-scale-chromatic
-        this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateYlGn);
+        // Define color scales for migration flow's choropleth
+        // yes I tried quite a bunch :P. Here is the website displaying the different chromatic scales:
+        // https://github.com/d3/d3-scale-chromatic
         // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateReds);
+        this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateYlGn);
         this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolateGnBu);
+        this.lowest_flow = 10000000000;
+        this.highest_flow = -10000000000;
+
         // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateOranges);
         // this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolatePurples);
         // this.outflow_color_scale = d3version4.scaleSequential(["blue", "purple"]);
-		// this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 100]);
-		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 100]);
-		// this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 2.83e6]);
-		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 2.83e6]);
-		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateBlues).domain([0, 2.83e6]);
-		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
-		// this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
+        // this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 100]);
+        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 100]);
+        // this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 2.83e6]);
+        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 2.83e6]);
+        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateBlues).domain([0, 2.83e6]);
+        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
+        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
 
         // construct world map's svg
         var svg = d3version4.select("#world-map")
@@ -78,11 +82,11 @@ class WorldMapPlot {
         svg.call(d3version4.zoom()
             .extent([
                 [0, 0],
-                [this.width , this.height]
+                [this.width, this.height]
             ])
             .scaleExtent([1, 10])
             .translateExtent([
-                [0, -1*(this.margin.top)],
+                [0, -1 * (this.margin.top)],
                 [this.width + this.margin.right, this.height + this.margin.bottom]
             ])
             .on("zoom", function() {
@@ -109,7 +113,6 @@ class WorldMapPlot {
                 "centroid": this.path.centroid(country)
             });
         });
-		console.log(this.countries);
 
     } // end of constructor
 
@@ -129,37 +132,58 @@ class WorldMapPlot {
     }
 
     getCountryPopulation(country) {
-        return this.pop.filter(d => d.year == this.selected_year0)
-            .find(d => d.alpha3 == country.country.iso_a3).pop;
+        if (country != null) {
+            var filter_country = this.pop.filter(d => d.year == this.selected_year0)
+                .find(d => d.alpha3 == country.country.iso_a3);
+            if (filter_country == null) {
+                return null;
+            }
+        }
+        return filter_country.pop;
     }
 
-	resetCountriesFlow() {
-		self = this;
-		self.countries.forEach(d => d.flow = 0);
-	}
+    resetCountriesFlow() {
+        self = this;
+        self.countries.forEach(d => d.flow = 0);
+        this.lowest_flow = 10000000000;
+        this.highest_flow = -10000000000;
+    }
 
-	updateCountriesFlow(flowing_countries) {
-		self = this;
-		let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
-		self.countries.forEach(d => {
-			// console.log("update flow");
-			let country = flowing_countries.find(dd => dd[country_id_field_name].padStart(3, "0") == d['id']);
+    updateCountriesFlow(flowing_countries) {
+        self = this;
+        let country_id_field_name = self.inflow_bool ? "orig_code" : "dest_code";
+        self.countries.forEach(d => {
+            // console.log("update flow");
+            let country = flowing_countries.find(dd => dd[country_id_field_name].padStart(3, "0") == d['id']);
 
-			if (country != undefined) {
-				d.flow = country['flow'];
-			}
-		});
-	}
+            // let selected_country_population = self.getCountryPopulation(self.selected_country);
+            // let pop_factor = self.normalized_bool ? selected_country_population : 1;
+            if (country != undefined) {
+                d.flow = country['flow'];
+                if (d.flow > this.highest_flow) {
+                    this.highest_flow = d.flow;
+                }
+                if (d.flow < this.lowest_flow) {
+                    this.lowest_flow = d.flow;
+                }
+            }
+        });
+        if (self.inflow_bool) {
+            this.inflow_color_scale = d3version4.scaleQuantize().range(inflow_color_scheme).domain([this.lowest_flow, this.highest_flow]);
+        } else {
+            this.outflow_color_scale = d3version4.scaleQuantize().range(outflow_color_scheme).domain([this.lowest_flow, this.highest_flow]);
+        }
+    }
 
-	print_countries_flow() {
-		self = this;
-		this.countries.forEach(d => {
-			let country = self.country_codes_and_names.find(dd => dd['numeric'] == d['id']);
-			if (country != undefined) {
-				console.log(country['name'] + ", flow = " + d.flow);
-			}
-		});
-	}
+    print_countries_flow() {
+        self = this;
+        this.countries.forEach(d => {
+            let country = self.country_codes_and_names.find(dd => dd['numeric'] == d['id']);
+            if (country != undefined) {
+                console.log(country['name'] + ", flow = " + d.flow);
+            }
+        });
+    }
 
     updateSelectedCountry(country) {
         this.removePreviousSelections();
@@ -178,63 +202,61 @@ class WorldMapPlot {
         // display countries and define hovering/selecting behavior
         self = this;
 
-		// get color scale corresponding to in/out flow
-		let color_scale = self.inflow_bool ? self.inflow_color_scale : self.outflow_color_scale;
+        // get color scale corresponding to in/out flow
+        let color_scale = self.inflow_bool ? self.inflow_color_scale : self.outflow_color_scale;
 
-		console.log(self.inflow_bool);
         self.map.append("g").selectAll(".country")
             .data(self.countries)
             .enter()
             .append("path")
             .attr("class", "country")
             .attr("d", self.path)
-			.attr("fill", d => color_scale(d.flow))
+            .attr("fill", d => {
+                var color = color_scale(d.flow);
+                return color;
+            })
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
 
                 // get hovered country
                 let hovered_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-
                 // get country population
                 let hovered_country_population = self.getCountryPopulation(hovered_country);
-                // console.log(hovered_country_population);
+                if (hovered_country_population != null) {
+                    // get in/out flowing countries to/from the hovered country
+                    let flowing_countries = self.getFlowingCountries(hovered_country);
 
-                // get in/out flowing countries to/from the hovered country
-                let flowing_countries = self.getFlowingCountries(hovered_country);
+                    // remove arcs from previous hover if any
+                    self.map.selectAll(".arc_hovered")
+                        .remove();
 
-                // remove arcs from previous hover if any
-                self.map.selectAll(".arc_hovered")
-                    .remove();
-
-                // // display arcs
-                // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
-                // self.map.selectAll(".arc_hovered")
-                //     .data(flowing_countries)
-                //     .enter()
-                //     .append("path")
-                //     .classed("arc_hovered", true)
-                //     .attr("d", dd => {
-                //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-                //         let x_0 = hovered_country.centroid[0];
-                //         let x_1 = dest_country.centroid[0];
-                //         let y_0 = hovered_country.centroid[1];
-                //         let y_1 = dest_country.centroid[1];
-                //         let dx = x_1 - x_0;
-                //         let dy = y_1 - y_0;
-                //         let bend_factor = 10;
-                //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
-                //         let dr = eucl_dist * bend_factor;
-                //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
-                //     });
-
+                    // // display arcs
+                    // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
+                    // self.map.selectAll(".arc_hovered")
+                    //     .data(flowing_countries)
+                    //     .enter()
+                    //     .append("path")
+                    //     .classed("arc_hovered", true)
+                    //     .attr("d", dd => {
+                    //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
+                    //         let x_0 = hovered_country.centroid[0];
+                    //         let x_1 = dest_country.centroid[0];
+                    //         let y_0 = hovered_country.centroid[1];
+                    //         let y_1 = dest_country.centroid[1];
+                    //         let dx = x_1 - x_0;
+                    //         let dy = y_1 - y_0;
+                    //         let bend_factor = 10;
+                    //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
+                    //         let dr = eucl_dist * bend_factor;
+                    //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
+                    //     });
+                }
             })
             .on("mouseout", function(d) {
                 d3version4.select(this).classed("hovered", false);
             })
             .on("click", function(d) {
-                // self.removePreviousSelections();
                 self.updateSelectedCountry(self.countries_and_centroids.find(dd => dd.country.numeric == d.id));
-                // self.displaySelectedCountries();
             }) // end of "on click"
     }
 
@@ -274,16 +296,17 @@ class WorldMapPlot {
 
         // compute outflowing countries from selected country
         let flowing_countries = self.getFlowingCountries(self.selected_country);
+        // update countries' flow variable
         // console.log(flowing_countries);
+        self.resetCountriesFlow();
+        if (flowing_countries.length > 0) {
+            self.updateCountriesFlow(flowing_countries);
+            // console.log("No info!!");
+        }
 
-		// update countries' flow variable
-		// console.log(flowing_countries);
-		self.resetCountriesFlow();
-		self.updateCountriesFlow(flowing_countries);
-
-		// display updated colors on map
-		self.displayCountries();
-		self.print_countries_flow();
+        // display updated colors on map
+        self.displayCountries();
+        // self.print_countries_flow();
 
         // display circle at the centroid of selected country
         self.map.append("circle")
@@ -297,31 +320,31 @@ class WorldMapPlot {
         let pop_factor = self.normalized_bool ? selected_country_population : 1;
 
         // display circles at centroids of destination countries
-        let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
-        let flow_class = self.inflow_bool ? "inflow-country" : "outflow-country";
-        self.map.selectAll("." + flow_class)
-            // map.selectAll(".outflow-country")
-            .data(flowing_countries)
-            // .data(outflow_countries)
-            .enter()
-            // .append("g")
-            .append("circle")
-            // .classed("outflow-country", true)
-            .classed(flow_class, true)
-            // .attr("r", dd => {
-            // 	console.log(radius_scale(dd.flow / pop_factor));
-            // 	radius_scale(dd.flow / pop_factor);
-            // })
-            .attr("r", dd => self.radius_scale(dd.flow / pop_factor))
-            // .attr("r", dd => radius_scale(dd.flow))
-            .attr("cx", 0)
-            .attr("cy", 0)
-            .attr("transform", function(dd) {
-                // get destination country
-                let dest_country = self.countries_and_centroids.find((ddd) => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-
-                return "translate(" + dest_country.centroid + ")";
-            });
+        // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
+        // let flow_class = self.inflow_bool ? "inflow-country" : "outflow-country";
+        // self.map.selectAll("." + flow_class)
+        //     // map.selectAll(".outflow-country")
+        //     .data(flowing_countries)
+        //     // .data(outflow_countries)
+        //     .enter()
+        //     // .append("g")
+        //     .append("circle")
+        //     // .classed("outflow-country", true)
+        //     .classed(flow_class, true)
+        //     // .attr("r", dd => {
+        //     // 	console.log(radius_scale(dd.flow / pop_factor));
+        //     // 	radius_scale(dd.flow / pop_factor);
+        //     // })
+        //     .attr("r", dd => self.radius_scale(dd.flow / pop_factor))
+        //     // .attr("r", dd => radius_scale(dd.flow))
+        //     .attr("cx", 0)
+        //     .attr("cy", 0)
+        //     .attr("transform", function(dd) {
+        //         // get destination country
+        //         let dest_country = self.countries_and_centroids.find((ddd) => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
+        //
+        //         return "translate(" + dest_country.centroid + ")";
+        //     });
 
         // display arcs between origin and destination countries
         // console.log(outflow_countries[0]);
@@ -360,15 +383,14 @@ function setupWorldMapSelectionControls(world_map_object) {
             country: world_map_object.country_names[i],
         })
     }
-
     // Setting up the dropdown menu for Destination Country selection
-    let countrySelect = dc.selectMenu('#world_map_countries');
+    world_map_object.countrySelect = dc.selectMenu('#world_map_countries');
     var ndx = crossfilter(countries_data);
     var countryDimension = ndx.dimension(function(d) {
         return d.country
     });
 
-    countrySelect
+    world_map_object.countrySelect
         .dimension(countryDimension)
         .group(countryDimension.group())
         .multiple(false)
@@ -380,27 +402,17 @@ function setupWorldMapSelectionControls(world_map_object) {
         .promptValue(null);
 
     // Add styling to the dropdown menu
-    countrySelect.on('pretransition', function(chart) {
+    world_map_object.countrySelect.on('pretransition', function(chart) {
         // add styling to select input
         d3.select('#world_map_countries').classed('dc-chart', false);
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });
 
-    // Creating data for Select Country menu
-    var years_data = []
-    for (i = 0; i < world_map_object.all_years.length; i++) {
-        years_data.push({
-            year: world_map_object.all_years[i],
-        })
-    }
-
     // Add functionality on country selection
-    countrySelect.on('filtered', function(chart, filter) {
+    world_map_object.countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
-            // world_map_object.removePreviousSelections();
             world_map_object.updateSelectedCountry(self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter)));
-            // world_map_object.displaySelectedCountries();
         } else {
             // otherwise, show the last selected country
         }

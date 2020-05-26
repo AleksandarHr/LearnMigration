@@ -33,7 +33,7 @@ class MigrationStockChart {
 
         // Initialize the object with default country and year
         this.chosen_country = this.all_countries[getRandomInt(0, this.all_countries.length)];
-        this.chosen_year = this.all_years[getRandomInt(0, this.all_years.length)];
+        this.chosen_year = this.all_years[0];
 
         // prepare data relevant to current selection
         this.prepareSelectedData();
@@ -272,40 +272,6 @@ function setupBarChartSelectionControls(chart_object) {
     // Set default selected country
     countrySelect.filter(chart_object.chosen_country)
 
-    // Creating data for Select Year menu
-    // var years_data = []
-    // for (i = 0; i < chart_object.all_years.length; i++) {
-    //     years_data.push({
-    //         country: chart_object.all_years[i]
-    //     })
-    // }
-
-    // Setting up the dropdown menu for Year selection
-    // let yearSelect = dc.selectMenu('#years_bar_chart');
-    // var ndx = crossfilter(years_data);
-    // var yearDimension = ndx.dimension(function(d) {
-    //     return d.country
-    // });
-    //
-    // yearSelect
-    //     .dimension(yearDimension)
-    //     .group(yearDimension.group())
-    //     .multiple(false)
-    //     .numberVisible(null)
-    //     .title(function(d) {
-    //         return d.key;
-    //     })
-    //     .promptText('Year')
-    //     .promptValue(null);
-
-    // Add styling to the dropdown menu
-    // yearSelect.on('pretransition', function(chart) {
-    //     d3.select('#routes').classed('dc-chart', false);
-    //     // use Bootstrap styling
-    //     chart.select('select').classed('form-control', true);
-    // });
-    // yearSelect.filter(chart_object.chosen_year)
-
     // Add functionality on country selection
     countrySelect.on('filtered', function(chart, filter) {
         if (filter != null) {
@@ -318,18 +284,7 @@ function setupBarChartSelectionControls(chart_object) {
         }
     });
 
-    // yearSelect.on('filtered', function(chart, filter) {
-    //     if (filter != null) {
-    //         // if an year was selected, show data for selected year only
-    //         chart_object.updateSelectedYear(filter);
-    //     } else {
-    //         // otherwise, show the last selected year
-    //         chart_object.updateSelectedYear(chart_object.chosen_year);
-    //         yearSelect.filter(chart_object.chosen_year)
-    //     }
-    // });
-
-    // Render the two dropdown menus
+    // Render the dropdown menu
     dc.renderAll();
 }
 

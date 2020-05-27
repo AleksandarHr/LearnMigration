@@ -24,7 +24,7 @@ year,name,alpha3,pop
 1990,Central African Republic,CAF,2939.78
 1990,Chad,TCD,5956.859
 1990,Congo,COG,2440.457
-1990,Democratic Republic of the Congo,COD,34614.581
+1990,The Democratic Republic of the Congo,COD,34614.581
 1990,Equatorial Guinea,GNQ,426.846
 1990,Gabon,GAB,952.212
 1990,Sao Tome and Principe,STP,113.893
@@ -73,7 +73,7 @@ year,name,alpha3,pop
 1990,Bangladesh,BGD,106188.642
 1990,Bhutan,BTN,537.28
 1990,India,IND,870133.48
-1990,Iran (Islamic Republic of),IRN,56226.185
+1990,Islamic Republic of Iran,IRN,56226.185
 1990,Maldives,MDV,223.215
 1990,Nepal,NPL,18749.406
 1990,Pakistan,PAK,107678.614
@@ -190,7 +190,7 @@ year,name,alpha3,pop
 1990,Nicaragua,NIC,4144.565
 1990,Panama,PAN,2471.009
 1990,Argentina,ARG,32729.739
-1990,Bolivia (Plurinational State of),BOL,6856.244
+1990,Plurinational State of Bolivia,BOL,6856.244
 1990,Brazil,BRA,149352.145
 1990,Chile,CHL,13242.132
 1990,Colombia,COL,34271.565
@@ -202,7 +202,7 @@ year,name,alpha3,pop
 1990,Peru,PER,21826.658
 1990,Suriname,SUR,407.472
 1990,Uruguay,URY,3109.989
-1990,Venezuela (Bolivarian Republic of),VEN,19861.956
+1990,Bolivarian Republic of Venezuela,VEN,19861.956
 1990,Bermuda,BMU,60.93
 1990,Canada,CAN,27692.68
 1990,Greenland,GRL,55.604
@@ -305,7 +305,7 @@ year,name,alpha3,pop
 1995,Bangladesh,BGD,118706.871
 1995,Bhutan,BTN,514.877
 1995,India,IND,960482.795
-1995,Iran (Islamic Republic of),IRN,60575.644
+1995,Islamic Republic of Iran,IRN,60575.644
 1995,Maldives,MDV,254.082
 1995,Nepal,NPL,21396.384
 1995,Pakistan,PAK,122829.148
@@ -422,7 +422,7 @@ year,name,alpha3,pop
 1995,Nicaragua,NIC,4612.228
 1995,Panama,PAN,2739.73
 1995,Argentina,ARG,34994.814
-1995,Bolivia (Plurinational State of),BOL,7566.714
+1995,Plurinational State of Bolivia,BOL,7566.714
 1995,Brazil,BRA,162296.612
 1995,Chile,CHL,14296.613
 1995,Colombia,COL,37441.977
@@ -434,7 +434,7 @@ year,name,alpha3,pop
 1995,Peru,PER,24038.76
 1995,Suriname,SUR,443.724
 1995,Uruguay,URY,3224.804
-1995,Venezuela (Bolivarian Republic of),VEN,22188.667
+1995,Bolivarian Republic of Venezuela,VEN,22188.667
 1995,Bermuda,BMU,62.696
 1995,Canada,CAN,29330.073
 1995,Greenland,GRL,55.811
@@ -537,7 +537,7 @@ year,name,alpha3,pop
 2000,Bangladesh,BGD,131581.243
 2000,Bhutan,BTN,573.416
 2000,India,IND,1053050.912
-2000,Iran (Islamic Republic of),IRN,66131.854
+2000,Islamic Republic of Iran,IRN,66131.854
 2000,Maldives,MDV,280.384
 2000,Nepal,NPL,23740.911
 2000,Pakistan,PAK,138523.285
@@ -654,7 +654,7 @@ year,name,alpha3,pop
 2000,Nicaragua,NIC,5026.796
 2000,Panama,PAN,3030.347
 2000,Argentina,ARG,37057.452
-2000,Bolivia (Plurinational State of),BOL,8339.512
+2000,Plurinational State of Bolivia,BOL,8339.512
 2000,Brazil,BRA,175287.587
 2000,Chile,CHL,15262.754
 2000,Colombia,COL,40403.958
@@ -666,7 +666,7 @@ year,name,alpha3,pop
 2000,Peru,PER,25914.879
 2000,Suriname,SUR,472.39
 2000,Uruguay,URY,3321.245
-2000,Venezuela (Bolivarian Republic of),VEN,24488.34
+2000,Bolivarian Republic of Venezuela,VEN,24488.34
 2000,Bermuda,BMU,64.028
 2000,Canada,CAN,30735.773
 2000,Greenland,GRL,56.175
@@ -769,7 +769,7 @@ year,name,alpha3,pop
 2005,Bangladesh,BGD,143431.101
 2005,Bhutan,BTN,656.639
 2005,India,IND,1144118.674
-2005,Iran (Islamic Republic of),IRN,70421.811
+2005,Islamic Republic of Iran,IRN,70421.811
 2005,Maldives,MDV,318.836
 2005,Nepal,NPL,25640.287
 2005,Pakistan,PAK,153909.667
@@ -886,7 +886,7 @@ year,name,alpha3,pop
 2005,Nicaragua,NIC,5379.328
 2005,Panama,PAN,3330.465
 2005,Argentina,ARG,39145.488
-2005,Bolivia (Plurinational State of),BOL,9125.409
+2005,Plurinational State of Bolivia,BOL,9125.409
 2005,Brazil,BRA,186917.361
 2005,Chile,CHL,16147.064
 2005,Colombia,COL,43285.634
@@ -898,7 +898,7 @@ year,name,alpha3,pop
 2005,Peru,PER,27610.41
 2005,Suriname,SUR,498.946
 2005,Uruguay,URY,3325.612
-2005,Venezuela (Bolivarian Republic of),VEN,26784.161
+2005,Bolivarian Republic of Venezuela,VEN,26784.161
 2005,Bermuda,BMU,65.13
 2005,Canada,CAN,32287.98
 2005,Greenland,GRL,56.951
@@ -1001,7 +1001,7 @@ year,name,alpha3,pop
 2010,Bangladesh,BGD,152149.102
 2010,Bhutan,BTN,727.641
 2010,India,IND,1230980.691
-2010,Iran (Islamic Republic of),IRN,74567.511
+2010,Islamic Republic of Iran,IRN,74567.511
 2010,Maldives,MDV,364.511
 2010,Nepal,NPL,27023.137
 2010,Pakistan,PAK,170560.182
@@ -1118,7 +1118,7 @@ year,name,alpha3,pop
 2010,Nicaragua,NIC,5737.723
 2010,Panama,PAN,3643.222
 2010,Argentina,ARG,41223.889
-2010,Bolivia (Plurinational State of),BOL,9918.242
+2010,Plurinational State of Bolivia,BOL,9918.242
 2010,Brazil,BRA,196796.269
 2010,Chile,CHL,16993.354
 2010,Colombia,COL,45918.097
@@ -1130,7 +1130,7 @@ year,name,alpha3,pop
 2010,Peru,PER,29373.646
 2010,Suriname,SUR,526.103
 2010,Uruguay,URY,3374.415
-2010,Venezuela (Bolivarian Republic of),VEN,29028.033
+2010,Bolivarian Republic of Venezuela,VEN,29028.033
 2010,Bermuda,BMU,63.956
 2010,Canada,CAN,34168.668
 2010,Greenland,GRL,56.638
@@ -1233,7 +1233,7 @@ year,name,alpha3,pop
 2015,Bangladesh,BGD,161200.886
 2015,Bhutan,BTN,787.386
 2015,India,IND,1309053.98
-2015,Iran (Islamic Republic of),IRN,79360.487
+2015,Islamic Republic of Iran,IRN,79360.487
 2015,Maldives,MDV,418.403
 2015,Nepal,NPL,28656.282
 2015,Pakistan,PAK,189380.513
@@ -1350,7 +1350,7 @@ year,name,alpha3,pop
 2015,Nicaragua,NIC,6082.035
 2015,Panama,PAN,3969.249
 2015,Argentina,ARG,43417.765
-2015,Bolivia (Plurinational State of),BOL,10724.705
+2015,Plurinational State of Bolivia,BOL,10724.705
 2015,Brazil,BRA,205962.108
 2015,Chile,CHL,17762.681
 2015,Colombia,COL,48228.697
@@ -1362,7 +1362,7 @@ year,name,alpha3,pop
 2015,Peru,PER,31376.671
 2015,Suriname,SUR,553.208
 2015,Uruguay,URY,3431.552
-2015,Venezuela (Bolivarian Republic of),VEN,31155.134
+2015,Bolivarian Republic of Venezuela,VEN,31155.134
 2015,Bermuda,BMU,62.003
 2015,Canada,CAN,35949.709
 2015,Greenland,GRL,56.377

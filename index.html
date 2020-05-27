@@ -157,8 +157,8 @@
     <!--UN MAP STARTED-->
     <div class="push-20 h-100">
         <div class="container h-100">
+          <!-- <div id="world-map" class="h-100"> -->
             <div class="row h-100">
-                <div id="world-map" class="h-100">
                     <div class="row">
                         <div class="col-xs-4 col-md-4">
                             <div id="world_map_countries" class="form-group">
@@ -189,11 +189,21 @@
                             <input type="radio" class="normalize_flow" id="yes_normalize" name="normalize"> Yes
                             <input type="radio" class="normalize_flow" id="no_normalize" name="normalize" checked="true"> No
                         </div>
+                        <div class="col-xs-2 col-md-2">
+                            <div id="world_map_flow" class="form-group">
+                                <label for="world_map_flow" class="col-form-label">World Map</label>
+                            </div>
+                            <input type="radio" class="world_map_cb" id="migration_flow_cb" name="world_map_cb" checked="true"> Migration Flow
+                            <input type="radio" class="world_map_cb" id="development_level_cb" name="world_map_cb"> Development Level
+                            <input type="radio" class="world_map_cb" id="income_level_cb" name="world_map_cb"> Income Level
+                        </div>
                         <div class="h-100">
                             <div id="world_map_slider" class="form-group">
                             </div>
                         </div>
                         <div class="col-xs-6 col-md-6"></div>
+                        <div id="flow-world-map" class="h-100">
+                        <div id="development-world-map" class="h-100">
                     </div>
                     <!-- <div id="world-map_div" class="h-100"> -->
                 </div>

@@ -1,6 +1,6 @@
 class WorldMapPlot {
 
-    constructor(data, country_codes_and_names, flows, pop) {
+    constructor(data, country_codes_and_names, flows, pop, dev_info) {
 
         this.data = data;
         this.country_codes_and_names = country_codes_and_names;
@@ -15,7 +15,14 @@ class WorldMapPlot {
         this.countries_and_centroids = [];
         this.country_codes_and_names.map(x => this.country_names.push(x.name));
         this.all_years = Array.from([...new Set(this.flows.map(x => parseInt(x.year0)))]).sort();
-        this.countrySelect = null;
+
+        // Development level information
+        this.dev_info = dev_info;
+        this.dev_level_info = dev_info.filter(x => x.DevelopmentLevel.includes("Regions"));
+        this.income_level_info = dev_info.filter(x => x.DevelopmentLevel.includes("income"));
+        this.dev_levels = Array.from([...new Set(this.dev_level_info.map(x => x.DevelopmentLevel))]);
+        this.income_levels = Array.from([...new Set(this.income_level_info.map(x => x.DevelopmentLevel))]);
+        this.income_level_color_scale = d3version4.scaleSequential(d3version4.interpolateGnBu);
 
         // set svg's height and with
         this.SVG_HEIGHT = 400;
@@ -69,7 +76,7 @@ class WorldMapPlot {
         // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
 
         // construct world map's svg
-        var svg = d3version4.select("#world-map")
+        var svg = d3version4.select("#flow-world-map")
             .append("svg")
             .classed("world-map_svg", true)
             .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
@@ -113,7 +120,6 @@ class WorldMapPlot {
                 "centroid": this.path.centroid(country)
             });
         });
-
     } // end of constructor
 
     try_call() {
@@ -212,8 +218,7 @@ class WorldMapPlot {
             .attr("class", "country")
             .attr("d", self.path)
             .attr("fill", d => {
-                var color = color_scale(d.flow);
-                return color;
+                return color_scale(d.flow);
             })
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
@@ -260,6 +265,60 @@ class WorldMapPlot {
             }) // end of "on click"
     }
 
+    displayDevelopmentLevels() {
+        // display countries and define hovering/selecting behavior
+        self = this;
+        // get color scale corresponding to in/out flow
+        var linearScale = d3version4.scaleLinear()
+            .domain([0, self.dev_levels.length])
+            .range(['yellow', 'green']);
+
+        self.map.append("g").selectAll(".country")
+            .data(self.countries)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr("d", self.path)
+            .attr("fill", d => {
+                let curr_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
+                if (curr_country != null) {
+                    var found = self.dev_level_info.find(dd => dd.Region.localeCompare(curr_country.country.name) == 0)
+                    if (found != null) {
+                        console.log(self.dev_levels.indexOf(found.DevelopmentLevel))
+                        return linearScale(self.dev_levels.indexOf(found.DevelopmentLevel));
+                    }
+                } else {
+
+                }
+            });
+    }
+
+    displayIncomeLevels() {
+        // display countries and define hovering/selecting behavior
+        self = this;
+        // get color scale corresponding to in/out flow
+        var color_scale = d3version4.scaleQuantize().range(income_levels_color_scheme).domain([0, self.income_levels.length]);
+        console.log(self.income_levels);
+
+        self.map.append("g").selectAll(".country")
+            .data(self.countries)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr("d", self.path)
+            .attr("fill", d => {
+                let curr_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
+                if (curr_country != null) {
+                    var found = self.income_level_info.find(dd => dd.Region.localeCompare(curr_country.country.name) == 0)
+                    if (found != null) {
+                        return color_scale(self.income_levels.indexOf(found.DevelopmentLevel));
+                    }
+                }
+            });
+    }
+
+
+
     // Clears any previous visualized selections and flow data
     removePreviousSelections() {
         // REMOVE PRIOR SELECTION
@@ -278,6 +337,16 @@ class WorldMapPlot {
         let arc_class = self.inflow_bool ? "arc_in" : "arc_out";
         self.map.selectAll("." + arc_class)
             .remove();
+    }
+
+    removeDevelopmentInformation() {
+        self.map.append("g").selectAll(".country")
+            .data(self.countries)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr("d", self.path)
+            .attr("fill", null)
     }
 
     // Display selected countries
@@ -372,6 +441,12 @@ class WorldMapPlot {
         //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
         //     });
     }
+
+    resetViz(world_map) {
+        console.log(" HERE");
+        this.removePreviousSelections();
+    }
+
 } // end of class WorldMapPlot
 
 
@@ -452,8 +527,19 @@ function setupWorldMapSelectionControls(world_map_object) {
         }
         world_map_object.displaySelectedCountries();
     });
-} // end of function setupWorldMapSelectionControls
 
+    d3.selectAll(".world_map_cb").on("change", function() {
+        if (d3.select("#migration_flow_cb").property("checked")) {
+            world_map_object.removeDevelopmentInformation();
+            world_map_object.displayCountries();
+        } else if (d3.select("#development_level_cb").property("checked")) {
+            world_map_object.displayDevelopmentLevels();
+        } else {
+            world_map_object.displayIncomeLevels();
+        }
+    });
+
+} // end of function setupWorldMapSelectionControls
 
 function whenDocumentLoaded(action) {
     if (document.readyState === "loading") {
@@ -465,12 +551,12 @@ function whenDocumentLoaded(action) {
 }
 
 // display map
-function world_map_ready(error, data, country_codes_and_names, flows, pop) {
+function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_info) {
     if (error) {
         console.log("Error loading data: " + error);
         throw error;
     }
-    world_map = new WorldMapPlot(data, country_codes_and_names, flows, pop);
+    world_map = new WorldMapPlot(data, country_codes_and_names, flows, pop, dev_info);
     // Display countries
     world_map.displayCountries();
     setupWorldMapSelectionControls(world_map);
@@ -488,5 +574,6 @@ whenDocumentLoaded(() => {
         .defer(d3version4.csv, migflow_gender_path)
         .defer(d3version4.csv, pop_path)
         // .defer(d3version4.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
+        .defer(d3version4.csv, dev_level_path)
         .await(this.world_map_ready);
 });

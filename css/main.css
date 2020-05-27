@@ -32,12 +32,14 @@ h6 {
 
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
+    padding-bottom: 162px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../images/title_image.jpg) no-repeat center center;
+    background: url(https://media.giphy.com/media/pPXZYCfcPWZe8/giphy.gif) no-repeat center center;
     background-size: cover;
 }
+/* changed this line above :     background: url(../images/title_image.jpg) no-repeat center center;*/
+
 .recommendation {
     text-align: center;
     background-size: cover;

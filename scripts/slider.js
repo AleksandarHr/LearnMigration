@@ -36,8 +36,13 @@ class Slider {
             .on('start.interrupt', function() {
                 this_slider.slider.interrupt();
             }).on('start drag', function() {
-                var selected_year = this_slider.dragged(d3version4.event.x);
-                viz_object.updateSelectedYear(selected_year);
+                if (viz_object.selected_map_type == null ||
+                    viz_object.selected_map_type == undefined ||
+                    viz_object.selected_map_type.localeCompare(map_types[0]) == 0) {
+                    console.log(viz_object.selected_map_type);
+                    var selected_year = this_slider.dragged(d3version4.event.x);
+                    viz_object.updateSelectedYear(selected_year);
+                }
             });
 
         // this is the main bar with a stroke (applied through CSS)
@@ -64,7 +69,7 @@ class Slider {
             // initial transition
             this.slider.transition().duration(750)
                 .tween("drag", function() {
-                  var i = d3version4.interpolate(range[0], viz_object.chosen_year);
+                    var i = d3version4.interpolate(range[0], viz_object.chosen_year);
                     return function(t) {
                         this_slider.dragged(this_slider.xScale(i(t)));
                     }

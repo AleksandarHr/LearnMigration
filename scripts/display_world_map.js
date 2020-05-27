@@ -1,13 +1,12 @@
 class WorldMapPlot {
-
     constructor(data, country_codes_and_names, flows, pop, dev_info) {
 
         this.data = data;
         this.country_codes_and_names = country_codes_and_names;
         this.flows = flows;
         this.pop = pop.map(x => {
-          x.pop = x.pop.split('.').join('');
-          return x
+            x.pop = x.pop.split('.').join('');
+            return x
         });
         // get countries' topographic data
         this.countries = topojson.feature(this.data, this.data.objects.countries).features;
@@ -52,7 +51,6 @@ class WorldMapPlot {
         this.selected_country = null;
         this.hovered_country = null;
 
-        this.map_types = ["Migration Flows", "Development Levels", "Income Levels"];
         this.selected_map_type = null;
 
         // set scales
@@ -314,7 +312,7 @@ class WorldMapPlot {
             .attr("class", "country")
             .attr("d", self.path)
             .attr("fill", d => {
-              let curr_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
+                let curr_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
                 if (curr_country != null) {
                     var found = self.dev_level_info.find(dd => dd.Region.localeCompare(curr_country.country.name) == 0)
                     if (found != null) {
@@ -495,7 +493,7 @@ class WorldMapPlot {
 function onCountryHover(world_map_object) {
     document.body.addEventListener('mousemove', function(e) {
         if (e.target.nodeName == 'path' && e.target.className.baseVal == 'country hovered') {
-            if (world_map_object.selected_map_type.localeCompare(world_map_object.map_types[0]) == 0) {
+            if (world_map_object.selected_map_type.localeCompare(map_types[0]) == 0) {
                 var total_flows = world_map_object.getTotalFlows();
                 var country_found = world_map_object.pop.find(x =>
                     parseInt(x.year) == world_map_object.selected_year0 &&
@@ -506,7 +504,7 @@ function onCountryHover(world_map_object) {
                 }
                 showWorldMapDetail(e, world_map_object.hovered_country, total_flows, population);
             } else {
-              showWorldMapDetail(e, world_map_object.hovered_country, null, null);
+                showWorldMapDetail(e, world_map_object.hovered_country, null, null);
             }
         }
     });
@@ -527,7 +525,8 @@ function showWorldMapDetail(e, hovered_country, total_flows, country_population)
             content += "<b>" + hovered_country.country.name + "</b><br/>";
         } else {
             // Display change w.r.t. previous and current count data, current data, current ratio
-            content += "<b>" + hovered_country.country.name + ", Population: " + d3.format(",")(country_population) + "</b><br/>";
+            content += "<b>" + hovered_country.country.name + "</b><br/>";
+            content += "<b>Population: " + d3.format(",")(country_population) + "</b><br/>";
             content += "<b>" + "Total Inflow: " + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "</b><br/>";
             content += "<b>" + "Total Outflow: " + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "</b><br/>";
         }
@@ -546,13 +545,13 @@ function setupWorldMapSelectionControls(world_map_object) {
         })
     }
     // Setting up the dropdown menu for Destination Country selection
-    world_map_object.countrySelect = dc.selectMenu('#world_map_countries');
+    var countrySelect = dc.selectMenu('#world_map_countries');
     var ndx = crossfilter(countries_data);
     var countryDimension = ndx.dimension(function(d) {
         return d.country
     });
 
-    world_map_object.countrySelect
+    countrySelect
         .dimension(countryDimension)
         .group(countryDimension.group())
         .multiple(false)
@@ -564,26 +563,17 @@ function setupWorldMapSelectionControls(world_map_object) {
         .promptValue(null);
 
     // Add styling to the dropdown menu
-    world_map_object.countrySelect.on('pretransition', function(chart) {
+    countrySelect.on('pretransition', function(chart) {
         // add styling to select input
         d3.select('#world_map_countries').classed('dc-chart', false);
         // use Bootstrap styling
         chart.select('select').classed('form-control', true);
     });
 
-    // Add functionality on country selection
-    world_map_object.countrySelect.on('filtered', function(chart, filter) {
-        if (filter != null) {
-            world_map_object.updateSelectedCountry(self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter)));
-        } else {
-            // otherwise, show the last selected country
-        }
-    });
-
     var map_types_data = [];
-    for (i = 0; i < world_map_object.map_types.length; i++) {
+    for (i = 0; i < map_types.length; i++) {
         map_types_data.push({
-            map_type: world_map_object.map_types[i],
+            map_type: map_types[i],
         })
     }
     // Setting up the dropdown menu for Destination Country selection
@@ -615,23 +605,42 @@ function setupWorldMapSelectionControls(world_map_object) {
     // Add functionality on country selection
     mapSelect.on('filtered', function(chart, filter) {
         if (filter != null) {
-            if (filter.localeCompare(world_map_object.map_types[0]) == 0) {
+            if (filter.localeCompare(map_types[0]) == 0) {
+                world_map_object.selected_map_type = map_types[0];
+                if (world_map_object.selected_country != null) {
+                  countrySelect.filter(world_map_object.selected_country.country.name);
+                }
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayCountries();
-                world_map_object.selected_map_type = world_map_object.map_types[0];
-            } else if (filter.localeCompare(world_map_object.map_types[1]) == 0) {
+            } else if (filter.localeCompare(map_types[1]) == 0) {
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayDevelopmentLevels();
-                world_map_object.selected_map_type = world_map_object.map_types[1];
+                world_map_object.selected_map_type = map_types[1];
             } else {
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayIncomeLevels();
-                world_map_object.selected_map_type = world_map_object.map_types[2];
+                world_map_object.selected_map_type = map_types[2];
             }
+            enableDisableFilters(world_map_object);
         }
     });
-    mapSelect.filter(world_map_object.map_types[0]);
+    mapSelect.filter(map_types[0]);
 
+    // Add functionality on country selection
+    if (world_map_object.selected_map_type.localeCompare(map_types[0]) == 0)  {
+    countrySelect.on('filtered', function(chart, filter) {
+        if (filter != null) {
+            if (world_map_object.selected_map_type.localeCompare(map_types[0]) == 0) {
+                world_map_object.updateSelectedCountry(self.countries_and_centroids.find(dd => 0 == dd.country.name.localeCompare(filter)));
+            } else {
+              countrySelect.filter(null);
+            }
+        } else {
+            // otherwise, show the last selected country
+        }
+    });
+  }
+  
     // Render the two dropdown menus
     dc.renderAll();
 
@@ -667,6 +676,37 @@ function setupWorldMapSelectionControls(world_map_object) {
         world_map_object.displaySelectedCountries();
     });
 } // end of function setupWorldMapSelectionControls
+
+function enableDisableFilters(world_map_object) {
+    var enable = world_map_object.selected_map_type.localeCompare(map_types[0]) == 0;
+    var gender_cbs = document.getElementsByName('gender_cb');
+    var flow_cbs = document.getElementsByName('flow_cb');
+    var normalize_cbs = document.getElementsByName('normalize_cb');
+
+    if (enable) {
+        // world map migration flow - enalbe filters
+        for (var i = 0; i < gender_cbs.length; i++) {
+            gender_cbs[i].disabled = false;
+        }
+        for (var i = 0; i < flow_cbs.length; i++) {
+            flow_cbs[i].disabled = false;
+        }
+        for (var i = 0; i < normalize_cbs.length; i++) {
+            normalize_cbs[i].disabled = false;
+        }
+    } else {
+        // not world map migration flow (e.g. development levels or income levels) - disalbe filters
+        for (var i = 0; i < gender_cbs.length; i++) {
+            gender_cbs[i].disabled = true;
+        }
+        for (var i = 0; i < flow_cbs.length; i++) {
+            flow_cbs[i].disabled = true;
+        }
+        for (var i = 0; i < normalize_cbs.length; i++) {
+            normalize_cbs[i].disabled = true;
+        }
+    }
+}
 
 function whenDocumentLoaded(action) {
     if (document.readyState === "loading") {

@@ -4,15 +4,20 @@ class Slider {
             left: 30,
             right: 30
         };
-        var width = 860;
+        var width = 1000;
         var height = 40;
         this.range = range;
         this.step = step;
         this.viz_object = viz_object;
+        this.SVG_WIDTH = width + margin.left + margin.right;
+        this.SVG_HEIGHT = height;
 
-        var svg = d3version4.select('#' + element_id).append('svg')
+        var svg = d3version4.select('#' + element_id)
+            .append('svg')
+            .attr("preserveAspectRatio", "xMinYMin meet")
             .attr('width', width)
-            .attr('height', height);
+            .attr('height', height)
+            .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
 
         this.slider = svg.append('g')
             .classed('slider', true)
@@ -51,7 +56,7 @@ class Slider {
             .attr('x2', this.xScale.range()[1]);
 
         // this is a bar (steelblue) that's inside the main "track" to make it look like a rect with a border
-        var trackInset = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-inset');
+        this.trackInset = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-inset');
 
         var ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
             .call(this.xAxis);

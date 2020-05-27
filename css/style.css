@@ -24,6 +24,7 @@
     /* background: white; */
 }
 
+.route { fill: none; stroke: #333; stroke-width: 0.75px; }
 
 .country {
     /* stroke: white; */

@@ -493,6 +493,54 @@ function setupWorldMapSelectionControls(world_map_object) {
         }
     });
 
+    var map_types = ["Migration Flows", "Development Levels", "Income Levels"];
+    var map_types_data = [];
+    for (i = 0; i < map_types.length; i++) {
+        map_types_data.push({
+            map_type: map_types[i],
+        })
+    }
+    // Setting up the dropdown menu for Destination Country selection
+    var mapSelect = dc.selectMenu('#world_map_type');
+    var ndx_map_type = crossfilter(map_types_data);
+    var mapSelectDimension = ndx_map_type.dimension(function(d) {
+        return d.map_type
+    });
+
+    mapSelect
+        .dimension(mapSelectDimension)
+        .group(mapSelectDimension.group())
+        .multiple(false)
+        .title(function(d) {
+            return d.key;
+        })
+        .numberVisible(null)
+        .promptText('All Map Types')
+        .promptValue(null);
+
+    // Add styling to the dropdown menu
+    mapSelect.on('pretransition', function(chart) {
+        // add styling to select input
+        d3.select('#world_map_type').classed('dc-chart', false);
+        // use Bootstrap styling
+        chart.select('select').classed('form-control', true);
+    });
+
+    // Add functionality on country selection
+    mapSelect.on('filtered', function(chart, filter) {
+        if (filter.localeCompare(map_types[0]) == 0) {
+            world_map_object.removeDevelopmentInformation();
+            world_map_object.displayCountries();
+        } else if (filter.localeCompare(map_types[1]) == 0) {
+            world_map_object.removeDevelopmentInformation();
+            world_map_object.displayDevelopmentLevels();
+        } else {
+            world_map_object.removeDevelopmentInformation();
+            world_map_object.displayIncomeLevels();
+        }
+    });
+    mapSelect.filter(map_types[0]);
+
     // Render the two dropdown menus
     dc.renderAll();
 
@@ -527,18 +575,6 @@ function setupWorldMapSelectionControls(world_map_object) {
         }
         world_map_object.displaySelectedCountries();
     });
-
-    d3.selectAll(".world_map_cb").on("change", function() {
-        if (d3.select("#migration_flow_cb").property("checked")) {
-            world_map_object.removeDevelopmentInformation();
-            world_map_object.displayCountries();
-        } else if (d3.select("#development_level_cb").property("checked")) {
-            world_map_object.displayDevelopmentLevels();
-        } else {
-            world_map_object.displayIncomeLevels();
-        }
-    });
-
 } // end of function setupWorldMapSelectionControls
 
 function whenDocumentLoaded(action) {

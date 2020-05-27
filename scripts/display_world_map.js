@@ -647,7 +647,6 @@ function setupWorldMapSelectionControls(world_map_object) {
                 world_map_object.removePreviousFlowLines();
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayCountries();
-                world_map_object.drawFlowLines();
             } else if (filter.localeCompare(map_types[1]) == 0) {
                 world_map_object.removePreviousFlowLines();
                 world_map_object.removeDevelopmentInformation();

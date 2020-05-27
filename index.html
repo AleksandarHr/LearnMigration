@@ -157,8 +157,8 @@
     <!--UN MAP STARTED-->
     <div class="push-20 h-100">
         <div class="container h-100">
+          <!-- <div id="world-map" class="h-100"> -->
             <div class="row h-100">
-                <div id="world-map" class="h-100">
                     <div class="row">
                         <div class="col-xs-4 col-md-4">
                             <div id="world_map_countries" class="form-group">
@@ -183,17 +183,24 @@
                             <input type="radio" class="flow_cb" id="outflow_cb" value="outflow" name="flow" checked="true"> Outflow
                         </div>
                         <div class="col-xs-2 col-md-2">
-                            <div id="world_map_flow" class="form-group">
-                                <label for="world_map_flow" class="col-form-label">Normalize Flow</label>
+                            <div id="world_map_normalization" class="form-group">
+                                <label for="world_map_normalization" class="col-form-label">Normalize Flow</label>
                             </div>
                             <input type="radio" class="normalize_flow" id="yes_normalize" name="normalize"> Yes
                             <input type="radio" class="normalize_flow" id="no_normalize" name="normalize" checked="true"> No
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            <div id="world_map_type" class="form-group">
+                              <label for="world_map_type" class="col-form-label">Map Type</label>
+                            </div>
                         </div>
                         <div class="h-100">
                             <div id="world_map_slider" class="form-group">
                             </div>
                         </div>
                         <div class="col-xs-6 col-md-6"></div>
+                        <div id="flow-world-map" class="h-100">
+                        <div id="development-world-map" class="h-100">
                     </div>
                     <!-- <div id="world-map_div" class="h-100"> -->
                 </div>

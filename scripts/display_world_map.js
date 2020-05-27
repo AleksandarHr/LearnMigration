@@ -52,7 +52,7 @@ class WorldMapPlot {
         this.hovered_country = null;
 
         this.selected_map_type = null;
-
+        this.world_map_slider = null;
         // set scales
         // logarithmic scale for the radius of the flowing countries
         this.radius_scale = d3version4.scaleSymlog()
@@ -640,7 +640,7 @@ function setupWorldMapSelectionControls(world_map_object) {
         }
     });
   }
-  
+
     // Render the two dropdown menus
     dc.renderAll();
 
@@ -694,6 +694,8 @@ function enableDisableFilters(world_map_object) {
         for (var i = 0; i < normalize_cbs.length; i++) {
             normalize_cbs[i].disabled = false;
         }
+        world_map_object.world_map_slider.trackInset.classed('disabled', false);
+        world_map_object.world_map_slider.handle.classed('disabled', false);
     } else {
         // not world map migration flow (e.g. development levels or income levels) - disalbe filters
         for (var i = 0; i < gender_cbs.length; i++) {
@@ -705,6 +707,8 @@ function enableDisableFilters(world_map_object) {
         for (var i = 0; i < normalize_cbs.length; i++) {
             normalize_cbs[i].disabled = true;
         }
+        world_map_object.world_map_slider.trackInset.classed('disabled', true);
+        world_map_object.world_map_slider.handle.classed('disabled', true);
     }
 }
 
@@ -726,8 +730,8 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_i
     world_map = new WorldMapPlot(data, country_codes_and_names, flows, pop, dev_info);
     // Display countries
     world_map.displayCountries();
+    world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
     setupWorldMapSelectionControls(world_map);
-    world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
     onCountryHover(world_map);
 } // end of function `ready`
 

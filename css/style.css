@@ -112,12 +112,23 @@ line.track-overlay {
     stroke-opacity: 0;
     cursor: crosshair;
 }
+
 .handle {
     fill: red;
     stroke: #000;
 }
 line.track-overlay, line.track, line.track-inset {
     stroke-linecap: round;
+}
+
+line.disabled {
+    stroke: grey;
+    stroke-width: 8px;
+}
+
+.disabled{
+  fill: grey;
+  stroke: #000;
 }
 
 /* sankey */

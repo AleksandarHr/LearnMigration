@@ -1405,7 +1405,7 @@
   },
   {
     "numeric": "840",
-    "name": "United States",
+    "name": "United States of America",
     "iso_a3": "USA",
     "iso_a2": "US"
   },
@@ -1435,13 +1435,13 @@
   },
   {
     "numeric": "092",
-    "name": "Virgin Islands, British",
+    "name": "British Virgin Islands",
     "iso_a3": "VGB",
     "iso_a2": "VG"
   },
   {
     "numeric": "850",
-    "name": "Virgin Islands, U.S.",
+    "name": "United States Virgin Islands",
     "iso_a3": "VIR",
     "iso_a2": "VI"
   },

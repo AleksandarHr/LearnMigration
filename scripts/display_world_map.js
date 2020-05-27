@@ -18,7 +18,7 @@ class WorldMapPlot {
 
         // Development level information
         this.dev_info = dev_info;
-        this.dev_level_info = dev_info.filter(x => x.DevelopmentLevel.includes("Regions"));
+        this.dev_level_info = dev_info.filter(x => x.DevelopmentLevel.includes("Developed"));
         this.income_level_info = dev_info.filter(x => x.DevelopmentLevel.includes("income"));
         this.dev_levels = Array.from([...new Set(this.dev_level_info.map(x => x.DevelopmentLevel))]);
         this.income_levels = Array.from([...new Set(this.income_level_info.map(x => x.DevelopmentLevel))]);
@@ -272,7 +272,7 @@ class WorldMapPlot {
         var linearScale = d3version4.scaleLinear()
             .domain([0, self.dev_levels.length])
             .range(['yellow', 'green']);
-
+        console.log(self.dev_levels);
         self.map.append("g").selectAll(".country")
             .data(self.countries)
             .enter()
@@ -284,7 +284,6 @@ class WorldMapPlot {
                 if (curr_country != null) {
                     var found = self.dev_level_info.find(dd => dd.Region.localeCompare(curr_country.country.name) == 0)
                     if (found != null) {
-                        console.log(self.dev_levels.indexOf(found.DevelopmentLevel))
                         return linearScale(self.dev_levels.indexOf(found.DevelopmentLevel));
                     }
                 } else {
@@ -311,6 +310,7 @@ class WorldMapPlot {
                 if (curr_country != null) {
                     var found = self.income_level_info.find(dd => dd.Region.localeCompare(curr_country.country.name) == 0)
                     if (found != null) {
+                      console.log(self.income_levels.indexOf(found.DevelopmentLevel));
                         return color_scale(self.income_levels.indexOf(found.DevelopmentLevel));
                     }
                 }

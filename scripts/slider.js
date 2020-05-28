@@ -1,8 +1,8 @@
 class Slider {
     constructor(element_id, range, step, viz_object, width) {
         const margin = {
-            left: 40,
-            right: 40
+            left: 20,
+            right: 0
         };
 		// set it to 60 instead of 40 because years were overlapping with world map
         const height = 60;
@@ -56,8 +56,21 @@ class Slider {
         // this is a bar (steelblue) that's inside the main "track" to make it look like a rect with a border
         this.trackInset = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-inset');
 
-        const ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
-            .call(this.xAxis);
+		let ticks_class = null;
+
+		if (element_id == 'world_map_slider') {
+			ticks_class = 'ticks_worldmap';
+			console.log('reached ticks_worldmap');
+		}
+		else {
+			ticks_class = 'ticks_stock';
+			console.log('reached ticks_stock');
+		}
+
+		const ticks = this.slider.append('g').attr('class', ticks_class).attr('transform', 'translate(0, 4)')
+			.call(this.xAxis);
+		// const ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
+		// 	.call(this.xAxis);
 
         // drag handle
         this.handle = this.slider.append('circle').classed('handle', true)

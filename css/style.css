@@ -148,7 +148,12 @@ line.disabled {
   stroke: #000;
 }
 
-.ticks {
+.ticks_worldmap {
+    font-family: 'Lora', serif;
+	font-size: 100%;
+}
+
+.ticks_stock {
     font-family: 'Lora', serif;
 	font-size: 120%;
 }

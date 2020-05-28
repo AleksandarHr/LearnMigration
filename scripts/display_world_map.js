@@ -269,8 +269,9 @@ class WorldMapPlot {
         this.displaySelectedCountries();
     }
 
-    makeColorbar() {
 
+    // Renders legend for map coloring
+    makeColorLegend() {
         var colorbar_size = [this.SVG_WIDTH, 40];
         const color_scale = d3version4.scaleLog();
 
@@ -744,7 +745,7 @@ function setupWorldMapSelectionControls(world_map_object) {
                 world_map_object.displayIncomeLevels();
                 world_map_object.selected_map_type = map_types[2];
             }
-            world_map_object.makeColorbar();
+            world_map_object.makeColorLegend();
             enableDisableFilters(world_map_object);
         }
     });
@@ -787,7 +788,7 @@ function setupWorldMapSelectionControls(world_map_object) {
         } else {
             world_map_object.inflow_bool = false;
         }
-        world_map_object.makeColorbar();
+        world_map_object.makeColorLegend();
         world_map_object.displaySelectedCountries();
     });
 
@@ -857,7 +858,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_i
     world_map.displayCountries();
     world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
     setupWorldMapSelectionControls(world_map);
-    world_map.makeColorbar();
+    world_map.makeColorLegend();
     onCountryHover(world_map);
 } // end of function `ready`
 

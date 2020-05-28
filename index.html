@@ -126,14 +126,14 @@
             </br>
             </br>
         </div>
-<!--        <div class="row row-no-margin">-->
-<!--            <div class="col-xs-12 col-sm-6 col-no-padding">-->
-<!--                <img class="thumbnail img-responsive" src="images/Flow_Plot1.jpg">-->
-<!--            </div>-->
-<!--            <div class="col-xs-12 col-sm-6 col-no-padding">-->
-<!--                <img class="thumbnail img-responsive" src="images/Flow_Plot2.jpg">-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="row row-no-margin">-->
+        <!--            <div class="col-xs-12 col-sm-6 col-no-padding">-->
+        <!--                <img class="thumbnail img-responsive" src="images/Flow_Plot1.jpg">-->
+        <!--            </div>-->
+        <!--            <div class="col-xs-12 col-sm-6 col-no-padding">-->
+        <!--                <img class="thumbnail img-responsive" src="images/Flow_Plot2.jpg">-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 
     <a id="mig_flow"></a>
@@ -152,63 +152,70 @@
     <!--UN MAP STARTED-->
     <div class="push-20 h-100">
         <div class="container h-100">
-          <!-- <div id="world-map" class="h-100"> -->
+            <!-- <div id="world-map" class="h-100"> -->
             <div class="row h-100">
-                    <div class="row">
-                        <div class="col-xs-4 col-md-4">
-                            <div id="world_map_countries" class="form-group">
-                                <label for="world_map_countries" class="col-form-label">Select Countries</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <div id="world_map_gender" class="form-group">
-                                <label for="world_map_gender" class="col-form-label">Select Gender</label>
-                            </div>
-                            <div>
-                                <input type="radio" class="gender_cb" id="male_checkbox" value="male" name="gender_cb"> Male
-                                <input type="radio" class="gender_cb" id="female_checkbox" value="female" name="gender_cb"> Female
-                                <input type="radio" class="gender_cb" id="both_genders_checkbox" value="both" name="gender_cb" checked="true"> Both
-                            </div>
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <div id="world_map_flow" class="form-group">
-                                <label for="world_map_flow" class="col-form-label">Select Flow</label>
-                            </div>
-                            <input type="radio" class="flow_cb" id="inflow_cb" value="inflow" name="flow_cb"> Inflow
-                            <input type="radio" class="flow_cb" id="outflow_cb" value="outflow" name="flow_cb" checked="true"> Outflow
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <div id="world_map_normalization" class="form-group">
-                                <label for="world_map_normalization" class="col-form-label">Normalize Flow</label>
-                            </div>
-                            <input type="radio" class="normalize_flow" id="yes_normalize" name="normalize_cb"> Yes
-                            <input type="radio" class="normalize_flow" id="no_normalize" name="normalize_cb" checked="true"> No
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <div id="world_map_type" class="form-group">
-                              <label for="world_map_type" class="col-form-label">Map Type</label>
-                            </div>
+                <div class="row">
+                    <div class="col-xs-4 col-md-4">
+                        <div id="world_map_countries" class="form-group">
+                            <label for="world_map_countries" class="col-form-label">Select Countries</label>
                         </div>
                     </div>
-                        <div class="row">
-                            <div id="world_map_slider">
-                            <!-- <div id="world_map_slider" class="col-sm-8"> -->
-                            </div>
-                            <div id="world_map_legend" class="col-sm-4">
-                            </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div id="world_map_gender" class="form-group">
+                            <label for="world_map_gender" class="col-form-label">Select Gender</label>
                         </div>
-                        <div class="row" id="canvas">
-                            <div class="col-md-12 col-xs-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <!-- <div id="migration_stock_chart" class="migration_stock_chart"></div> -->
-                                        <div id="flow-world-map" class="flow-world-map">
-                                    </div>
+                        <div>
+                            <input type="radio" class="gender_cb" id="male_checkbox" value="male" name="gender_cb"> Male
+                            <input type="radio" class="gender_cb" id="female_checkbox" value="female" name="gender_cb"> Female
+                            <input type="radio" class="gender_cb" id="both_genders_checkbox" value="both" name="gender_cb" checked="true"> Both
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div id="world_map_flow" class="form-group">
+                            <label for="world_map_flow" class="col-form-label">Select Flow</label>
+                        </div>
+                        <input type="radio" class="flow_cb" id="inflow_cb" value="inflow" name="flow_cb"> Inflow
+                        <input type="radio" class="flow_cb" id="outflow_cb" value="outflow" name="flow_cb" checked="true"> Outflow
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div id="world_map_normalization" class="form-group">
+                            <label for="world_map_normalization" class="col-form-label">Normalize Flow</label>
+                        </div>
+                        <input type="radio" class="normalize_flow" id="yes_normalize" name="normalize_cb"> Yes
+                        <input type="radio" class="normalize_flow" id="no_normalize" name="normalize_cb" checked="true"> No
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <div id="world_map_type" class="form-group">
+                            <label for="world_map_type" class="col-form-label">Map Type</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="world_map_slider">
+                        <!-- <div id="world_map_slider" class="col-sm-8"> -->
+                    </div>
+                </div>
+                <div class="row" id="canvas">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <!-- <div id="migration_stock_chart" class="migration_stock_chart"></div> -->
+                                <div id="flow-world-map" class="flow-world-map">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="world-map_div" class="h-100"> -->
+                </div>
+                <div id="world_map_legend" class="row">
+                </div>
+                <!-- <div id="world-map_div" class="h-100"> -->
+            </div>
+        </div>
+    </div>
+    <!--UN MAP END-->
+    <div class="push-20">
+        <div class="container">
+            <div class="row">
             </div>
         </div>
     </div>
@@ -327,8 +334,8 @@
             <div class="row">
                 <hr class="solid">
                 <h2 class="section-heading centerText">What We Think...</h2>
-                    </br>
-                <p style="text-align:center; border:1px "><img src="https://media.giphy.com/media/26ufiO0CAJ47bkVqw/giphy.gif">  <img src="https://media.giphy.com/media/l2SpOdDZJZLYcxUM8/giphy.gif"> </p>
+                </br>
+                <p style="text-align:center; border:1px "><img src="https://media.giphy.com/media/26ufiO0CAJ47bkVqw/giphy.gif"> <img src="https://media.giphy.com/media/l2SpOdDZJZLYcxUM8/giphy.gif"> </p>
                 <p style="text-align:center; border:1px "><img src="https://media.giphy.com/media/McrlEfKYpf6UnIIOtH/giphy.gif"> </p>
             </div>
         </div>
@@ -358,7 +365,7 @@
 
 
 
-		<!-- d3 version 4 -->
+    <!-- d3 version 4 -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
         d3version4 = d3
@@ -372,7 +379,7 @@
     <script src="https://d3js.org/d3-time.v1.min.js"></script>
     <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale.v3.min.js"></script>
-	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
     <!-- D3 -->
     <script charset="utf-8" src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>

@@ -98,7 +98,7 @@ class WorldMapPlot {
 
         // create projection
         // here are some that look pretty good to Jon:
-          this.projection = d3version4.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
+        this.projection = d3version4.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
 
         // create path generator
         this.path = d3version4.geoPath().projection(this.projection)
@@ -164,7 +164,7 @@ class WorldMapPlot {
     }
 
     getCountryPopulation(country) {
-      let filter_country = null;
+        let filter_country = null;
         if (country != null) {
             filter_country = this.pop.filter(d => d.year == this.selected_year0)
                 .find(d => d.alpha3 == country.country.iso_a3);
@@ -216,7 +216,7 @@ class WorldMapPlot {
             let country = flowing_countries.find(dd => dd[country_id_field_name].padStart(3, "0") == d['id']);
 
             if (country != undefined) {
-                d.flow = country['flow'];
+                d.flow = parseInt(country['flow']);
                 if (d.flow > this.highest_flow) {
                     this.highest_flow = d.flow;
                 }
@@ -257,11 +257,11 @@ class WorldMapPlot {
 
     // Renders legend for map coloring
     makeColorLegend() {
-        let colorbar_size = [this.SVG_WIDTH, 40];
+        this.colorbar_size = [this.SVG_WIDTH - 50, 20];
         const color_scale = d3version4.scaleLog();
 
         if (this.selected_map_type.localeCompare(map_types[0]) == 0) {
-          // migration flow map
+            // migration flow map
             if (this.inflow_bool) {
                 color_scale.range([inflow_color_scheme[0], inflow_color_scheme[inflow_color_scheme.length - 1]])
             } else {
@@ -269,25 +269,25 @@ class WorldMapPlot {
             }
             color_scale.domain([this.lowest_flow, this.highest_flow]);
         } else if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
-          // development levels map
-          color_scale.range([development_levels_color_scheme[0], development_levels_color_scheme[development_levels_color_scheme.length - 1]])
+            // development levels map
+            color_scale.range([development_levels_color_scheme[0], development_levels_color_scheme[development_levels_color_scheme.length - 1]])
         } else if (this.selected_map_type.localeCompare(map_types[2]) == 0) {
-          // income levels map
-          color_scale.range([income_levels_color_scheme[0], income_levels_color_scheme[income_levels_color_scheme.length - 1]])
+            // income levels map
+            color_scale.range([income_levels_color_scheme[0], income_levels_color_scheme[income_levels_color_scheme.length - 1]])
         } else {
-          d3version4.selectAll(".color_legend").remove();
-          return;
+            d3version4.selectAll(".color_legend").remove();
+            return;
         }
 
         d3version4.selectAll(".color_legend").remove();
-        let svg = d3version4.select("#world_map_slider")
+        this.color_bar_svg = d3version4.select("#world_map_legend")
             .append("svg")
             .classed("color_legend", true)
-            .attr("viewBox", `0 0 ${colorbar_size[0]} ${colorbar_size[1]}`)
+            .attr("viewBox", `0 0 ${this.colorbar_size[0]} ${this.colorbar_size[1]}`)
 
         const value_to_svg = d3version4.scaleLog()
             .domain(color_scale.domain())
-            .range([colorbar_size[0], 0]);
+            .range([this.colorbar_size[0], 0]);
 
         const range01_to_color = d3version4.scaleLinear()
             .domain([0, 1])
@@ -298,7 +298,7 @@ class WorldMapPlot {
         const colorbar_axis = d3version4.axisLeft(value_to_svg)
             .tickFormat(d3.format(".0f"))
 
-        const colorbar_g = svg.append("g")
+        const colorbar_g = this.color_bar_svg.append("g")
             .attr("transform", "translate(" + 0 + ', ' + 0 + ")")
             .call(colorbar_axis);
 
@@ -307,7 +307,7 @@ class WorldMapPlot {
             return Array.from(Array(steps), (elem, index) => index / (steps - 1));
         }
 
-        const svg_defs = svg.append("defs");
+        const svg_defs = this.color_bar_svg.append("defs");
 
         const gradient = svg_defs.append('linearGradient')
             .attr('id', 'colorbar-gradient')
@@ -328,11 +328,72 @@ class WorldMapPlot {
         // create the colorful rect
         colorbar_g.append('rect')
             .attr('id', 'colorbar-area')
-            .attr('width', colorbar_size[0])
-            .attr('height', colorbar_size[1])
+            .attr('width', this.colorbar_size[0])
+            .attr('height', this.colorbar_size[1])
             .style('fill', 'url(#colorbar-gradient)')
             .style('stroke', 'black')
             .style('stroke-width', '1px')
+
+
+        this.color_bar_svg.append("rect")
+            .attr("width", this.colorbar_size[0])
+            .attr("height", 0)
+            .style("fill", "url(#gradient)")
+            .attr("transform", "translate(0,10)");
+
+        if (this.highest_flow > 0) {
+            this.drawColorBarTicks();
+        }
+    }
+
+    drawColorBarTicks() {
+        d3.selectAll(".color_bar_y_axis").remove();
+        if (this.selected_map_type.localeCompare(map_types[0]) == 0) {
+            var y = d3version4.scaleLinear()
+                .range([this.colorbar_size[0], 0])
+                .domain([this.highest_flow, this.lowest_flow]);
+
+            var yAxis = d3version4.axisBottom()
+                .scale(y)
+                .ticks(5);
+
+            this.color_bar_svg.append("g")
+                .attr("class", "color_bar_y_axis")
+                // .attr("transform", "translate(0,20)")
+                .call(yAxis)
+                .append("text")
+                // .attr("transform", "rotate(-90)")
+                .attr("y", 0)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("axis title");
+        }
+         // else if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
+        //     // dev_levels
+        //     var myScale = d3.scale.linear()
+        //         .domain([this.colorbar_size[0], 0]);
+        //
+        //     var ticks = [0, 200, 400];
+        //     var tickLabels = this.dev_levels;
+        //
+        //     var myAxis = d3.svg.axis()
+        //         .scale(myScale)
+        //         .tickValues(ticks)
+        //         .tickFormat(function(d, i) {
+        //             return tickLabels[i]
+        //         });
+        //
+        //
+        //     this.color_bar_svg.append("g")
+        //         .attr("class", "color_bar_y_axis")
+        //         .call(myAxis)
+        //         .append("text")
+        //         // // .attr("transform", "rotate(-90)")
+        //         .attr("y", 0)
+        //         .attr("dy", ".71em")
+        //         .style("text-anchor", "end")
+        //         .text("axis title");
+        // }
     }
 
 
@@ -476,6 +537,7 @@ class WorldMapPlot {
         if (self.selected_country != null) {
             self.drawCountriesFlow();
             this.drawFlowLines();
+            this.drawColorBarTicks();
         }
     }
 
@@ -503,6 +565,8 @@ class WorldMapPlot {
         // get country population
         const selected_country_population = self.getCountryPopulation(self.selected_country);
         const pop_factor = self.normalized_bool ? selected_country_population : 1;
+        this.highest_flow = this.highest_flow / pop_factor;
+        this.lowest_flow = this.lowest_flow / pop_factor;
     }
 
 } // end of class WorldMapPlot
@@ -546,7 +610,7 @@ function showWorldMapDetail(e, hovered_country, total_flows, country_population)
             content += "<b>Population: " + d3.format(",")(country_population) + "</b><br/>";
             content += "<b>" + "Total Inflow: " + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "</b><br/>";
             content += "<b>" + "Total Outflow: " + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "</b><br/>";
-			// "Thin" version:
+            // "Thin" version:
             // content += "<h4>" + hovered_country.country.name + "</h4>";
             // content += "<b>Population:</b><br/>" + d3.format(",")(country_population) + "<br/>";
             // content += "<b>" + "Total Inflow:</b><br/>" + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "<br/>";
@@ -640,11 +704,13 @@ function setupWorldMapSelectionControls(world_map_object) {
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayDevelopmentLevels();
                 world_map_object.selected_map_type = map_types[1];
+                world_map_object.drawColorBarTicks();
             } else {
                 world_map_object.removePreviousFlowLines();
                 world_map_object.removeDevelopmentInformation();
                 world_map_object.displayIncomeLevels();
                 world_map_object.selected_map_type = map_types[2];
+                world_map_object.drawColorBarTicks();
             }
             world_map_object.makeColorLegend();
             enableDisableFilters(world_map_object);

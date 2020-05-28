@@ -81,17 +81,17 @@ class WorldMapPlot {
         // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
 
         // construct world map's svg
-        var svg = d3version4.select("#flow-world-map")
+        this.svg = d3version4.select("#flow-world-map")
             .append("svg")
             .classed("world-map_svg", true)
             .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
 
-        this.map = svg.append("g")
+        this.map = this.svg.append("g")
             .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
         self = this;
         // enable zoom on map
-        svg.call(d3version4.zoom()
+        this.svg.call(d3version4.zoom()
             .extent([
                 [0, 0],
                 [this.width, this.height]
@@ -125,6 +125,7 @@ class WorldMapPlot {
                 "centroid": this.path.centroid(country)
             });
         });
+
     } // end of constructor
 
     try_call() {
@@ -146,7 +147,7 @@ class WorldMapPlot {
                     intermediate_point[0] = (self.selected_country.centroid[0] + curr_centroid[0]) / 2 - 25;
                     intermediate_point[1] = (self.selected_country.centroid[1] + curr_centroid[1]) / 2 - 25;
                     if (self.inflow_bool) {
-                        return line([ curr_centroid, intermediate_point, self.selected_country.centroid]);
+                        return line([curr_centroid, intermediate_point, self.selected_country.centroid]);
                     } else {
                         return line([self.selected_country.centroid, intermediate_point, curr_centroid]);
                     }
@@ -267,6 +268,84 @@ class WorldMapPlot {
         this.selected_year0 = year;
         this.displaySelectedCountries();
     }
+
+    makeColorbar() {
+        var colorbar_size = [this.SVG_WIDTH, 40];
+        const color_scale = d3version4.scaleLog();
+
+        if (this.selected_map_type.localeCompare(map_types[0]) == 0) {
+          // migration flow map
+            if (this.inflow_bool) {
+                color_scale.range([inflow_color_scheme[0], inflow_color_scheme[inflow_color_scheme.length - 1]])
+            } else {
+                color_scale.range([outflow_color_scheme[0], outflow_color_scheme[outflow_color_scheme.length - 1]])
+            }
+            color_scale.domain([this.lowest_flow, this.highest_flow]);
+        } else if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
+          // development levels map
+        } else if (this.selected_map_type.localeCompare(map_types[2]) == 0) {
+          // income levels map
+        } else {
+          d3version4.selectAll(".color_legend").remove();
+          return;
+        }
+        
+        d3version4.selectAll(".color_legend").remove();
+        var svg = d3version4.select("#world_map_slider")
+            .append("svg")
+            .classed("color_legend", true)
+            .attr("viewBox", `0 0 ${this.SVG_WIDTH} 40`)
+
+        const value_to_svg = d3version4.scaleLog()
+            .domain(color_scale.domain())
+            .range([colorbar_size[0], 0]);
+
+        const range01_to_color = d3version4.scaleLinear()
+            .domain([0, 1])
+            .range(color_scale.range())
+            .interpolate(color_scale.interpolate());
+
+        // Axis numbers
+        const colorbar_axis = d3version4.axisLeft(value_to_svg)
+            .tickFormat(d3.format(".0f"))
+
+        const colorbar_g = svg.append("g")
+            .attr("transform", "translate(" + 0 + ', ' + 0 + ")")
+            .call(colorbar_axis);
+
+        // Create the gradient
+        function range01(steps) {
+            return Array.from(Array(steps), (elem, index) => index / (steps - 1));
+        }
+
+        const svg_defs = svg.append("defs");
+
+        const gradient = svg_defs.append('linearGradient')
+            .attr('id', 'colorbar-gradient')
+            .attr('x1', '0%') // bottom
+            .attr('y1', '0%')
+            .attr('x2', '100%') // to top
+            .attr('y2', '0%')
+            .attr('spreadMethod', 'pad');
+
+        gradient.selectAll('stop')
+            .data(range01(10))
+            .enter()
+            .append('stop')
+            .attr('offset', d => Math.round(100 * d) + '%')
+            .attr('stop-color', d => range01_to_color(d))
+            .attr('stop-opacity', 1);
+
+        // create the colorful rect
+        colorbar_g.append('rect')
+            .attr('id', 'colorbar-area')
+            .attr('width', colorbar_size[0])
+            .attr('height', colorbar_size[1])
+            .style('fill', 'url(#colorbar-gradient)')
+            .style('stroke', 'black')
+            .style('stroke-width', '1px')
+    }
+
 
     // Displaying countries on the map and defining hover/click behavior
     displayCountries() {
@@ -662,6 +741,7 @@ function setupWorldMapSelectionControls(world_map_object) {
                 world_map_object.displayIncomeLevels();
                 world_map_object.selected_map_type = map_types[2];
             }
+            world_map_object.makeColorbar();
             enableDisableFilters(world_map_object);
         }
     });
@@ -704,6 +784,7 @@ function setupWorldMapSelectionControls(world_map_object) {
         } else {
             world_map_object.inflow_bool = false;
         }
+        world_map_object.makeColorbar();
         world_map_object.displaySelectedCountries();
     });
 
@@ -773,6 +854,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_i
     world_map.displayCountries();
     world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
     setupWorldMapSelectionControls(world_map);
+    world_map.makeColorbar();
     onCountryHover(world_map);
 } // end of function `ready`
 

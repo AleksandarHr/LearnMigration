@@ -143,23 +143,27 @@ class WorldMapPlot {
                     var country_name = self.country_codes_and_names.find(x => parseInt(x.numeric) == d[country_code]).name;
                     var curr_centroid = self.countries_and_centroids.find(x => x.country.name.localeCompare(country_name) == 0).centroid;
                     var intermediate_point = [];
-                    intermediate_point[0] = (self.selected_country.centroid[0] + curr_centroid[0])/2 - 25;
-                    intermediate_point[1] = (self.selected_country.centroid[1] + curr_centroid[1])/2 - 25;
-                    return line([self.selected_country.centroid, intermediate_point, curr_centroid]);
+                    intermediate_point[0] = (self.selected_country.centroid[0] + curr_centroid[0]) / 2 - 25;
+                    intermediate_point[1] = (self.selected_country.centroid[1] + curr_centroid[1]) / 2 - 25;
+                    if (self.inflow_bool) {
+                        return line([ curr_centroid, intermediate_point, self.selected_country.centroid]);
+                    } else {
+                        return line([self.selected_country.centroid, intermediate_point, curr_centroid]);
+                    }
                 })
                 .attr("class", "route")
                 .attr("stroke-opacity", Math.sqrt(d.flow / self.highest_flow))
                 .attr("stroke-width", 1);
 
-        var totalLength = routePath.node().getTotalLength() + 10;
-        routePath
-            .attr("stroke-dasharray", totalLength + " " + totalLength)
-            .attr("stroke-dashoffset", totalLength)
-            .transition()
-            .duration(2000)
-            // .on("start", drawPorts(d))
-            .attr("stroke-dashoffset", 0);
-          });
+            var totalLength = routePath.node().getTotalLength() + 10;
+            routePath
+                .attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(2000)
+                // .on("start", drawPorts(d))
+                .attr("stroke-dashoffset", 0);
+        });
     }
 
     getFlowingCountries(country, inflow_bool) {
@@ -395,7 +399,7 @@ class WorldMapPlot {
     }
 
     removePreviousFlowLines() {
-      d3.selectAll(".route").remove();
+        d3.selectAll(".route").remove();
     }
 
     // Clears any previous visualized selections and flow data

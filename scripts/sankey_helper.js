@@ -1,5 +1,5 @@
 function getSize() {
-    var myWidth = 0,
+    let myWidth = 0,
         myHeight = 0;
     if (typeof(window.innerWidth) == 'number') {
         //Non-IE
@@ -20,7 +20,7 @@ function getSize() {
     };
 }
 
-var formatNumber = d3.format(",.0f"), // zero decimal places
+let formatNumber = d3.format(",.0f"), // zero decimal places
     format = function(d) {
         return formatNumber(d) + " " + units;
     };
@@ -571,7 +571,7 @@ function bindHover() {
 
 // Show tooltip on hover
 function showDetail(e, key, amount) {
-    var content = "<b>" + key + "</b><br/>";
+    let content = "<b>" + key + "</b><br/>";
 
     if (amount != null) content += "<b>Death: </b>" + amount + "<br/>";
 

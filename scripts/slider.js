@@ -1,18 +1,18 @@
 class Slider {
     constructor(element_id, range, step, viz_object, width) {
-        var margin = {
+        const margin = {
             left: 40,
             right: 40
         };
 		// set it to 60 instead of 40 because years were overlapping with world map
-        var height = 60;
+        const height = 60;
         this.range = range;
         this.step = step;
         this.viz_object = viz_object;
         this.SVG_WIDTH = width + margin.left + margin.right;
         this.SVG_HEIGHT = height;
 
-        var svg = d3version4.select('#' + element_id)
+        let svg = d3version4.select('#' + element_id)
             .append('svg')
             .attr("preserveAspectRatio", "xMinYMin meet")
             .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`);
@@ -33,9 +33,9 @@ class Slider {
             return d;
         });
 
-        var this_slider = this;
+        const this_slider = this;
         // drag behavior initialization
-        var drag = d3version4.drag()
+        let drag = d3version4.drag()
             .on('start.interrupt', function() {
                 this_slider.slider.interrupt();
             }).on('start drag', function() {
@@ -43,20 +43,20 @@ class Slider {
                     viz_object.selected_map_type == undefined ||
                     viz_object.selected_map_type.localeCompare(map_types[0]) == 0) {
                     console.log(viz_object.selected_map_type);
-                    var selected_year = this_slider.dragged(d3version4.event.x);
+                    let selected_year = this_slider.dragged(d3version4.event.x);
                     viz_object.updateSelectedYear(selected_year);
                 }
             });
 
         // this is the main bar with a stroke (applied through CSS)
-        var track = this.slider.append('line').attr('class', 'track')
+        const track = this.slider.append('line').attr('class', 'track')
             .attr('x1', this.xScale.range()[0])
             .attr('x2', this.xScale.range()[1]);
 
         // this is a bar (steelblue) that's inside the main "track" to make it look like a rect with a border
         this.trackInset = d3version4.select(this.slider.node().appendChild(track.node().cloneNode())).attr('class', 'track-inset');
 
-        var ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
+        const ticks = this.slider.append('g').attr('class', 'ticks').attr('transform', 'translate(0, 4)')
             .call(this.xAxis);
 
         // drag handle
@@ -72,7 +72,7 @@ class Slider {
             // initial transition
             this.slider.transition().duration(750)
                 .tween("drag", function() {
-                    var i = d3version4.interpolate(range[0], viz_object.chosen_year);
+                    let i = d3version4.interpolate(range[0], viz_object.chosen_year);
                     return function(t) {
                         this_slider.dragged(this_slider.xScale(i(t)));
                     }
@@ -81,12 +81,12 @@ class Slider {
     }
 
     dragged(value) {
-        var x = this.xScale.invert(value),
+        let x = this.xScale.invert(value),
             index = null,
             midPoint, cx, xVal;
         if (this.step) {
             // if step has a value, compute the midpoint based on range values and reposition the slider based on the mouse position
-            for (var i = 0; i < this.rangeValues.length - 1; i++) {
+            for (let i = 0; i < this.rangeValues.length - 1; i++) {
                 if (x >= this.rangeValues[i] && x <= this.rangeValues[i + 1]) {
                     index = i;
                     break;

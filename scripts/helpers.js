@@ -3,11 +3,11 @@
 */
 function renderPopUpDetailDialogue(event, content) {
   // show tooltip with information from the __data__ property of the element
-  var x_hover = 0;
-  var y_hover = 0;
-  var tooltipWidth = parseInt(tooltip.style('width'));
-  var tooltipHeight = parseInt(tooltip.style('height'));
-  var classed, notClassed;
+  let x_hover = 0;
+  let y_hover = 0;
+  let tooltipWidth = parseInt(tooltip.style('width'));
+  let tooltipHeight = parseInt(tooltip.style('height'));
+  let classed, notClassed;
 
   if (event.pageX > document.body.clientWidth / 2) {
       x_hover = tooltipWidth + 30;

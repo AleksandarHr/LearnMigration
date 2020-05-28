@@ -270,6 +270,7 @@ class WorldMapPlot {
     }
 
     makeColorbar() {
+
         var colorbar_size = [this.SVG_WIDTH, 40];
         const color_scale = d3version4.scaleLog();
 
@@ -283,18 +284,20 @@ class WorldMapPlot {
             color_scale.domain([this.lowest_flow, this.highest_flow]);
         } else if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
           // development levels map
+          color_scale.range([development_levels_color_scheme[0], development_levels_color_scheme[development_levels_color_scheme.length - 1]])
         } else if (this.selected_map_type.localeCompare(map_types[2]) == 0) {
           // income levels map
+          color_scale.range([income_levels_color_scheme[0], income_levels_color_scheme[income_levels_color_scheme.length - 1]])
         } else {
           d3version4.selectAll(".color_legend").remove();
           return;
         }
-        
+
         d3version4.selectAll(".color_legend").remove();
         var svg = d3version4.select("#world_map_slider")
             .append("svg")
             .classed("color_legend", true)
-            .attr("viewBox", `0 0 ${this.SVG_WIDTH} 40`)
+            .attr("viewBox", `0 0 ${colorbar_size[0]} ${colorbar_size[1]}`)
 
         const value_to_svg = d3version4.scaleLog()
             .domain(color_scale.domain())

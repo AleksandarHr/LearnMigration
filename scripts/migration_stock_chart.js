@@ -25,7 +25,7 @@ class MigrationStockChart {
         // a set of all available destination countries and years
         this.all_countries = Array.from([...new Set(this.stock_data.map(x => x.Destination))]).sort();
         this.all_years = Array.from([...new Set(this.stock_data.map(x => parseInt(x.Year)))]).sort();
-        this.age_groups = Array.from([...new Set(this.male_stock_data_all.map(d => d.AgeGroup))]);
+        this.age_groups = ["0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75+"];
 
         this.height = 15 * this.bar_height + 30; // # age groups * 20
         this.SVG_HEIGHT = this.height + this.margin.top + this.margin.bottom + 50;

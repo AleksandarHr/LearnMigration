@@ -542,10 +542,15 @@ function showWorldMapDetail(e, hovered_country, total_flows, country_population)
             content += "<b>" + hovered_country.country.name + "</b><br/>";
         } else {
             // Display change w.r.t. previous and current count data, current data, current ratio
-            content += "<b>" + hovered_country.country.name + "</b><br/>";
+            content += "<h4>" + hovered_country.country.name + "</h4>";
             content += "<b>Population: " + d3.format(",")(country_population) + "</b><br/>";
             content += "<b>" + "Total Inflow: " + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "</b><br/>";
             content += "<b>" + "Total Outflow: " + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "</b><br/>";
+			// "Thin" version:
+            // content += "<h4>" + hovered_country.country.name + "</h4>";
+            // content += "<b>Population:</b><br/>" + d3.format(",")(country_population) + "<br/>";
+            // content += "<b>" + "Total Inflow:</b><br/>" + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "<br/>";
+            // content += "<b>" + "Total Outflow:</b><br/>" + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "<br/>";
         }
     }
     // Render the pop-up dialogue with relevant information

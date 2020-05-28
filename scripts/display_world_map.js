@@ -139,7 +139,7 @@ class WorldMapPlot {
                     }
                 })
                 .attr("class", "route")
-                .attr("stroke-opacity", Math.sqrt(d.flow / self.highest_flow))
+                .attr("stroke-opacity", (Math.sqrt(d.flow / self.highest_flow)))
                 .attr("stroke-width", 1);
 
             let totalLength = routePath.node().getTotalLength() + 10;
@@ -368,32 +368,6 @@ class WorldMapPlot {
                 .style("text-anchor", "end")
                 .text("axis title");
         }
-         // else if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
-        //     // dev_levels
-        //     var myScale = d3.scale.linear()
-        //         .domain([this.colorbar_size[0], 0]);
-        //
-        //     var ticks = [0, 200, 400];
-        //     var tickLabels = this.dev_levels;
-        //
-        //     var myAxis = d3.svg.axis()
-        //         .scale(myScale)
-        //         .tickValues(ticks)
-        //         .tickFormat(function(d, i) {
-        //             return tickLabels[i]
-        //         });
-        //
-        //
-        //     this.color_bar_svg.append("g")
-        //         .attr("class", "color_bar_y_axis")
-        //         .call(myAxis)
-        //         .append("text")
-        //         // // .attr("transform", "rotate(-90)")
-        //         .attr("y", 0)
-        //         .attr("dy", ".71em")
-        //         .style("text-anchor", "end")
-        //         .text("axis title");
-        // }
     }
 
 

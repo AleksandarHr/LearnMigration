@@ -24,7 +24,12 @@
     /* background: white; */
 }
 
-.route { fill: none; stroke: #333; stroke-width: 0.75px; }
+.route { 
+	fill: none; 
+	stroke: #333; 
+	stroke-width: 0.75px; 
+    pointer-events: none;
+}
 
 .country {
     /* stroke: white; */

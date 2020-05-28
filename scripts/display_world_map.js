@@ -856,7 +856,7 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_i
     world_map = new WorldMapPlot(data, country_codes_and_names, flows, pop, dev_info);
     // Display countries
     world_map.displayCountries();
-    world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
+    world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map, 800);
     setupWorldMapSelectionControls(world_map);
     world_map.makeColorLegend();
     onCountryHover(world_map);

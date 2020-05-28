@@ -13,4 +13,6 @@ const inflow_color_scheme = ["#fff5eb","#fff5ea","#fff4e9","#fff4e8","#fff3e7","
 
 const income_levels_color_scheme = ["#5B4DB7", "#42ADC7", "#81D152", "#F5F263", "#FF9D4F", "FF5347"];
 
+const development_levels_color_scheme = ['yellow', 'green'];
+
 const map_types = ["Migration Flows", "Development Levels", "Income Levels"];

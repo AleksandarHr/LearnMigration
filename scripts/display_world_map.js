@@ -417,7 +417,7 @@ class WorldMapPlot {
         // get color scale corresponding to in/out flow
         var linearScale = d3version4.scaleLinear()
             .domain([0, self.dev_levels.length])
-            .range(['yellow', 'green']);
+            .range(development_levels_color_scheme);
 
         self.map.append("g").selectAll(".country")
             .data(self.countries)

@@ -24,7 +24,12 @@
     /* background: white; */
 }
 
-.route { fill: none; stroke: #333; stroke-width: 0.75px; }
+.route { 
+	fill: none; 
+	stroke: #333; 
+	stroke-width: 0.75px; 
+    pointer-events: none;
+}
 
 .country {
     /* stroke: white; */
@@ -50,6 +55,7 @@
 .selected-country-circle {
     fill: red;
     /* fill: blue; */
+    pointer-events: none;
 }
 
 .inflow-country {
@@ -98,38 +104,53 @@
 }
 
 /* Slider */
+
 line.track {
     stroke-opacity: 0.4;
+    stroke: #d3d3d3;
     stroke: #000;
     stroke-width: 10px;
 }
+
+/* track-inset is a bar that's inside the main "track" to make it look like a rect with a border */
 line.track-inset {
-    stroke: steelblue;
+    stroke: #d3d3d3;
     stroke-width: 8px;
 }
+
+/* track-overlay is the bar on top of above tracks with stroke = transparent and on which the drag behaviour is actually called */
 line.track-overlay {
     stroke: #ccc;
-    stroke-width: 40px;
+    stroke-width: 35px;
     stroke-opacity: 0;
-    cursor: crosshair;
+	/* choose cursor style: */
+    cursor: col-resize;
+    /* cursor: ew-resize; */
+    /* cursor: crosshair; */
 }
 
 .handle {
-    fill: red;
-    stroke: #000;
+    fill: #ff5800d9;
+    stroke: #ff5800d9;
 }
+
 line.track-overlay, line.track, line.track-inset {
     stroke-linecap: round;
 }
 
 line.disabled {
-    stroke: grey;
-    stroke-width: 8px;
+    stroke: red;
+    stroke-width: 30px;
 }
 
 .disabled{
   fill: grey;
   stroke: #000;
+}
+
+.ticks {
+    font-family: 'Lora', serif;
+	font-size: 120%;
 }
 
 /* sankey */

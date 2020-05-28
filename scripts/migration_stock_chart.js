@@ -39,8 +39,8 @@ class MigrationStockChart {
         this.prepareSelectedData();
 
         // create chart d3 element
-        var me = this;
-        var migration_chart_svg = d3.select('#' + this.element_id)
+        const me = this;
+        let migration_chart_svg = d3.select('#' + this.element_id)
             .append('svg')
             .attr('class', 'chart')
             .attr("viewBox", `-30 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
@@ -108,23 +108,23 @@ class MigrationStockChart {
       The main function which renders the chart on screen
     */
     renderChart(self) {
-        var me = self;
+        let me = self;
         // Update d3 elements with new data
-        var bars_male = this.chart.selectAll(".rect.male").data(me.male_stock_numbers);
-        var bars_female = this.chart.selectAll(".rect.female").data(me.female_stock_numbers);
-        var numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers);
-        var numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers);
+        let bars_male = this.chart.selectAll(".rect.male").data(me.male_stock_numbers);
+        let bars_female = this.chart.selectAll(".rect.female").data(me.female_stock_numbers);
+        let numbers_male = this.chart.selectAll(".text.leftscore").data(me.male_stock_numbers);
+        let numbers_female = this.chart.selectAll(".text.score").data(me.female_stock_numbers);
 
         // Remove old chart
         this.chart.selectAll("*").remove();
 
         // Define horizontal linear scale for left part of the chart
-        var xLeft = d3version4.scaleLinear()
+        const xLeft = d3version4.scaleLinear()
             .domain([0, d3.max(this.male_stock_numbers)])
             .range([0, me.width]);
 
         // Define horizontal linear scale for right part of the chart
-        var xRight = d3version4.scaleLinear()
+        const xRight = d3version4.scaleLinear()
             .domain([0, d3.max(this.female_stock_numbers)])
             .range([0, me.width]);
 
@@ -236,7 +236,7 @@ class MigrationStockChart {
 function setupBarChartSelectionControls(chart_object) {
 
     // Creating data for Select Destination Country menu
-    var countries_data = []
+    let countries_data = []
     for (i = 0; i < chart_object.all_countries.length; i++) {
         countries_data.push({
             country: chart_object.all_countries[i],
@@ -244,9 +244,9 @@ function setupBarChartSelectionControls(chart_object) {
     }
 
     // Setting up the dropdown menu for Destination Country selection
-    let countrySelect = dc.selectMenu('#countries_bar_chart');
-    var ndx = crossfilter(countries_data);
-    var countryDimension = ndx.dimension(function(d) {
+    const countrySelect = dc.selectMenu('#countries_bar_chart');
+    const ndx = crossfilter(countries_data);
+    const countryDimension = ndx.dimension(function(d) {
         return d.country
     });
 
@@ -300,13 +300,13 @@ function onBarChartHover(chart_object) {
         if (e.target.nodeName == 'rect' && e.target.className.animVal != 'bar' &&
             (e.target.className.baseVal == 'male' || e.target.className.baseVal == 'female')) {
 
-            let hovered_year = chart_object.chosen_year
+            const hovered_year = chart_object.chosen_year
             if (hovered_year == 1990) {
                 // if the selected year is 1990, there is no previous year's data to compare with
                 //    display "No Information"
                 // Find current ratio and current stock number count
-                let hovered_age_group = (chart_object.age_groups[e.target.id])
-                let hovered_country = chart_object.chosen_country
+                const hovered_age_group = (chart_object.age_groups[e.target.id])
+                const hovered_country = chart_object.chosen_country
                 let rel_data_ratio = [];
                 if (e.target.className.baseVal == 'male') {
                     // If the user hovered a male bar, get the relevant count and ratio
@@ -324,18 +324,18 @@ function onBarChartHover(chart_object) {
                         current_ratio = rel_data_ratio[0].ratio
                     }
 
-                let hovered_count = d3.select(e.target).data()[0];
+                const hovered_count = d3.select(e.target).data()[0];
                 showBarChartDetail(e, false, hovered_count, null, current_ratio);
             } else {
                 // If there is previous year's data
-                let previous_year_index = chart_object.all_years.indexOf(hovered_year) - 1;
+                const previous_year_index = chart_object.all_years.indexOf(hovered_year) - 1;
                 if (previous_year_index < 0) {
                     showBarChartDetail(e, false, hovered_count, null, current_ratio);
                 } else {
                     // Gather relevant data - e.g. previous year, hovered age group, hovered country
-                    let previous_year = chart_object.all_years[previous_year_index]
-                    let hovered_age_group = (chart_object.age_groups[e.target.id])
-                    let hovered_country = chart_object.chosen_country
+                    const previous_year = chart_object.all_years[previous_year_index]
+                    const hovered_age_group = (chart_object.age_groups[e.target.id])
+                    const hovered_country = chart_object.chosen_country
                     let previous_count = 0;
                     let relevant_data = [];
                     let relevant_data_ratio = [];
@@ -388,9 +388,9 @@ function onBarChartHover(chart_object) {
                     }
 
                     // Get the current count of the hovered bar
-                    let hovered_count = d3.select(e.target).data()[0];
+                    const hovered_count = d3.select(e.target).data()[0];
                     // Get change w.r.t. previous count which shows the evaluation over the 5 years
-                    let changed_in_count = (hovered_count - previous_count)/previous_count;
+                    const changed_in_count = (hovered_count - previous_count)/previous_count;
 
                     // Display the actual pop-up dialogue
                     showBarChartDetail(e, true, hovered_count, changed_in_count, current_ratio);
@@ -409,7 +409,7 @@ function onBarChartHover(chart_object) {
   A function to display relevant information in the dialogue pop-up on hover
 */
 function showBarChartDetail(e, prior_information, current_count, changed_in_count, current_ratio) {
-    var content = "";
+    let content = "";
     if (!prior_information) {
         // No prior count data
         content = "<b>" + "No Previous Data" + "</b><br/>";
@@ -452,7 +452,7 @@ function bar_chart_ready(error, stock_data) {
     }
 
     // Create a bar chart
-    var migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
+    let migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
     migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart, 1000);
     // Setup selection controls (e.g. dropdown select menus)
     setupBarChartSelectionControls(migration_stock_chart);

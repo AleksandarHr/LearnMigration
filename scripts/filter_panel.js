@@ -1,6 +1,6 @@
 // Toggles the filter panel
 function toggleFilter(ID){
-    var element = document.getElementById(ID);
+    let element = document.getElementById(ID);
     if(element.style.display === "none"){
         element.style.display = "block";
     }else{
@@ -10,20 +10,20 @@ function toggleFilter(ID){
 
 // Populates list of countries and checkboxes in the filter panel
 function populateCountries(div_id, country_names){
-  var myDiv = document.getElementById(div_id);
-  var br = document.createElement("br");
+  let myDiv = document.getElementById(div_id);
+  let br = document.createElement("br");
 
   // for every country create a checkbox
-  for (var i = 0; i < country_names.length; i++) {
-    var checkBox = document.createElement("input");
+  for (let i = 0; i < country_names.length; i++) {
+    let checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.value = country_names[i];
     checkBox.id = "cb" + i;
 
-    var label = document.createElement("label");
+    let label = document.createElement("label");
     label.htmlFor = 'cb' + i;
     label.appendChild(document.createTextNode(country_names[i]));
-    
+
     myDiv.appendChild(checkBox);
     myDiv.appendChild(label);
     myDiv.appendChild(br);
@@ -34,8 +34,8 @@ function populateCountries(div_id, country_names){
 //    sets other filters to their default values - Inflow, Both genders, Not-normalized flow data
 function clearFilters(cb_count) {
   // deselects all countries
-  for (var i = 0; i < cb_count; i++){
-    var cb = document.getElementById("cb"+i);
+  for (let i = 0; i < cb_count; i++){
+    let cb = document.getElementById("cb"+i);
     cb.checked = false
   }
 
@@ -48,21 +48,21 @@ function clearFilters(cb_count) {
 
 // On-click event function for the submit button
 function submitFilter(country_names) {
-  var selected_countries = [];
+  let selected_countries = [];
 
   // registers selected countries
-  for (var i = 0; i < country_names.length; i++){
-    var cb = document.getElementById("cb"+i);
+  for (let i = 0; i < country_names.length; i++){
+    const cb = document.getElementById("cb"+i);
     if (cb.checked) {
       selected_countries.push(country_names[i]);
     }
   }
 
   // registers other filter selections
-  var outflow = document.getElementById("outflow");
-  var male = document.getElementById("male");
-  var female = document.getElementById("female");
-  var normalized = document.getElementById("normalize");
+  let outflow = document.getElementById("outflow");
+  let male = document.getElementById("male");
+  let female = document.getElementById("female");
+  let normalized = document.getElementById("normalize");
   toggleFilter("filter_panel");
 
   // returns an array with informatino about all filters

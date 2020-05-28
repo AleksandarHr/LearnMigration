@@ -453,7 +453,8 @@ function bar_chart_ready(error, stock_data) {
 
     // Create a bar chart
     var migration_stock_chart = new MigrationStockChart("migration_stock_chart", stock_data);
-    migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart);
+    migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart, 1000);
+    // migration_chart_slider = new Slider("migration_stock_slider", [d3.min(migration_stock_chart.all_years), d3.max(migration_stock_chart.all_years)], 5, migration_stock_chart);
     // Setup selection controls (e.g. dropdown select menus)
     setupBarChartSelectionControls(migration_stock_chart);
     // Bind hover functionality for the bar chart

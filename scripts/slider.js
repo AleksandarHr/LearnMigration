@@ -1,11 +1,9 @@
 class Slider {
     constructor(element_id, range, step, viz_object, width) {
-    // constructor(element_id, range, step, viz_object) {
         var margin = {
             left: 40,
             right: 40
         };
-        // var width = 1000;
 		// set it to 60 instead of 40 because years were overlapping with world map
         var height = 60;
         this.range = range;

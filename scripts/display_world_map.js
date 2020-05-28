@@ -772,7 +772,6 @@ function world_map_ready(error, data, country_codes_and_names, flows, pop, dev_i
     // Display countries
     world_map.displayCountries();
     world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map, 800);
-    // world_map.world_map_slider = new Slider("world_map_slider", [d3.min(world_map.all_years), d3.max(world_map.all_years)], 5, world_map);
     setupWorldMapSelectionControls(world_map);
     onCountryHover(world_map);
 } // end of function `ready`

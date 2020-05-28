@@ -69,17 +69,6 @@ class WorldMapPlot {
         this.lowest_flow = 10000000000;
         this.highest_flow = -10000000000;
 
-        // this.inflow_color_scale = d3version4.scaleSequential(d3version4.interpolateOranges);
-        // this.outflow_color_scale = d3version4.scaleSequential(d3version4.interpolatePurples);
-        // this.outflow_color_scale = d3version4.scaleSequential(["blue", "purple"]);
-        // this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 100]);
-        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 100]);
-        // this.inflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateOranges).domain([0, 2.83e6]);
-        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePurples).domain([0, 2.83e6]);
-        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolateBlues).domain([0, 2.83e6]);
-        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
-        // this.outflow_color_scale = d3version4.scaleSequentialLog(d3version4.interpolatePuBuGn).domain([0, 2.83e6]);
-
         // construct world map's svg
         this.svg = d3version4.select("#flow-world-map")
             .append("svg")
@@ -109,10 +98,7 @@ class WorldMapPlot {
 
         // create projection
         // here are some that look pretty good to Jon:
-        // let projection2 = d3version4.geoNaturalEarth2().translate([width / 2, height / 2]).scale(150)
-        // let projection = d3version4.geoMercator().translate([width / 2, height / 2])
-        // let projection = d3version4.geoWinkel3().translate([width / 2, height / 2]).scale(150)
-        this.projection = d3version4.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
+          this.projection = d3version4.geoNaturalEarth1().translate([this.width / 2, this.height / 2]).scale(150);
 
         // create path generator
         this.path = d3version4.geoPath().projection(this.projection)
@@ -229,8 +215,6 @@ class WorldMapPlot {
             // console.log("update flow");
             let country = flowing_countries.find(dd => dd[country_id_field_name].padStart(3, "0") == d['id']);
 
-            // let selected_country_population = self.getCountryPopulation(self.selected_country);
-            // let pop_factor = self.normalized_bool ? selected_country_population : 1;
             if (country != undefined) {
                 d.flow = country['flow'];
                 if (d.flow > this.highest_flow) {
@@ -371,41 +355,9 @@ class WorldMapPlot {
             })
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
-
+                //
                 // get hovered country
-                const hovered_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-                self.hovered_country = hovered_country;
-                // get country population
-                const hovered_country_population = self.getCountryPopulation(hovered_country);
-                if (hovered_country_population != null) {
-                    // get in/out flowing countries to/from the hovered country
-                    const flowing_countries = self.getFlowingCountries(hovered_country, self.inflow_bool);
-
-                    // remove arcs from previous hover if any
-                    self.map.selectAll(".arc_hovered")
-                        .remove();
-
-                    // // display arcs
-                    // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
-                    // self.map.selectAll(".arc_hovered")
-                    //     .data(flowing_countries)
-                    //     .enter()
-                    //     .append("path")
-                    //     .classed("arc_hovered", true)
-                    //     .attr("d", dd => {
-                    //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-                    //         let x_0 = hovered_country.centroid[0];
-                    //         let x_1 = dest_country.centroid[0];
-                    //         let y_0 = hovered_country.centroid[1];
-                    //         let y_1 = dest_country.centroid[1];
-                    //         let dx = x_1 - x_0;
-                    //         let dy = y_1 - y_0;
-                    //         let bend_factor = 10;
-                    //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
-                    //         let dr = eucl_dist * bend_factor;
-                    //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
-                    //     });
-                }
+                self.hovered_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
             })
             .on("mouseout", function(d) {
                 d3version4.select(this).classed("hovered", false);
@@ -441,8 +393,7 @@ class WorldMapPlot {
             })
             .on("mouseover", function(d) {
                 d3version4.select(this).classed("hovered", true);
-                const hovered_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
-                self.hovered_country = hovered_country;
+                self.hovered_country = self.countries_and_centroids.find(dd => dd.country.numeric == d.id);
             })
             .on("mouseout", function(d) {
                 d3version4.select(this).classed("hovered", false);
@@ -534,16 +485,13 @@ class WorldMapPlot {
         // compute outflowing countries from selected country
         const flowing_countries = self.getFlowingCountries(self.selected_country, self.inflow_bool);
         // update countries' flow letiable
-        // console.log(flowing_countries);
         self.resetCountriesFlow();
         if (flowing_countries.length > 0) {
             self.updateCountriesFlow(flowing_countries);
-            // console.log("No info!!");
         }
 
         // display updated colors on map
         self.displayCountries();
-        // self.print_countries_flow();
 
         // display circle at the centroid of selected country
         self.map.append("circle")
@@ -555,59 +503,6 @@ class WorldMapPlot {
         // get country population
         const selected_country_population = self.getCountryPopulation(self.selected_country);
         const pop_factor = self.normalized_bool ? selected_country_population : 1;
-
-        // display circles at centroids of destination countries
-        // let flow_extremity_code = self.inflow_bool ? "orig_code" : "dest_code";
-        // let flow_class = self.inflow_bool ? "inflow-country" : "outflow-country";
-        // self.map.selectAll("." + flow_class)
-        //     // map.selectAll(".outflow-country")
-        //     .data(flowing_countries)
-        //     // .data(outflow_countries)
-        //     .enter()
-        //     // .append("g")
-        //     .append("circle")
-        //     // .classed("outflow-country", true)
-        //     .classed(flow_class, true)
-        //     // .attr("r", dd => {
-        //     // 	console.log(radius_scale(dd.flow / pop_factor));
-        //     // 	radius_scale(dd.flow / pop_factor);
-        //     // })
-        //     .attr("r", dd => self.radius_scale(dd.flow / pop_factor))
-        //     // .attr("r", dd => radius_scale(dd.flow))
-        //     .attr("cx", 0)
-        //     .attr("cy", 0)
-        //     .attr("transform", function(dd) {
-        //         // get destination country
-        //         let dest_country = self.countries_and_centroids.find((ddd) => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-        //
-        //         return "translate(" + dest_country.centroid + ")";
-        //     });
-
-        // display arcs between origin and destination countries
-        // console.log(outflow_countries[0]);
-        // console.log(countries_and_centroids.find(ddd => ddd.country.numeric == outflow_countries[0].dest_code.padStart(3, "0")));
-        // let dest_country = countries_and_centroids.find((ddd) => ddd.country.numeric == dd.dest_code.padStart(3, "0"));
-
-        // // display arcs
-        // let arc_class = self.inflow_bool ? "arc_in" : "arc_out";
-        // self.map.selectAll("." + arc_class)
-        //     .data(flowing_countries)
-        //     .enter()
-        //     .append("path")
-        //     .classed(arc_class, true)
-        //     .attr("d", dd => {
-        //         let dest_country = self.countries_and_centroids.find(ddd => ddd.country.numeric == dd[flow_extremity_code].padStart(3, "0"));
-        //         let x_0 = self.selected_country.centroid[0];
-        //         let x_1 = dest_country.centroid[0];
-        //         let y_0 = self.selected_country.centroid[1];
-        //         let y_1 = dest_country.centroid[1];
-        //         let dx = x_1 - x_0;
-        //         let dy = y_1 - y_0;
-        //         let bend_factor = 10;
-        //         let eucl_dist = Math.sqrt(dx * dx + dy * dy);
-        //         let dr = eucl_dist * bend_factor;
-        //         return "M" + x_1 + "," + y_1 + "A" + dr + "," + dr + " 0 0,1 " + x_0 + "," + y_0;
-        //     });
     }
 
 } // end of class WorldMapPlot
@@ -867,13 +762,9 @@ whenDocumentLoaded(() => {
     // import world atlas topojson
     d3version4.queue()
         .defer(d3version4.json, world_json_path)
-        // .defer(d3version4.json, prefix + "data/world_50m.json") // this map makes Australia's centroid to be in the Indian ocean...
-        // .defer(d3version4.json, "https://unpkg.com/world-atlas@1.1.4/world/50m.json")
-        // .defer(d3version4.json, "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json")
         .defer(d3version4.json, country_codes_and_names_path)
         .defer(d3version4.csv, migflow_gender_path)
         .defer(d3version4.csv, pop_path)
-        // .defer(d3version4.csv, "./data/migflows_gender_separated_1990_2015_filtered.csv")
         .defer(d3version4.csv, dev_level_path)
         .await(this.world_map_ready);
 });

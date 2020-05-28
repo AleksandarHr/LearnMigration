@@ -1,11 +1,12 @@
 class Slider {
     constructor(element_id, range, step, viz_object) {
         var margin = {
-            left: 30,
-            right: 30
+            left: 40,
+            right: 40
         };
         var width = 1000;
-        var height = 40;
+		// set it to 60 instead of 40 because years were overlapping with world map
+        var height = 60;
         this.range = range;
         this.step = step;
         this.viz_object = viz_object;
@@ -15,9 +16,7 @@ class Slider {
         var svg = d3version4.select('#' + element_id)
             .append('svg')
             .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr('width', width)
-            .attr('height', height)
-            .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`)
+            .attr("viewBox", `0 0 ${this.SVG_WIDTH} ${this.SVG_HEIGHT}`);
 
         this.slider = svg.append('g')
             .classed('slider', true)

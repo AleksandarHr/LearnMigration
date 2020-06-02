@@ -25,7 +25,6 @@ class WorldMapPlot {
         this.dev_levels = Array.from([...new Set(this.dev_level_info.map(x => x.DevelopmentLevel))]);
         this.income_levels = Array.from([...new Set(this.income_level_info.map(x => x.DevelopmentLevel))]);
         this.income_level_color_scale = d3version4.scaleSequential(d3version4.interpolateGnBu);
-
         // set svg's height and with
         this.SVG_HEIGHT = 400;
         this.SVG_WIDTH = 800;
@@ -139,7 +138,7 @@ class WorldMapPlot {
                     }
                 })
                 .attr("class", "route")
-                .attr("stroke-opacity", (Math.sqrt(d.flow / self.highest_flow)))
+                .attr("stroke-opacity", (Math.sqrt(d.flow / (self.highest_flow * self.pop_factor ))))
                 .attr("stroke-width", 1);
 
             let totalLength = routePath.node().getTotalLength() + 10;
@@ -302,6 +301,7 @@ class WorldMapPlot {
             .attr("transform", "translate(" + 0 + ', ' + 0 + ")")
             .call(colorbar_axis);
 
+
         // Create the gradient
         function range01(steps) {
             return Array.from(Array(steps), (elem, index) => index / (steps - 1));
@@ -341,17 +341,16 @@ class WorldMapPlot {
             .style("fill", "url(#gradient)")
             .attr("transform", "translate(0,10)");
 
-        if (this.highest_flow > 0) {
-            this.drawColorBarTicks();
-        }
+        this.drawColorBarTicks();
     }
 
     drawColorBarTicks() {
         d3.selectAll(".color_bar_y_axis").remove();
-        if (this.selected_map_type.localeCompare(map_types[0]) == 0) {
+        if (this.selected_map_type.localeCompare(map_types[0]) == 0 && this.highest_flow > 0) {
             var y = d3version4.scaleLinear()
                 .range([this.colorbar_size[0], 0])
-                .domain([this.highest_flow, this.lowest_flow]);
+                .domain([this.highest_flow, this.lowest_flow])
+                .nice();
 
             var yAxis = d3version4.axisBottom()
                 .scale(y)
@@ -367,6 +366,37 @@ class WorldMapPlot {
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("axis title");
+        } else {
+            let startText = null;
+            let endText = null;
+            if (this.selected_map_type.localeCompare(map_types[1]) == 0) {
+                // dev levels
+                startText = "Less Developed";
+                endText = "More Developed";
+            } else if (this.selected_map_type.localeCompare(map_types[2]) == 0) {
+              startText = "NA / Lower Income";
+                endText = "Higher Income";
+            }
+            this.color_bar_svg.append("g")
+                .append("text")
+                .text(startText)
+                .attr("x", 5)
+                .attr("y", 15)
+                .attr("font-family", "sans-serif")
+                .attr("text-anchor", "start")
+                .attr("font-size", "11px")
+                .classed(".color_bar_y_axis", true)
+                .attr("fill", "black");
+
+            this.color_bar_svg.append("text")
+                .text(endText)
+                .attr("x", this.colorbar_size[0] - 5)
+                .attr("y", 15)
+                .attr("font-family", "sans-serif")
+                .attr("text-anchor", "end")
+                .attr("font-size", "11px")
+                .classed(".color_bar_y_axis", true)
+                .attr("fill", "black");
         }
     }
 
@@ -408,7 +438,7 @@ class WorldMapPlot {
         const self = this;
         // get color scale corresponding to in/out flow
         let linearScale = d3version4.scaleLinear()
-            .domain([0, self.dev_levels.length])
+            .domain([self.dev_levels.length, 0])
             .range(development_levels_color_scheme);
 
         self.map.append("g").selectAll(".country")
@@ -440,7 +470,10 @@ class WorldMapPlot {
         // display countries and define hovering/selecting behavior
         self = this;
         // get color scale corresponding to in/out flow
-        let color_scale = d3version4.scaleQuantize().range(income_levels_color_scheme).domain([0, self.income_levels.length]);
+        let color_scale = d3version4.scaleLinear()
+            .domain([self.income_levels.length, 0])
+            .range(income_levels_color_scheme);
+
 
         self.map.append("g").selectAll(".country")
             .data(self.countries)
@@ -538,9 +571,9 @@ class WorldMapPlot {
 
         // get country population
         const selected_country_population = self.getCountryPopulation(self.selected_country);
-        const pop_factor = self.normalized_bool ? selected_country_population : 1;
-        this.highest_flow = this.highest_flow / pop_factor;
-        this.lowest_flow = this.lowest_flow / pop_factor;
+        this.pop_factor = self.normalized_bool ? selected_country_population : 1;
+        this.highest_flow = this.highest_flow / this.pop_factor;
+        this.lowest_flow = this.lowest_flow / this.pop_factor;
     }
 
 } // end of class WorldMapPlot
@@ -557,9 +590,9 @@ function onCountryHover(world_map_object) {
                 if (country_found != null && country_found != undefined) {
                     population = parseInt(country_found.pop);
                 }
-                showWorldMapDetail(e, world_map_object.hovered_country, total_flows, population);
+                showWorldMapDetail(e, world_map_object.hovered_country, total_flows, population, world_map_object.selected_year0, world_map_object.selected_gender);
             } else {
-                showWorldMapDetail(e, world_map_object.hovered_country, null, null);
+                showWorldMapDetail(e, world_map_object.hovered_country, null, null, null, null);
             }
         }
     });
@@ -570,20 +603,23 @@ function onCountryHover(world_map_object) {
     });
 }
 
-function showWorldMapDetail(e, hovered_country, total_flows, country_population) {
+function showWorldMapDetail(e, hovered_country, total_flows, country_population, year, gender) {
     let content = "";
     if (!hovered_country) {
         // No prior count data
-        content = "<b>" + "No Country Data" + "</b><br/>";
+        content = "<b>" + "No Country Data, " + year + "</b><br/>";
     } else {
         if (country_population == 0 || country_population == null || total_flows == null) {
             content += "<b>" + hovered_country.country.name + "</b><br/>";
         } else {
+            let gender_str = "Total";
+            if (gender == 'm') gender_str = "Male";
+            else if (gender == 'f') gender_str = "Female";
             // Display change w.r.t. previous and current count data, current data, current ratio
-            content += "<h4>" + hovered_country.country.name + "</h4>";
+            content += "<h4>" + hovered_country.country.name + ", " + year + "</h4>";
             content += "<b>Population: " + d3.format(",")(country_population) + "</b><br/>";
-            content += "<b>" + "Total Inflow: " + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "</b><br/>";
-            content += "<b>" + "Total Outflow: " + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "</b><br/>";
+            content += "<b>" + gender_str + " Inflow: " + d3.format(",")(total_flows[0]) + " (" + d3.format(".2%")(total_flows[0] / country_population) + " of total population)" + "</b><br/>";
+            content += "<b>" + gender_str + " Outflow: " + d3.format(",")(total_flows[1]) + " (" + d3.format(".2%")(total_flows[1] / country_population) + " of total population)" + "</b><br/>";
             // "Thin" version:
             // content += "<h4>" + hovered_country.country.name + "</h4>";
             // content += "<b>Population:</b><br/>" + d3.format(",")(country_population) + "<br/>";
